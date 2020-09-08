@@ -4,14 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 export default class SignIn extends Component{
     
@@ -112,14 +104,21 @@ export default class SignIn extends Component{
                         <span className='sign_title'>Welcome</span>
                     </div>
                     <div className='child_txt'>
+                        <Chip avatar=
+                        {<Avatar><span className='avatar_title'>{this.state.email.slice(0,1)}</span></Avatar>} 
+                            label={<span className='avatar_title'>{this.state.email}</span>} 
+                            onClick={()=>this.handleEmail(this,'password')} />
                     </div>
                     <div className='child_form'>
                         <div class="base_form" >
-                        <TextField name="passsword" label="Password" type="text" variant="outlined" value={this.state.password}
+                        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
                                 onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
                                 style={{height:"70px",width:"100%"}}
                                 required />
 							<div style={{textAlign:'left',paddingTop:'5%'}}>
+                                <span className='txt_size'>
+									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
+								</span>
                             </div>
                             <div className='forget'>
                                 <Button style={{textAlign:'left',color:'#1a73e8', fontWeight:'bold', textTransform:'none'}}
