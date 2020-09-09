@@ -1,3 +1,20 @@
+#loader_container{
+	border:1px solid;
+    width:100%;
+    background-color: white;
+    margin-left: 0em;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-top: 0.1em;
+}
+  
+#loader{
+    width: 0;
+    height: 0.3em;
+    border-radius: 8px;
+    background-color: #1a73e8;
+}
+
 input[type=text] {
     border: none;
     width: 100% !important;
@@ -94,4 +111,29 @@ input[type=text] {
         width:33vw;
         padding: 3%;
     }
+	
+	.child_action_container {
+		padding-top: 20%;
+	}
 }
+@media (max-width: 700px) {
+    .main_container {
+        width:37vw;
+    }
+}
+
+@media (max-width: 560px) {
+    .main_container {
+        border:none;
+        width: 85%;
+    }
+
+    .child_action_container {
+        padding-top: 10%;
+    }
+
+    .forget {
+        padding-top: 10%;
+    }
+}
+
