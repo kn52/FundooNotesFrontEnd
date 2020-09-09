@@ -4,6 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 export default class SignIn extends Component{
     
@@ -111,18 +119,43 @@ export default class SignIn extends Component{
                     </div>
                     <div className='child_form'>
                         <div class="base_form" >
-                        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
-                                style={{height:"70px",width:"100%"}}
-                                required />
-							<div style={{textAlign:'left',paddingTop:'5%'}}>
+							<FormControl 
+                                variant="outlined" 
+                                fullWidth
+                                style={{height:"70px"}} 
+                                error={this.state.errors.password}>
+                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                <OutlinedInput
+                                    id="outlined-adornment-password"
+                                    type={this.state.showPassword ? 'text' : 'password'}
+                                    autoComplete={false}
+                                    value={this.state.password}
+                                    name="password"
+                                    onChange={this.handleChange.bind(this,'password')}
+                                    endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {!this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    }
+                                    labelWidth={70}
+                                />
+                                <FormHelperText error>{this.state.errors.password}</FormHelperText>
+                            </FormControl>
+					        <div style={{textAlign:'left',paddingTop:'5%'}}>
                                 <span className='txt_size'>
 									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
 								</span>
                             </div>
                             <div className='forget'>
                                 <Button style={{textAlign:'left',color:'#1a73e8', fontWeight:'bold', textTransform:'none'}}
-                                    >
+                                    onClick={()=>{this.props.history.push('/forgetpassword')}}>
                                     Forget password?
                                 </Button>
                                 <div className=''>
