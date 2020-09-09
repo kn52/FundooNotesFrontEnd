@@ -83,10 +83,6 @@ input[type=text] {
 .forget {
     text-align: left;
     display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-top:10%;
     padding-bottom: 10%;
 }
 
@@ -95,7 +91,7 @@ input[type=text] {
 	flex-direction:row;
     justify-content: space-between;
     align-items:center;
-    padding-top: 20%;
+    padding-top: 50%;
     padding-bottom: 10%;
 }
 
@@ -111,10 +107,6 @@ input[type=text] {
         width:33vw;
         padding: 3%;
     }
-	
-	.child_action_container {
-		padding-top: 20%;
-	}
 }
 @media (max-width: 700px) {
     .main_container {
@@ -126,14 +118,6 @@ input[type=text] {
     .main_container {
         border:none;
         width: 85%;
-    }
-
-    .child_action_container {
-        padding-top: 10%;
-    }
-
-    .forget {
-        padding-top: 10%;
     }
 }
 
