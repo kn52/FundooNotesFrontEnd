@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import '../scss/SignIn.scss';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import SnackBar from '../util/SnackBar';
+import UserService from '../service/UserService.js';
 
 export default class ForgetPassword extends Component{
     
@@ -18,12 +21,48 @@ export default class ForgetPassword extends Component{
 		const { name, value } = event.target;
         this.setState({
           [name] : value
-        })
+        },()=>this.validate(field))
     }
     
-    handleSubmit(event) {
+    handleClick = () => {
+        this.setState({open:true});
+    };
+    
+    handleClose = (event) => {
+        this.setState({open:false});
+    };
+
+    validate(type) {
         
+        let error = {}
+        var isValid = true;
+        switch(type) {
+            
+            case 'email':
+                var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
+                if (!emailPattern.test(this.state.email)) {
+                      isValid = false;
+                      error["email"] = "*Please enter valid email.";
+                }
+                if (this.state.email === '') {
+                    isValid = false;
+                    error["email"] = "*Please enter your email.";
+                  }               
+                break;
+
+            default:
+                isValid=true;
+                break;
+        }
+        
+        this.setState({
+            validateForm:isValid,
+            errors: error
+          });
     }
+
+    handleSubmit(event) {
+            }
 	componentDidMount() {        
 	}
 
