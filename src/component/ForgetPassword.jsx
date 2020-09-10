@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import '../scss/SignIn.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import SnackBar from '../util/SnackBar';
-import UserService from '../service/UserService.js';
 
 export default class ForgetPassword extends Component{
     
@@ -74,10 +72,9 @@ export default class ForgetPassword extends Component{
                     <span className='title' style={{color: '#DB4437'}}>u</span>
                     <span className='title' style={{color: '#DB4437'}}>n</span>
                     <span className='title' style={{color: '#4285F4'}}>d</span>
-                    <span className='title' style={{color: '#0F9D58'}}>o</span>
+                    <span className='title' style={{color: '#0F9D58'}}>o</span>git 
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
-                <SnackBar opn={this.state.open} close={this.handleClose} />
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
