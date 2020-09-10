@@ -9,6 +9,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import UserService from '../service/UserService';
+import Typography from '@material-ui/core/Typography';
 
 class ResetPassword extends Component {
     
@@ -18,6 +21,7 @@ class ResetPassword extends Component {
             password: '',
             confirmpassword:'',
             showPassword:false,
+            validateForm:false,
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
@@ -36,10 +40,53 @@ class ResetPassword extends Component {
         const {name , value} = event.target
         this.setState({
           [name] : value
-        })
+        },()=>this.validate(field))
+    }
+
+    validate(type) {
+        
+        let errors = {}
+        var isValid = true;
+        var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
+        
+        switch(type) {
+            case 'password':
+                if (!passwordPattern.test(this.state.password)) {
+                    isValid = false;
+                    errors["password"] = "*Please enter valid password.";
+                }
+                if (this.state.password === '') {
+                    isValid = false;
+                    errors["password"] = "*Please enter your password.";
+                }
+                break;
+
+            case 'confirm':
+                if (this.state.confirmpassword !== this.state.password) {
+                    isValid = false;
+                    errors["confirm"] = "Passwords are not same";
+                }
+                if (this.state.confirmpassword === '') {
+                    isValid = false;
+                    errors["confirm"] = "*Please enter confirm password.";
+                }
+                break;
+
+            default:
+                isValid=true;
+                break;
+        }
+        
+        
+        
+        this.setState({
+            validateForm:isValid,
+            errors: errors
+          });
     }
 
     handleClick(event) {
+        
     }
     
     render() {
