@@ -54,10 +54,27 @@ export default class SignIn extends Component{
 	}
 	
 	handleSubmitForm(event) {
+        if(this.state.validateForm && this.validate('password')){
+			const data = {
+				"email":this.state.email,
+				"password":this.state.password
+            }
+            UserService.login(data).then((res) => {
+				console.log(res);
+				this.setState({
+					email:'',
+					password:''
+				})
+			})
+			.catch((err) => {
+                this.showLoader();
+				console.log(err);
+			})
+		}else{
             document.getElementById('email_cont').style.display='none';
 		    document.getElementById('password_cont').style.display='block';
-        
-	}
+        }
+    }
 	
 	componentDidMount() {
 		document.getElementById('email_cont').style.display='block';
@@ -91,6 +108,8 @@ export default class SignIn extends Component{
 					        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
                                 onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
                                 style={{height:"70px",width:"100%"}}
+                                error={this.state.errors.emailId}
+                                helperText={this.state.errors.emailId} 
                                 required />
                             
                             <div className='error_message'></div>
