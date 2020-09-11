@@ -1,94 +1,66 @@
 import React, {Component} from 'react';
-import '../scss/SignIn.scss';
-import { withRouter } from 'react-router-dom';
+import '../scss/SignIn.css';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import UserService from '../service/UserService';
-import Typography from '@material-ui/core/Typography';
 
-class ResetPassword extends Component {
+export default class ResetPassword extends Component{
     
     constructor(props){
         super(props)
         this.state = {
             password: '',
             confirmpassword:'',
-            showPassword:false,
-            validateForm:false,
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
     }
   
-    handleClickShowPassword = () => {
-        this.setState({ showPassword: !this.state.showPassword });
-    }
-
-    handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-    
-
-    handleChange(field,event) {
+    handleChange(event) {
         const {name , value} = event.target
         this.setState({
           [name] : value
-        },()=>this.validate(field))
+        })
     }
-
-    validate(type) {
+    
+    validateForm() {
         
         let errors = {}
         var isValid = true;
         var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
-        
-        switch(type) {
-            case 'password':
-                if (!passwordPattern.test(this.state.password)) {
-                    isValid = false;
-                    errors["password"] = "*Please enter valid password.";
-                }
-                if (this.state.password === '') {
-                    isValid = false;
-                    errors["password"] = "*Please enter your password.";
-                }
-                break;
+        if (!passwordPattern.test(this.state.password)) {
+              isValid = false;
+              errors["password"] = "*Please enter valid password.";
+        }
+        if (this.state.password === '') {
+            isValid = false;
+            errors["password"] = "*Please enter your password.";
+        }
 
-            case 'confirm':
-                if (this.state.confirmpassword !== this.state.password) {
-                    isValid = false;
-                    errors["confirm"] = "Passwords are not same";
-                }
-                if (this.state.confirmpassword === '') {
-                    isValid = false;
-                    errors["confirm"] = "*Please enter confirm password.";
-                }
-                break;
-
-            default:
-                isValid=true;
-                break;
+        if (this.state.confirmpassword !== this.state.password) {
+            isValid = false;
+            errors["confirm"] = "Passwords are not same";
+        }
+        if (this.state.confirmpassword === '') {
+            isValid = false;
+            errors["confirm"] = "*Please enter confirm password.";
         }
         
-        
-        
         this.setState({
-            validateForm:isValid,
             errors: errors
           });
+
+        return isValid;
     }
 
     handleClick(event) {
-        
+        if(this.validateForm()){
+            alert("Message sent");
+        }
     }
-    
+	componentDidMount() {
+        
+	}
+
     render() {
         return(
             <div className='main_container'>
@@ -114,71 +86,20 @@ class ResetPassword extends Component {
                             <div style={{fontSize:'14px',textAlign:'left',paddingBottom:'4%'}}>
                                 Enter new password...
                             </div>
-                            <div>
-                                <FormControl 
-                                    variant="outlined" 
-                                    fullWidth
-                                    style={{height:"65px"}} 
-                                    error={this.state.errors.password}>
-                                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        type={this.state.showPassword ? 'text' : 'password'}
-                                        autoComplete={false}
-                                        value={this.state.password}
-                                        name="password"
-                                        onChange={this.handleChange.bind(this,'password')}
-                                        endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={this.handleClickShowPassword}
-                                            onMouseDown={this.handleMouseDownPassword}
-                                            edge="end"
-                                            >
-                                            {!this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                        }
-                                        labelWidth={70}
-                                    />
-                                </FormControl>
+                            <div style={{paddingBottom:'8%'}}>
+                            <TextField name="password" label="Password" type="password" variant="outlined" value={this.state.password}
+                                onChange={this.handleChange} style={{width:'100%'}} size='large'
+                                error={this.state.errors.password} 
+                                helperText={this.state.errors.password} required />
+                            
                             </div>
 					        <div>
-                                <FormControl 
-                                    variant="outlined" 
-                                    fullWidth 
-                                    error={this.state.errors.confirm}
-                                    style={{marginTop: 20,height:'65px'}}>
-                                    <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        type={this.state.showPassword ? 'text' : 'password'}
-                                        autoComplete={false}
-                                        value={this.state.confirmpassword}
-                                        name="confirmpassword"
-                                        onChange={this.handleChange.bind(this,'confirm')}
-                                        endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={this.handleClickShowPassword}
-                                            onMouseDown={this.handleMouseDownPassword}
-                                            edge="end"
-                                            >
-                                            {!this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                        }
-                                        labelWidth={70}
-                                    />
-                                </FormControl>
-							</div>
-                            <div style={{textAlign:'left'}}>
-                                <span className='txt_size'>
-									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
-								</span>
+                            <TextField name="confirmpassword" label="Confirm Password" type="password" variant="outlined" value={this.state.confirmpassword}
+                                onChange={this.handleChange} style={{width:'100%'}} size='large'
+                                error={this.state.errors.confirm} 
+                                helperText={this.state.errors.confirm} required />
                             </div>
+                            
                         </div>
                         <div className='child_action_container'>
                             <span></span>
@@ -194,5 +115,3 @@ class ResetPassword extends Component {
         );
     }   
 }
-
-export default withRouter(ResetPassword);

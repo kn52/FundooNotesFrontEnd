@@ -1,14 +1,14 @@
-.MuiFormHelperText-marginDense.MuiFormHelperText-contained {
-    margin: 0px !important;
-}
-
 .register_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border:1px solid silver;
-    border-radius: 0.8%;
-    width:55vw;
+    border-radius: 2%;
+    width:60vw;
+}
+
+input_txt {
+    padding: 10px 15px !important;
 }
 
 .register_child_container {
@@ -24,7 +24,7 @@
     justify-content: flex-start;
     padding: 4%;
     padding-bottom: 1%;
-    width:65%;
+    width:60%;
 }
 
 .txt_size {
@@ -73,29 +73,10 @@
     padding-bottom: 4%;
 }
 
-.register_password_form_container {
-	display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.eye_icon_container {
-	width:25px;
-	background-color:white;
-	position:relative;	
-}
-
-.eye_icon {
-	position:absolute;
-	margin-left:-46%;
-	margin-top:20px;
-}
-
 .register_password_form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-	width:90%;
 }
 
 .register_content{
@@ -108,7 +89,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 3%;
-    width: 35%;
+    width: 40%;
 }
 
 .account_image {
@@ -156,14 +137,11 @@
     .register_password_form {
         flex-direction: column;
         justify-content: space-evenly;
-
     }
 
     .input_txt_width {
         width:100%;
     }
-
-
 
     .register_textfield {
         padding-bottom: 5%;

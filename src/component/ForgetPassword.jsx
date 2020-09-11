@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../scss/SignIn.scss';
+import '../scss/SignIn.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -9,59 +9,54 @@ export default class ForgetPassword extends Component{
         super(props)
         this.state = {
             email: '',
-            validateForm:false,
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
     }
   
-    handleChange(field,event) {
-		const { name, value } = event.target;
+    handleChange(event) {
         this.setState({
-          [name] : value
-        },()=>this.validate(field))
+          email : event.target.value
+        })
     }
     
-    handleClick = () => {
-        this.setState({open:true});
-    };
-    
-    handleClose = (event) => {
-        this.setState({open:false});
-    };
-
-    validate(type) {
+    validateForm(type) {
         
-        let error = {}
+        let errors = {}
         var isValid = true;
         switch(type) {
             
-            case 'email':
+            case 'phone':
                 var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
                 if (!emailPattern.test(this.state.email)) {
                       isValid = false;
-                      error["email"] = "*Please enter valid email.";
+                      errors["email"] = "*Please enter valid email.";
                 }
                 if (this.state.email === '') {
                     isValid = false;
-                    error["email"] = "*Please enter your email.";
+                    errors["email"] = "*Please enter your email.";
                   }               
                 break;
 
             default:
-                isValid=true;
                 break;
         }
         
+
         this.setState({
-            validateForm:isValid,
-            errors: error
+            errors: errors
           });
+
+        return isValid;
     }
 
-    handleSubmit(event) {
-            }
-	componentDidMount() {        
+    handleClick(event) {
+        if(this.validateForm('email')){
+            alert("Message sent");
+        }
+    }
+	componentDidMount() {
+        
 	}
 
     render() {
@@ -72,12 +67,17 @@ export default class ForgetPassword extends Component{
                     <span className='title' style={{color: '#DB4437'}}>u</span>
                     <span className='title' style={{color: '#DB4437'}}>n</span>
                     <span className='title' style={{color: '#4285F4'}}>d</span>
-                    <span className='title' style={{color: '#0F9D58'}}>o</span>git 
+                    <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
+                    </div>
+                    <div className='child_content'>
+                        <span className='txt_title'>
+                            {this.props.email}
+                        </span> 
                     </div>
                     <div className='child_form'>
                         <div className="base_form" >
@@ -85,13 +85,16 @@ export default class ForgetPassword extends Component{
                                 Enter email you remember using with fundoo app
                             </div>
 					        <TextField name="email" label="Enter your email" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
-                                style={{width:'100%',height:"70px"}}
+                                onChange={this.handleChange} style={{width:'100%'}} size='large' 
+                                error={this.state.errors.email}
+                                helperText={this.state.errors.email}
                                 required />
+                           
+                            <div className='error_message'></div>
                         </div>
                         <div className='child_action_container'>
                             <span></span>
-							<Button type="submit" className="next_button" onClick={this.handleSubmit.bind(this)}>
+							<Button type="submit" className="next_button" onClick={this.handleClick.bind(this)}>
                                 <span style={{color:'white', fontWeight:'bold', textTransform:'none'}}>
                                     Next
                                 </span>
