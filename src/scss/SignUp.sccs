@@ -123,3 +123,50 @@
 .register_textfield{
     width:45%;
 }
+
+@media (max-width: 900px) {
+    .register_logo_container {
+        display: none;
+    }   
+
+    .register_form_container {
+        width:100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .register_container {
+        width:85%;
+        border:none;
+        justify-content: flex-start;
+    }
+    .register_logo_container {
+        display: none;
+    }   
+
+    .register_form_container {
+        width:100%;
+    }
+
+    .register_form {
+        flex-direction: column;
+        padding-bottom: 0%;
+    }
+
+    .register_password_form {
+        flex-direction: column;
+        justify-content: space-evenly;
+
+    }
+
+    .input_txt_width {
+        width:100%;
+    }
+
+
+
+    .register_textfield {
+        padding-bottom: 5%;
+        width:100%;
+    }
+}
