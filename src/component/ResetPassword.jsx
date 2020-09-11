@@ -87,19 +87,22 @@ export default class ResetPassword extends Component{
                                 Enter new password...
                             </div>
                             <div style={{paddingBottom:'8%'}}>
-                            <TextField name="password" label="Password" type="password" variant="outlined" value={this.state.password}
-                                onChange={this.handleChange} style={{width:'100%'}} size='large'
-                                error={this.state.errors.password} 
-                                helperText={this.state.errors.password} required />
-                            
+								<TextField name="password" label="Password" type="password" variant="outlined" value={this.state.password}
+									onChange={this.handleChange} style={{width:'100%'}} size='large'
+									error={this.state.errors.password} 
+									helperText={this.state.errors.password} required />
                             </div>
 					        <div>
-                            <TextField name="confirmpassword" label="Confirm Password" type="password" variant="outlined" value={this.state.confirmpassword}
-                                onChange={this.handleChange} style={{width:'100%'}} size='large'
-                                error={this.state.errors.confirm} 
-                                helperText={this.state.errors.confirm} required />
+								<TextField name="confirmpassword" label="Confirm Password" type="password" variant="outlined" value={this.state.confirmpassword}
+									onChange={this.handleChange} style={{width:'100%'}} size='large'
+									error={this.state.errors.confirm} 
+									helperText={this.state.errors.confirm} required />
                             </div>
-                            
+                            <div style={{textAlign:'left'}}>
+                                <span className='txt_size'>
+									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
+								</span>
+                            </div>
                         </div>
                         <div className='child_action_container'>
                             <span></span>

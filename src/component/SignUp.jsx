@@ -4,6 +4,7 @@ import Account from '../assets/images/account.svg'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router';
+import UserService from '../service/UserService';
 
 class SignUp extends React.Component {
     constructor(props){
@@ -15,7 +16,6 @@ class SignUp extends React.Component {
             password:'',
             confirmpassword:'',
             errors:{},
-            validateform:false
         }
         this.handleChange=this.handleChange.bind(this);
     }
@@ -23,7 +23,7 @@ class SignUp extends React.Component {
 
     validate = () => {
 
-        let isValid
+        let isValid = true;
 		let error={};
 
         var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
@@ -32,7 +32,8 @@ class SignUp extends React.Component {
 		var number = /[0-9]{1,}$/;
 		
 		if (number.test(this.state.firstname)) {
-            error['first']="Letters allowed";
+            isValid = false;
+			error['first']="Letters allowed";
         }
         if (this.state.firstname === '') {
             isValid = false;
@@ -43,17 +44,17 @@ class SignUp extends React.Component {
         }
 
         if (!emailPattern.test(this.state.email)) {
-              console.log(emailPattern.test(this.state.email))  
               isValid = false;
-              error["emailId"] = "*Please enter valid email-ID.";
+              error["email"] = "*Please enter valid email-ID.";
         }
         if (this.state.email === '') {
             isValid = false;
-            error["emailId"] = "*Please enter your email-ID.";
+            error["email"] = "*Please enter your email-ID.";
         }
 
         if (number.test(this.state.lastname)) {
-            error['last']="Letters allowed";
+            isValid = false;
+			error['last']="Letters allowed";
         }
         if (this.state.lastname === '') {
             isValid = false;
@@ -63,7 +64,6 @@ class SignUp extends React.Component {
             error['last']="";
         }		
         if (!passwordPattern.test(this.state.password)) {
-            console.log(passwordPattern.test(this.state.password))  
             isValid = false;
             error["password"] = "*Please enter valid password.";
         }
@@ -81,19 +81,11 @@ class SignUp extends React.Component {
         }
 				
         
-        if (error['first'] || error['last'] || error['email'] || error['password'] || error['confirm']) {
-			this.setState({
-				errors:error,
-				validateform:false
-			});
-			return false;
-		}else{
-			this.setState({
-				errors:error,
-				validateform:true
-			});
-		}
-		return true;
+        this.setState({
+			errors:error,
+		});
+
+		return isValid;
 	}
 
     handleChange(event) {
@@ -105,7 +97,23 @@ class SignUp extends React.Component {
 
     handleSubmit(event) {
         if(this.validate()){
-            alert("Validate");
+            const data = {
+				"firstName": this.state.filename,
+				"lastName": this.state.lastname, 
+				"phoneNumber": "",
+				"imageUrl": "",
+				"service": "advance",
+				"email": this.state.email,
+				"cartId": "",
+				"password": this.state.password
+			}
+			
+			UserService.register(data).then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
         }
     }
 
@@ -170,7 +178,9 @@ class SignUp extends React.Component {
                                 </div>
                             </div>
                             <div style={{textAlign:'left'}}>
-                                <span className='txt_size'>Use 8 or more characters with a mix of letters, numbers and symbols</span>
+                                <span className='txt_size'>
+								Use 8 or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
+								</span>
                             </div>
                         </div>
                         <div className='register_form_action'>

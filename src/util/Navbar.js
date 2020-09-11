@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../scss/Navbar.css';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -33,14 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export default function DisplayAppBar (props) {
  
     const classes = useStyles();
-
-    const [searchText,setSearchText]=useState('');
-
-    const handleTextChange = (event) => {
-      setSearchText(event.target.value);
-    }
-    
-    return (      
+	
+	return (      
       <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -60,7 +54,6 @@ export default function DisplayAppBar (props) {
                 <InputBase
                   placeholder=" Search"
                   id="input_base"
-                  onChange={handleTextChange}
                 />        
               </div>
         </Toolbar>

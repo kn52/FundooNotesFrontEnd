@@ -15,26 +15,27 @@ export default class ForgetPassword extends Component{
     }
   
     handleChange(event) {
+		const { name, value } = event.target;
         this.setState({
-          email : event.target.value
+          [name] : value
         })
     }
     
     validateForm(type) {
         
-        let errors = {}
+        let error = {}
         var isValid = true;
         switch(type) {
             
-            case 'phone':
+            case 'email':
                 var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
                 if (!emailPattern.test(this.state.email)) {
                       isValid = false;
-                      errors["email"] = "*Please enter valid email.";
+                      error["email"] = "*Please enter valid email.";
                 }
                 if (this.state.email === '') {
                     isValid = false;
-                    errors["email"] = "*Please enter your email.";
+                    error["email"] = "*Please enter your email.";
                   }               
                 break;
 
@@ -42,9 +43,8 @@ export default class ForgetPassword extends Component{
                 break;
         }
         
-
         this.setState({
-            errors: errors
+            errors: error
           });
 
         return isValid;
@@ -52,7 +52,7 @@ export default class ForgetPassword extends Component{
 
     handleClick(event) {
         if(this.validateForm('email')){
-            alert("Message sent");
+			alert("Message sent");
         }
     }
 	componentDidMount() {
@@ -74,11 +74,6 @@ export default class ForgetPassword extends Component{
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
                     </div>
-                    <div className='child_content'>
-                        <span className='txt_title'>
-                            {this.props.email}
-                        </span> 
-                    </div>
                     <div className='child_form'>
                         <div className="base_form" >
                             <div style={{fontSize:'14px',textAlign:'left',paddingBottom:'4%'}}>
@@ -89,8 +84,6 @@ export default class ForgetPassword extends Component{
                                 error={this.state.errors.email}
                                 helperText={this.state.errors.email}
                                 required />
-                           
-                            <div className='error_message'></div>
                         </div>
                         <div className='child_action_container'>
                             <span></span>

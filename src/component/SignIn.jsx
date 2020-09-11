@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import UserService from '../service/UserService';
 
 class Login extends Component{
     
@@ -81,8 +82,22 @@ class Login extends Component{
 	
 	handleSubmitForm(event) {
         if(this.validateForm('password')){
-            alert(this.state.email + " " + this.state.password);
-        }else{
+			const data = {
+				"email":this.state.email,
+				"password": "akhil@823"
+			}
+			this.showLoader();
+			UserService.login(data).then((res) => {
+				console.log(res.data);
+				this.setState({
+					email:'',
+					password:''
+				})
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		}else{
             document.getElementById('email_cont').style.display='none';
 		    document.getElementById('password_cont').style.display='block';
         }
@@ -95,8 +110,12 @@ class Login extends Component{
 
     render() {
         return(
-            <div className='main_container'>
-                <div className='main_title'>
+			<>
+			<div className='main_container' id='fade'>
+                <div id="loader_container">
+					<div id="loader"></div>
+				</div>
+				<div className='main_title'>
                     <span className='title' style={{color: '#4285F4'}}>F</span>
                     <span className='title' style={{color: '#DB4437'}}>u</span>
                     <span className='title' style={{color: '#DB4437'}}>n</span>
@@ -149,7 +168,11 @@ class Login extends Component{
                                 onChange={this.handleChange} style={{width:'100%'}} size='large'
                                 error={this.state.errors.password} 
                                 helperText={this.state.errors.password} required />
-                            <div></div>
+                            <div style={{textAlign:'left',paddingTop:'5%'}}>
+                                <span className='txt_size'>
+									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
+								</span>
+                            </div>
                             <div className='forget'>
                                 <Button style={{textAlign:'left',color:'#1a73e8', fontWeight:'bold', textTransform:'none'}}
                                     onClick={()=>{this.props.history.push('/forgetpassword')}}>
@@ -168,8 +191,38 @@ class Login extends Component{
                     </div>
                 </div>
             </div>
+			</>
         );
-    }   
+    }
+
+	showLoader = () => {
+        let i=0;
+        if (i === 0) {
+            i = 1;
+            let element1= document.getElementById("loader_container");
+            let element2 = document.getElementById("loader");
+            let fade = document.getElementById("fade");
+            element2.style.backgroundColor = 'lightgray';
+			element1.style.backgroundColor = '#1a73e8';
+            let width = 1;
+            fade.style.opacity = 0.3;
+            let id = setInterval(frame, 10);
+            setTimeout(() => {
+                element1.style.display = 'none';
+                fade.style.opacity = 1;
+            }, 1000);
+            function frame() {
+					if (width >= 100) {
+						clearInterval(id);
+						i = 0;
+					} else {
+						width++;
+						element1.style.width = width + "%";
+						
+					}
+				}
+        }
+    }
 }
 
 export default withRouter(Login);
