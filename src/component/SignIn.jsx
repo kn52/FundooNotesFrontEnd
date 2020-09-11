@@ -5,6 +5,14 @@ import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import UserService from '../service/UserService';
 
 class Login extends Component{
@@ -26,6 +34,14 @@ class Login extends Component{
           [name] : value
         })
     }
+	
+	handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
+    }
+
+    handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
     
     validateForm(type) {
         
@@ -164,11 +180,36 @@ class Login extends Component{
                     </div>
                     <div className='child_form'>
                         <div class="base_form" >
-					        <TextField name="password" label="Password" type="password" variant="outlined" value={this.state.password}
-                                onChange={this.handleChange} style={{width:'100%'}} size='large'
-                                error={this.state.errors.password} 
-                                helperText={this.state.errors.password} required />
-                            <div style={{textAlign:'left',paddingTop:'5%'}}>
+							<FormControl 
+                                variant="outlined" 
+                                fullWidth 
+                                error={this.state.errors.password}
+                                style={{marginTop: 30}} >
+                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                <OutlinedInput
+                                    id="outlined-adornment-password"
+                                    type={!this.state.showPassword ? 'text' : 'password'}
+                                    autoComplete={false}
+                                    value={this.state.password}
+                                    name="password"
+                                    onChange={this.handleChange}
+                                    endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                        onMouseDown={this.handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    }
+                                    labelWidth={70}
+                                />
+                                <FormHelperText error>{this.state.errors.password}</FormHelperText>
+                            </FormControl>
+					        <div style={{textAlign:'left',paddingTop:'5%'}}>
                                 <span className='txt_size'>
 									Use eight or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
 								</span>
