@@ -23,6 +23,7 @@ class Login extends Component{
         this.state = {
             email: '',
             password: '',
+			showPassword:false,
             errors: {},
         };
         this.handleChange=this.handleChange.bind(this);

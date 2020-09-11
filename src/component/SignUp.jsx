@@ -4,6 +4,10 @@ import Account from '../assets/images/account.svg'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import UserService from '../service/UserService';
 
 class SignUp extends React.Component {
@@ -15,11 +19,19 @@ class SignUp extends React.Component {
             email:'',
             password:'',
             confirmpassword:'',
+			showPassword:false,
             errors:{},
         }
         this.handleChange=this.handleChange.bind(this);
     }
 
+	handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
+    }
+
+    handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     validate = () => {
 
@@ -163,20 +175,35 @@ class SignUp extends React.Component {
                             </div>
                         </div>
                         <div className='register_content_container'>
-                            <div className='register_password_form'>
-                                <div className='register_textfield'>
-                                    <TextField name="password" label="Password" type="password" variant="outlined" value={this.state.password}
-                                        onChange={this.handleChange} className='input_txt input_txt_width' size='small'
-                                        error={this.state.errors.password} 
-                                        helperText={this.state.errors.password} required />
-                                </div>
-                                <div className='register_textfield'>
-                                    <TextField name="confirmpassword" label="Confirm" type="password" variant="outlined" value={this.state.confirmpassword}
-                                        onChange={this.handleChange} className='input_txt input_txt_width' size='small'
-                                        error={this.state.errors.confirm} 
-                                        helperText={this.state.errors.confirm} required />
-                                </div>
-                            </div>
+                            <div className='register_password_form_container' >
+                                <div className='register_password_form'>
+									<div className='register_textfield' >
+										<TextField name="password" label="Password" type={this.state.showPassword ? "text" : "password"} variant="outlined" value={this.state.password}
+											onChange={this.handleChange} className='input_txt input_txt_width' size='small'
+											error={this.state.errors.password} 
+											helperText={this.state.errors.password} required />
+									</div>
+									<div className='register_textfield'>
+										<TextField name="confirmpassword" label="Confirm" type={this.state.showPassword ? "text" : "password"} variant="outlined" value={this.state.confirmpassword}
+											onChange={this.handleChange} className='input_txt input_txt_width' size='small'
+											error={this.state.errors.confirm} 
+											helperText={this.state.errors.confirm} required />
+									</div>
+								</div>
+								<div className="eye_icon_container">
+									<InputAdornment className="eye_icon">
+										<IconButton
+										aria-label="toggle password visibility"
+										onClick={this.handleClickShowPassword}
+										onMouseDown={this.handleMouseDownPassword}
+										edge="end"
+										>
+										{this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+									   </IconButton>
+									</InputAdornment>
+								</div>
+								
+							</div>
                             <div style={{textAlign:'left'}}>
                                 <span className='txt_size'>
 								Use 8 or more characters with a mix of uppercase lowercase letters, numbers and with one special symbol
