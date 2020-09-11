@@ -259,8 +259,7 @@ class Login extends Component{
 						i = 0;
 					} else {
 						width++;
-						element1.style.width = width + "%";
-						
+						element1.style.width = width + "%";					
 					}
 				}
         }

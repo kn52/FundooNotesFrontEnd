@@ -110,7 +110,7 @@ class SignUp extends React.Component {
     handleSubmit(event) {
         if(this.validate()){
             const data = {
-				"firstName": this.state.filename,
+				"firstName": this.state.firstname,
 				"lastName": this.state.lastname, 
 				"phoneNumber": "",
 				"imageUrl": "",
