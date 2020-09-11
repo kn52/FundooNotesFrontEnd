@@ -1,5 +1,6 @@
 import React from 'react';
 import '../scss/SignUp.scss';
+import Account from '../assets/images/account.svg'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router';
@@ -33,7 +34,90 @@ class SignUp extends React.Component {
         event.preventDefault();
     };
 
-    
+    validate = (type) => {
+
+        let isValid = true;
+		let error={};
+
+        var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
+        var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
+		var namePattern = /[A-Z]{1}[a-zA-Z]{2,}$/;
+		var number = /[0-9]{1,}$/;
+        
+        switch(type) {
+            case 'firstname':
+                if (number.test(this.state.firstname)) {
+                    isValid = false;
+                    error['first']="Letters allowed";
+                }
+                if (this.state.firstname === '') {
+                    isValid = false;
+                    error['first'] = "*Please enter your first name.";
+                }
+                if (namePattern.test(this.state.firstname)) {
+                    error['first']="";
+                }
+                break;
+
+            case 'lastname':
+                if (number.test(this.state.lastname)) {
+                    isValid = false;
+                    error['last']="Letters allowed";
+                }
+                if (this.state.lastname === '') {
+                    isValid = false;
+                    error["last"] = "*Please enter your last name.";
+                }
+                if (namePattern.test(this.state.lastname)) {
+                    error['last']="";
+                }
+                break;
+
+            case 'email':
+                if (!emailPattern.test(this.state.email)) {
+                    isValid = false;
+                    error["email"] = "*Please enter valid email-ID.";
+                }
+                if (this.state.email === '') {
+                    isValid = false;
+                    error["email"] = "*Please enter your email-ID.";
+                }
+                break;
+
+            case 'password':
+                if (!passwordPattern.test(this.state.password)) {
+                    isValid = false;
+                    error["password"] = "*Please enter valid password.";
+                }
+                if (this.state.password === '') {
+                    isValid = false;
+                    error["password"] = "*Please enter your password.";
+                }
+                break;
+
+            case 'confirm':
+                if (this.state.confirmpassword !== this.state.password) {
+                    isValid = false;
+                    error["confirm"] = "Passwords are not same";
+                }
+                if (this.state.confirmpassword === '') {
+                    isValid = false;
+                    error["confirm"] = "*Please enter confirm password.";
+                }
+                break;
+
+            default:
+                isValid=true;
+                break;
+
+        }
+		
+        this.setState({
+            errors:error,
+            validateForm:isValid
+		});
+	}
+
     handleChange(field,event) {
         const {name , value} = event.target
         this.setState({
