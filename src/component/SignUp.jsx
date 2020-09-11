@@ -122,11 +122,40 @@ class SignUp extends React.Component {
         const {name , value} = event.target
         this.setState({
           [name] : value
-        })
+        },()=>this.validate(field))
     }
 
     handleSubmit(event) {
-        
+        if(this.state.validateForm){
+            const data = {
+				"firstName": this.state.firstname,
+				"lastName": this.state.lastname, 
+				"phoneNumber": "",
+				"imageUrl": "",
+				"service": "advance",
+				"email": this.state.email,
+				"cartId": "",
+				"password": this.state.password
+			}
+			
+			UserService.register(data).then((res) => {
+                console.log(res);
+                this.setState ({
+                    firstname:'',
+                    lastname:'',
+                    email:'',
+                    password:'',
+                    confirmpassword:'',
+                    showPassword:false,
+                    validateForm:false,
+                    errors:{},
+                })
+                this.props.history.push("/");
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+        }
     }
 
     render() {
