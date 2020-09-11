@@ -19,7 +19,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'white',
     borderBottom:'1px solid silver'
   },
-  }));
+  menuButton: {
+    color:'black',
+    marginRight: theme.spacing(0),
+  },
+  title: {
+    flexGrow: 1,
+    color:'black',
+    fontFamily:'Cambria',
+  },
+}));
 
 export default function DisplayAppBar (props) {
  
