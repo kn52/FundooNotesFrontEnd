@@ -10,7 +10,9 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService';
+import Typography from '@material-ui/core/Typography';
 
 class ResetPassword extends Component {
     
@@ -21,6 +23,8 @@ class ResetPassword extends Component {
             confirmpassword:'',
             showPassword:false,
             validateForm:false,
+            sty:'',
+            message:'',
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
@@ -33,7 +37,27 @@ class ResetPassword extends Component {
     handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    handleClick = () => {
+        this.setState({open:true});
+    };
     
+    handleClose = (event) => {
+        this.setState({open:false});
+        if(this.state.sty === "success"){
+            this.setState({
+                password: '',
+                confirmpassword:'',
+                showPassword:false,
+                validateForm:false,
+                sty:'',
+                message:'',
+                errors:{}
+            })
+            this.props.history.push('/');
+        }
+        
+    };
 
     handleChange(field,event) {
         const {name , value} = event.target
@@ -93,13 +117,17 @@ class ResetPassword extends Component {
             UserService.resetPassword(data,token).then((res) => {
 				console.log(res);
 				this.setState({
-					confirmpassword:'',
-                    password:'',
-                    validateForm:false,
-                    errors:{}
-				})
+                    sty:"success",
+                    message:"Password Updated Successfully",
+                })
+                this.handleClick();
 			})
 			.catch((err) => {
+                this.setState({
+                    sty:"error",
+                    message:"Password Not Updated",
+                })
+                this.handleClick();
 				console.log(err);
 			})
         }
@@ -116,6 +144,8 @@ class ResetPassword extends Component {
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
+                <SnackBar opn={this.state.open} close={this.handleClose} 
+                    msg={this.state.message} severity={this.state.sty}/>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
@@ -128,7 +158,9 @@ class ResetPassword extends Component {
                     <div className='child_form'>
                         <div className="base_form" >
                             <div style={{fontSize:'14px',textAlign:'left',paddingBottom:'4%'}}>
-                                Enter new password...
+                                <Typography>
+                                    Enter new password...
+                                </Typography>
                             </div>
                             <div>
                                 <FormControl 

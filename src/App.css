@@ -14,7 +14,7 @@
 @media (max-width: 560px) {
     .App 
     {
-		padding-top:4%;
+		padding-top:15%;
         align-items: flex-start !important;
     }
 }

@@ -10,7 +10,7 @@ export default function DefaultRoute () {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path='/' exact component={SignIn} />
+                <Route path={['/','/login']} exact component={SignIn} />
                 <Route path='/register' exact component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
                 <Route path='/resetpassword' component={ResetPassword} />

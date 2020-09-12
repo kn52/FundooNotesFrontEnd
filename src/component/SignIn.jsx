@@ -13,8 +13,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService';
-import DisplaySnackBar from '../util/SnackBar';
 
 class Login extends Component{
     
@@ -26,6 +26,9 @@ class Login extends Component{
             password: '',
             showPassword:false,
             open:false,
+            sty:'',
+            message:'',
+            validateForm:false,
             errors: {},
         };
         this.handleChange=this.handleChange.bind(this);
@@ -35,7 +38,7 @@ class Login extends Component{
         const {name, value} = event.target
         this.setState({
           [name] : value
-        },() => this.validateForm(field))
+        },() => this.validate(field))
     }
     
     handleClick = () => {
@@ -44,6 +47,14 @@ class Login extends Component{
     
     handleClose = (event) => {
         this.setState({open:false});
+        if(this.state.sty === "success")
+        {
+            this.setState({
+                email:'',
+                password:''
+            })
+            this.props.history.push('/dashboard');
+        }
     };
 
 	handleClickShowPassword = () => {
@@ -54,7 +65,7 @@ class Login extends Component{
         event.preventDefault();
     };
     
-    validateForm(type) {
+    validate(type) {
         
         let errors = {}
         var isValid = true;
@@ -88,8 +99,8 @@ class Login extends Component{
                 break;  
         }
         
-
         this.setState({
+            validateForm:isValid,
             errors: errors
         });
 
@@ -97,7 +108,7 @@ class Login extends Component{
     }
 
 	handleEmail(event,txt) {
-        if(txt === 'email' && this.validateForm('email')){
+        if(txt === 'email' && this.validate('email')){
             document.getElementById('email_cont').style.display='none';
 		    document.getElementById('password_cont').style.display='block';
         }
@@ -108,27 +119,32 @@ class Login extends Component{
 	}
 	
 	handleSubmitForm(event) {
-        
-        if(this.validateForm('password')){
+        if(this.state.validateForm && this.validate('password')){
 			const data = {
 				"email":this.state.email,
 				"password":this.state.password
-			}
-			UserService.login(data).then((res) => {
+            }
+            UserService.login(data).then((res) => {
 				console.log(res);
 				this.setState({
-					email:'',
-					password:''
-				})
+                    sty:"success",
+                    message:"Logged in Successfully",
+                })
+                this.handleClick();
 			})
 			.catch((err) => {
-				console.log(err);
-			})
+                console.log(err);
+                this.setState({
+                    sty:"error",
+                    message:"Login Failed",
+                })
+                this.handleClick();
+          	})
 		}else{
             document.getElementById('email_cont').style.display='none';
 		    document.getElementById('password_cont').style.display='block';
         }
-        
+        this.showLoader();
 	}
 	
 	componentDidMount() {
@@ -151,6 +167,8 @@ class Login extends Component{
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
+                <SnackBar opn={this.state.open} close={this.handleClose} 
+                    msg={this.state.message} severity={this.state.sty}/>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Sign In</span>
@@ -161,7 +179,7 @@ class Login extends Component{
                     <div className='child_form'>
                         <div className="base_form" >
 					        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
+                                onChange={this.handleChange.bind(this,'email')} size='large' 
                                 style={{height:"70px",width:"100%"}}
                                 error={this.state.errors.emailId}
                                 helperText={this.state.errors.emailId} 

@@ -9,9 +9,14 @@ export default function SnackBar (props) {
     }
 
     return (
-        <Snackbar open={props.opn} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-            This is a success message!
+        <Snackbar
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }} 
+            open={props.opn} autoHideDuration={3000} onClose={handleClose}>
+            <Alert severity={props.severity}>
+                {props.msg}
             </Alert>
         </Snackbar>
 

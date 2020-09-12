@@ -21,7 +21,7 @@ input[type=text] {
 }
 
 .container {
-	width:18vw;
+	width:35vw;
 }
 
 .main_container {
@@ -106,9 +106,9 @@ input[type=text] {
     background-color: #1a73e8 !important;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .main_container {
-        width:30vw;
+        width:33vw;
         padding: 3%;
     }
 	

@@ -4,14 +4,18 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService.js';
+import { withRouter } from 'react-router-dom';
 
-export default class ForgetPassword extends Component{
+class ForgetPassword extends Component{
     
     constructor(props){
         super(props)
         this.state = {
             email: '',
             validateForm:false,
+            message:'',
+            sty:'',
+            opn:false,
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
@@ -30,6 +34,17 @@ export default class ForgetPassword extends Component{
     
     handleClose = (event) => {
         this.setState({open:false});
+        if(this.state.sty === "success"){
+            this.setState({
+                sty:'',
+                message:'',
+                email:'',
+                validateForm:false,
+                errors:{}
+            })
+            this.props.history.push('/login');
+        }
+        
     };
 
     validate(type) {
@@ -70,15 +85,19 @@ export default class ForgetPassword extends Component{
             UserService.forgetPassword(data).then((res) => {
 				console.log(res.data);
 				this.setState({
-                    email:'',
-                    validateForm:false,
-                    errors:{}
+                    sty:"success",
+                    message:"Email sent to your registered Email Id",
                 })
                 this.handleClick();
 			})
 			.catch((err) => {
+                this.setState({
+                    sty:"error",
+                    message:"Invalid Email Id",
+                })
+                this.handleClick();
 				console.log(err);
-			})
+            })
         }
     }
 	componentDidMount() {        
@@ -95,7 +114,8 @@ export default class ForgetPassword extends Component{
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
-                <SnackBar opn={this.state.open} close={this.handleClose} />
+                <SnackBar opn={this.state.open} close={this.handleClose} 
+                    msg={this.state.message} severity={this.state.sty}/>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
@@ -106,8 +126,8 @@ export default class ForgetPassword extends Component{
                                 Enter email you remember using with fundoo app
                             </div>
 					        <TextField name="email" label="Enter your email" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
-                                style={{height:"70px"}}
+                                onChange={this.handleChange.bind(this,'email')} size='large' 
+                                style={{width:'100%',height:"70px"}}
                                 error={this.state.errors.email}
                                 helperText={this.state.errors.email}
                                 required />
@@ -126,3 +146,5 @@ export default class ForgetPassword extends Component{
         );
     }   
 }
+
+export default  withRouter(ForgetPassword);

@@ -8,6 +8,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService';
 
 class SignUp extends React.Component {
@@ -21,10 +22,36 @@ class SignUp extends React.Component {
             confirmpassword:'',
             showPassword:false,
             validateForm:false,
+            sty:'',
+            message:'',
             errors:{},
         }
         this.handleChange=this.handleChange.bind(this);
     }
+
+    handleClick = () => {
+        this.setState({open:true});
+    };
+    
+    handleClose = (event) => {
+        this.setState({open:false});
+        if(this.state.sty === "success")
+        {
+            this.setState({
+                firstname:'',
+                lastname:'',
+                email:'',
+                password:'',
+                confirmpassword:'',
+                showPassword:false,
+                validateForm:false,
+                sty:'',
+                message:'',
+                errors:{},
+            })
+            this.props.history.push('/login');
+        }
+    };
 
 	handleClickShowPassword = () => {
         this.setState({ showPassword: !this.state.showPassword });
@@ -141,19 +168,18 @@ class SignUp extends React.Component {
 			UserService.register(data).then((res) => {
                 console.log(res);
                 this.setState ({
-                    firstname:'',
-                    lastname:'',
-                    email:'',
-                    password:'',
-                    confirmpassword:'',
-                    showPassword:false,
-                    validateForm:false,
-                    errors:{},
+                    sty:'success',
+                    message:'Registered Successfully'
                 })
-                this.props.history.push("/");
-			})
+                this.handleClick();
+            })
 			.catch((err) => {
-				console.log(err);
+                console.log(err);
+                this.setState ({
+                    sty:'error',
+                    message:'Email Already Exist'
+                })
+                this.handleClick();
 			})
         }
     }
@@ -172,6 +198,9 @@ class SignUp extends React.Component {
                             <span className='register_main_title' style={{color: '#0F9D58'}}>o</span>
                             <span className='register_main_title' style={{color: '#DB4437'}}>o</span>
                         </div>
+                        <SnackBar opn={this.state.open} close={this.handleClose} 
+                            msg={this.state.message} severity={this.state.sty}/>
+                
                         <div className='register_title'>
                             <span className='register_sign_title'>Create your fundoo account</span>
                         </div>
@@ -195,7 +224,7 @@ class SignUp extends React.Component {
                         <div className='register_content_container'>
                             <div> 
                                 <TextField name="email" label="Email" type="text" variant="outlined" value={this.state.email}
-                                    onChange={this.handleChange.bind(this,'email')} style={{width:'100%' }} size='small' 
+                                    onChange={this.handleChange.bind(this,'email')} size='small' 
                                     error={this.state.errors.email} style={{width:'100%',height:"50px"}} 
                                     helperText={this.state.errors.email} required />
                             </div>
