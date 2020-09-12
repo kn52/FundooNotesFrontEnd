@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../scss/SignIn.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import UserService from '../service/UserService';
 
 export default class ForgetPassword extends Component{
     
@@ -9,19 +10,20 @@ export default class ForgetPassword extends Component{
         super(props)
         this.state = {
             email: '',
+            validateForm:false,
             errors:{}
         };
         this.handleChange = this.handleChange.bind(this);
     }
   
-    handleChange(event) {
+    handleChange(field,event) {
 		const { name, value } = event.target;
         this.setState({
           [name] : value
-        })
+        },()=>this.validate(field))
     }
     
-    validateForm(type) {
+    validate(type) {
         
         let error = {}
         var isValid = true;
@@ -40,23 +42,36 @@ export default class ForgetPassword extends Component{
                 break;
 
             default:
+                isValid=true;
                 break;
         }
         
         this.setState({
+            validateForm:isValid,
             errors: error
           });
-
-        return isValid;
     }
 
     handleClick(event) {
-        if(this.validateForm('email')){
-			alert("Message sent");
+        if(this.state.validateForm){
+			const data = {
+                "email":this.state.email
+            }
+
+            UserService.forget(data).then((res) => {
+				console.log(res.data);
+				this.setState({
+                    email:'',
+                    validateForm:false,
+                    errors:{}
+				})
+			})
+			.catch((err) => {
+				console.log(err);
+			})
         }
     }
-	componentDidMount() {
-        
+	componentDidMount() {        
 	}
 
     render() {
@@ -80,7 +95,7 @@ export default class ForgetPassword extends Component{
                                 Enter email you remember using with fundoo app
                             </div>
 					        <TextField name="email" label="Enter your email" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange} style={{width:'100%'}} size='large' 
+                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
                                 error={this.state.errors.email}
                                 helperText={this.state.errors.email}
                                 required />

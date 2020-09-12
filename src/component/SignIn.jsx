@@ -29,11 +29,11 @@ class Login extends Component{
         this.handleChange=this.handleChange.bind(this);
     }
   
-    handleChange(event) {
+    handleChange(field, event) {
         const {name, value} = event.target
         this.setState({
           [name] : value
-        })
+        },() => this.validateForm(field))
     }
 	
 	handleClickShowPassword = () => {
@@ -101,11 +101,11 @@ class Login extends Component{
         if(this.validateForm('password')){
 			const data = {
 				"email":this.state.email,
-				"password": "akhil@823"
+				"password":this.state.password
 			}
 			this.showLoader();
 			UserService.login(data).then((res) => {
-				console.log(res.data);
+				console.log(res);
 				this.setState({
 					email:'',
 					password:''
@@ -150,7 +150,7 @@ class Login extends Component{
                     <div className='child_form'>
                         <div className="base_form" >
 					        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
-                                onChange={this.handleChange} style={{width:'100%'}} size='large' 
+                                onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
                                 error={this.state.errors.emailId}
                                 helperText={this.state.errors.emailId} 
                                 required />
@@ -184,16 +184,15 @@ class Login extends Component{
 							<FormControl 
                                 variant="outlined" 
                                 fullWidth 
-                                error={this.state.errors.password}
-                                style={{marginTop: 30}} >
+                                error={this.state.errors.password}>
                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                 <OutlinedInput
                                     id="outlined-adornment-password"
-                                    type={!this.state.showPassword ? 'text' : 'password'}
+                                    type={this.state.showPassword ? 'text' : 'password'}
                                     autoComplete={false}
                                     value={this.state.password}
                                     name="password"
-                                    onChange={this.handleChange}
+                                    onChange={this.handleChange.bind(this,'password')}
                                     endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -202,7 +201,7 @@ class Login extends Component{
                                         onMouseDown={this.handleMouseDownPassword}
                                         edge="end"
                                         >
-                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        {!this.state.showPassword ? <Visibility /> : <VisibilityOff />}
                                         </IconButton>
                                     </InputAdornment>
                                     }

@@ -1,9 +1,9 @@
-import axiosservice from './axios_services'; 
-import BASEURL from '../config/urlConstant'
+import axiosservice from './axiosServices'; 
+import BASEURL from '../config/urlConstant';
 
 class UserService {
 
-    constructor(){
+    constructor() {
         this.axiosservice = new axiosservice();
     }
 	
@@ -12,9 +12,19 @@ class UserService {
 		return this.axiosservice.post(url,data,false);
 	}
 	
-	login(data){
+	login(data) {
 		let url=BASEURL.fundooUrl + '/user/login';
 		return this.axiosservice.post(url,data,false);
+	}
+
+	forget(data) {
+		let url=BASEURL.fundooUrl + '/user/reset';
+		this.axiosservice.post(url,data,false);
+	}
+
+	resetPassword(data,token) {
+		let url=BASEURL.fundooUrl + '/user/reset-password';
+		this.axiosservice.post(url,data,true,token);
 	}
 }
 

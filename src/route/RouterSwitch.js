@@ -13,7 +13,7 @@ export default function DefaultRoute () {
                 <Route path='/' exact component={SignIn} />
                 <Route path='/register' exact component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
-                <Route path='/resetpassword' exact component={ResetPassword} />
+                <Route path='/resetpassword' component={ResetPassword} />
 				<Route path='/dashboard' exact component={DashBoard} />
             </Switch>
         </BrowserRouter>

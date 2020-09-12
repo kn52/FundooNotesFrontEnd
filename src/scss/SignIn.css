@@ -28,7 +28,7 @@ input[type=text] {
     display:flex;
 	flex-direction: column;
     width:18vw;
-    border-radius: 3%;
+    border-radius: 1.5%;
     border:1px solid silver;
     padding:2%;
 }

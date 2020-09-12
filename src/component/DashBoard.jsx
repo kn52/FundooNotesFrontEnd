@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../util/Navbar';
+import NavBar from '../util/NavBar';
 
 export default class DashBoard extends React.Component {
     
