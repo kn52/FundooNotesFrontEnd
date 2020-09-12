@@ -1,5 +1,5 @@
 import React from 'react';
-import '../scss/SignUp.css';
+import '../scss/SignUp.scss';
 import Account from '../assets/images/account.svg'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';

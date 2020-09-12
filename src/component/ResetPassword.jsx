@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../scss/SignIn.css';
+import '../scss/SignIn.scss';
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';

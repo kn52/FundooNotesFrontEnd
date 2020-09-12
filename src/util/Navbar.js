@@ -1,5 +1,5 @@
 import React from 'react';
-import '../scss/Navbar.css';
+import '../scss/Navbar.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
