@@ -14,6 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import UserService from '../service/UserService';
+import DisplaySnackBar from '../util/SnackBar';
 
 class Login extends Component{
     
@@ -23,7 +24,8 @@ class Login extends Component{
         this.state = {
             email: '',
             password: '',
-			showPassword:false,
+            showPassword:false,
+            open:false,
             errors: {},
         };
         this.handleChange=this.handleChange.bind(this);
@@ -35,7 +37,15 @@ class Login extends Component{
           [name] : value
         },() => this.validateForm(field))
     }
-	
+    
+    handleClick = () => {
+        this.setState({open:true});
+    };
+    
+    handleClose = (event) => {
+        this.setState({open:false});
+    };
+
 	handleClickShowPassword = () => {
         this.setState({ showPassword: !this.state.showPassword });
     }
@@ -98,12 +108,12 @@ class Login extends Component{
 	}
 	
 	handleSubmitForm(event) {
+        
         if(this.validateForm('password')){
 			const data = {
 				"email":this.state.email,
 				"password":this.state.password
 			}
-			this.showLoader();
 			UserService.login(data).then((res) => {
 				console.log(res);
 				this.setState({
@@ -118,6 +128,7 @@ class Login extends Component{
             document.getElementById('email_cont').style.display='none';
 		    document.getElementById('password_cont').style.display='block';
         }
+        
 	}
 	
 	componentDidMount() {
@@ -132,7 +143,7 @@ class Login extends Component{
                 <div id="loader_container">
 					<div id="loader"></div>
 				</div>
-				<div className='main_title'>
+                <div className='main_title'>
                     <span className='title' style={{color: '#4285F4'}}>F</span>
                     <span className='title' style={{color: '#DB4437'}}>u</span>
                     <span className='title' style={{color: '#DB4437'}}>n</span>
@@ -151,6 +162,7 @@ class Login extends Component{
                         <div className="base_form" >
 					        <TextField name="email" label="Email or phone" type="text" variant="outlined" value={this.state.email}
                                 onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
+                                style={{height:"70px",width:"100%"}}
                                 error={this.state.errors.emailId}
                                 helperText={this.state.errors.emailId} 
                                 required />
@@ -183,7 +195,8 @@ class Login extends Component{
                         <div class="base_form" >
 							<FormControl 
                                 variant="outlined" 
-                                fullWidth 
+                                fullWidth
+                                style={{height:"70px"}} 
                                 error={this.state.errors.password}>
                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                 <OutlinedInput

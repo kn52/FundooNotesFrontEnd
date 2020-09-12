@@ -133,7 +133,8 @@ class ResetPassword extends Component {
                             <div>
                                 <FormControl 
                                     variant="outlined" 
-                                    fullWidth 
+                                    fullWidth
+                                    style={{height:"65px"}} 
                                     error={this.state.errors.password}>
                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                     <OutlinedInput
@@ -165,7 +166,7 @@ class ResetPassword extends Component {
                                     variant="outlined" 
                                     fullWidth 
                                     error={this.state.errors.confirm}
-                                    style={{marginTop: 20}}>
+                                    style={{marginTop: 20,height:'65px'}}>
                                     <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
                                     <OutlinedInput
                                         id="outlined-adornment-password"

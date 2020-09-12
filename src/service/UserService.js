@@ -17,14 +17,18 @@ class UserService {
 		return this.axiosservice.post(url,data,false);
 	}
 
-	forget(data) {
+	forgetPassword(data) {
 		let url=BASEURL.fundooUrl + '/user/reset';
-		this.axiosservice.post(url,data,false);
+		return this.axiosservice.post(url,data,false);
 	}
 
 	resetPassword(data,token) {
 		let url=BASEURL.fundooUrl + '/user/reset-password';
-		this.axiosservice.post(url,data,true,token);
+		console.log("===============================");
+		// const header=new Headers();
+		// header.append('access_token',{token});
+		// console.log(header);
+		return this.axiosservice.post(url,data,true,{ headers: {access_token: token} });
 	}
 }
 

@@ -12,7 +12,7 @@ import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 0.1,
+    flexGrow: 1,
     textAlign:'left',
     display:'flex',
     justifyContent:'flex-start',
@@ -47,7 +47,6 @@ export default function DisplayAppBar (props) {
           <Typography variant="h5" className={classes.title}>
             Keep
           </Typography>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <div className="search">
             <div className="searchIcon">
               <SearchIcon />
@@ -57,8 +56,6 @@ export default function DisplayAppBar (props) {
                   id="input_base"
                 />        
               </div>
-          </IconButton>
-          
         </Toolbar>
       </AppBar>
     </div>

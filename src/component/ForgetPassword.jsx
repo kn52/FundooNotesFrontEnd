@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import '../scss/SignIn.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import UserService from '../service/UserService';
+import SnackBar from '../util/SnackBar';
+import UserService from '../service/UserService.js';
 
 export default class ForgetPassword extends Component{
     
@@ -23,6 +24,14 @@ export default class ForgetPassword extends Component{
         },()=>this.validate(field))
     }
     
+    handleClick = () => {
+        this.setState({open:true});
+    };
+    
+    handleClose = (event) => {
+        this.setState({open:false});
+    };
+
     validate(type) {
         
         let error = {}
@@ -52,19 +61,20 @@ export default class ForgetPassword extends Component{
           });
     }
 
-    handleClick(event) {
+    handleSubmit(event) {
         if(this.state.validateForm){
 			const data = {
                 "email":this.state.email
             }
 
-            UserService.forget(data).then((res) => {
+            UserService.forgetPassword(data).then((res) => {
 				console.log(res.data);
 				this.setState({
                     email:'',
                     validateForm:false,
                     errors:{}
-				})
+                })
+                this.handleClick();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -85,6 +95,7 @@ export default class ForgetPassword extends Component{
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
+                <SnackBar opn={this.state.open} close={this.handleClose} />
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
                         <span className='sign_title'>Account recovery</span>
@@ -96,13 +107,14 @@ export default class ForgetPassword extends Component{
                             </div>
 					        <TextField name="email" label="Enter your email" type="text" variant="outlined" value={this.state.email}
                                 onChange={this.handleChange.bind(this,'email')} style={{width:'100%'}} size='large' 
+                                style={{height:"70px"}}
                                 error={this.state.errors.email}
                                 helperText={this.state.errors.email}
                                 required />
                         </div>
                         <div className='child_action_container'>
                             <span></span>
-							<Button type="submit" className="next_button" onClick={this.handleClick.bind(this)}>
+							<Button type="submit" className="next_button" onClick={this.handleSubmit.bind(this)}>
                                 <span style={{color:'white', fontWeight:'bold', textTransform:'none'}}>
                                     Next
                                 </span>

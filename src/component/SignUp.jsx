@@ -182,13 +182,13 @@ class SignUp extends React.Component {
                             <div className='register_textfield'>
                                 <TextField name="firstname" label="First Name" variant="outlined" value={this.state.firstname}
                                     onChange={this.handleChange.bind(this,'firstname')} className='input_txt input_txt_width' size='small' 
-                                    error={this.state.errors.first} 
+                                    style={{height:"45px"}} error={this.state.errors.first} 
                                     helperText={this.state.errors.first} required />
                             </div>
                             <div className='register_textfield'>
                                 <TextField name="lastname" label="Last Name" variant="outlined" value={this.state.lastname}
                                     onChange={this.handleChange.bind(this,'lastname')} className='input_txt input_txt_width' size='small' 
-                                    error={this.state.errors.last} 
+                                    style={{height:"45px"}} error={this.state.errors.last} 
                                     helperText={this.state.errors.last} required />
                             </div>
                         </div>
@@ -196,7 +196,7 @@ class SignUp extends React.Component {
                             <div> 
                                 <TextField name="email" label="Email" type="text" variant="outlined" value={this.state.email}
                                     onChange={this.handleChange.bind(this,'email')} style={{width:'100%' }} size='small' 
-                                    error={this.state.errors.email} 
+                                    error={this.state.errors.email} style={{width:'100%',height:"50px"}} 
                                     helperText={this.state.errors.email} required />
                             </div>
                             <div style={{textAlign:'left'}}>
@@ -209,13 +209,13 @@ class SignUp extends React.Component {
 									<div className='register_textfield' >
 										<TextField name="password" label="Password" type={this.state.showPassword ? "text" : "password"} variant="outlined" value={this.state.password}
 											onChange={this.handleChange.bind(this,'password')} className='input_txt input_txt_width' size='small'
-											error={this.state.errors.password} 
+											style={{height:"50px"}} error={this.state.errors.password} 
 											helperText={this.state.errors.password} required />
 									</div>
 									<div className='register_textfield'>
 										<TextField name="confirmpassword" label="Confirm" type={this.state.showPassword ? "text" : "password"} variant="outlined" value={this.state.confirmpassword}
 											onChange={this.handleChange.bind(this,'confirm')} className='input_txt input_txt_width' size='small'
-											error={this.state.errors.confirm} 
+											style={{height:"50px"}} error={this.state.errors.confirm} 
 											helperText={this.state.errors.confirm} required />
 									</div>
 								</div>
