@@ -130,8 +130,9 @@ class Login extends Component{
 				"password":this.state.password
             }
             UserService.login(data).then((res) => {
-				console.log(res);
-				this.setState({
+                let  token= res.data.id;
+                localStorage.setItem("userToken",token);
+                this.setState({
                     sty:"success",
                     message:"Logged in Successfully",
                 })
