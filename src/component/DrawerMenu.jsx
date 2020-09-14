@@ -5,7 +5,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Avatar from '@material-ui/core/Avatar';
 import KeepIcon from '../assets/images/keepimage.jpg';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyle from '../scss/DrawerMenuCSS';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,80 +19,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor:'white',
-    flexGrow:1
-  },
-  menuButton: {
-    color:'black',
-    marginLeft: theme.spacing(-1),
-  },
-  title: {
-    flexGrow: 1,
-    textAlign:'left',
-    color:'black',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-  },
-  drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    paddingLeft:theme.spacing(1),
-    overflowX: 'hidden',
-    width: theme.spacing(7)+1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    padding: theme.spacing(3),
-  },
-
-  buttonList: {
-    backgroundColor:'lightgray'
-  },
-
-  image: {
-    width:35,
-    height:35
-  },
-
-}));
-
-export default function DrawerMenu() {
+const DrawerMenu = () => {
   
-  const classes = useStyles();
+  const classes = useStyle();
 
   const initialState = {
     open:false,
-    text:'keep'
+    text:'Fundoo'
   }
   
   const [{open,text}, setValues] = React.useState(initialState);
@@ -186,3 +119,5 @@ export default function DrawerMenu() {
     </div>
   );
 }
+
+export default DrawerMenu;
