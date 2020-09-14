@@ -117,7 +117,12 @@ class Login extends Component{
 		    document.getElementById('password_cont').style.display='none';
         }
 	}
-	
+    
+    componentDidMount() {
+        document.getElementById('email_cont').style.display='block';
+		document.getElementById('password_cont').style.display='none';
+    }
+    
 	handleSubmitForm(event) {
         if(this.state.validateForm && this.validate('password')){
 			const data = {
@@ -140,18 +145,10 @@ class Login extends Component{
                 })
                 this.handleClick();
           	})
-		}else{
-            document.getElementById('email_cont').style.display='none';
-		    document.getElementById('password_cont').style.display='block';
-        }
+		}
         this.showLoader();
-	}
-	
-	componentDidMount() {
-		document.getElementById('email_cont').style.display='block';
-		document.getElementById('password_cont').style.display='none';
-	}
-
+    }
+    
     render() {
         return(
 			<>

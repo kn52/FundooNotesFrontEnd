@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DisplayAppBar (props) {
- 
+
     const classes = useStyles();
-	
-	return (      
+
+	return (
       <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -56,7 +56,7 @@ export default function DisplayAppBar (props) {
                 <InputBase
                   placeholder=" Search"
                   id="input_base"
-                />        
+                />
               </div>
               <SettingIcon  style={{border:'1px solid black',color:'gray'}}/>
         </Toolbar>

@@ -8,6 +8,7 @@ axiosService.prototype.get = function get(URL,isHeaderReq = false ,header) {
 }
 
 axiosService.prototype.post = function post(URL, data, isHeaderReq = false ,header) {
+    console.log("HD=="+header);
     return axios.post(URL, data, isHeaderReq && header)
 }
 

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import React from "react";
 import SignIn from '../component/SignIn';
 import SignUp from '../component/SignUp';
@@ -10,7 +10,8 @@ export default function DefaultRoute () {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path={['/','/login']} exact component={SignIn} />
+                <Route path='/login' exact component={SignIn} />
+                <Route exact path='/' render={()=>{ return (<Redirect to='/login'/>)}}/>
                 <Route path='/register' exact component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
                 <Route path='/resetpassword' component={ResetPassword} />

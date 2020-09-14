@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
 import '../scss/SignIn.scss';
+import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
@@ -12,10 +12,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService';
-import Typography from '@material-ui/core/Typography';
 
+import Typography from '@material-ui/core/Typography';
 class ResetPassword extends Component {
-    
+
     constructor(props){
         super(props)
         this.state = {
@@ -29,7 +29,7 @@ class ResetPassword extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
     }
-  
+
     handleClickShowPassword = () => {
         this.setState({ showPassword: !this.state.showPassword });
     }
@@ -41,7 +41,7 @@ class ResetPassword extends Component {
     handleClick = () => {
         this.setState({open:true});
     };
-    
+
     handleClose = (event) => {
         this.setState({open:false});
         if(this.state.sty === "success"){
@@ -56,7 +56,7 @@ class ResetPassword extends Component {
             })
             this.props.history.push('/');
         }
-        
+
     };
 
     handleChange(field,event) {
@@ -67,11 +67,11 @@ class ResetPassword extends Component {
     }
 
     validate(type) {
-        
+
         let errors = {}
         var isValid = true;
         var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
-        
+
         switch(type) {
             case 'password':
                 if (!passwordPattern.test(this.state.password)) {
@@ -99,23 +99,24 @@ class ResetPassword extends Component {
                 isValid=true;
                 break;
         }
-        
-        
-        
+
+
+
         this.setState({
             validateForm:isValid,
             errors: errors
           });
     }
 
-    handleClick(event) {
-        if(this.state.validateForm){
+    handleSubmitClick = (event) => {
+        console.log("Handle=click");
+        // if(this.state.validateForm){
             let token=window.location.pathname.substring(15,(15+64));
             const data = {
-                "password":this.state.password
+                "newPassword":this.state.password
             }
             UserService.resetPassword(data,token).then((res) => {
-				console.log(res);
+				console.log("res  "+res);
 				this.setState({
                     sty:"success",
                     message:"Password Updated Successfully",
@@ -123,6 +124,7 @@ class ResetPassword extends Component {
                 this.handleClick();
 			})
 			.catch((err) => {
+                console.log('Err=handle-click');
                 this.setState({
                     sty:"error",
                     message:"Password Not Updated",
@@ -130,9 +132,9 @@ class ResetPassword extends Component {
                 this.handleClick();
 				console.log(err);
 			})
-        }
+        // }
     }
-    
+
     render() {
         return(
             <div className='main_container'>
@@ -144,7 +146,7 @@ class ResetPassword extends Component {
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
-                <SnackBar opn={this.state.open} close={this.handleClose} 
+                <SnackBar opn={this.state.open} close={this.handleClose}
                     msg={this.state.message} severity={this.state.sty}/>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>
@@ -153,7 +155,7 @@ class ResetPassword extends Component {
                     <div className='child_content'>
                         <span className='txt_title'>
                             {this.props.email}
-                        </span> 
+                        </span>
                     </div>
                     <div className='child_form'>
                         <div className="base_form" >
@@ -163,10 +165,10 @@ class ResetPassword extends Component {
                                 </Typography>
                             </div>
                             <div>
-                                <FormControl 
-                                    variant="outlined" 
+                                <FormControl
+                                    variant="outlined"
                                     fullWidth
-                                    style={{height:"65px"}} 
+                                    style={{height:"65px"}}
                                     error={this.state.errors.password}>
                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                     <OutlinedInput
@@ -194,9 +196,9 @@ class ResetPassword extends Component {
                                 </FormControl>
                             </div>
 					        <div>
-                                <FormControl 
-                                    variant="outlined" 
-                                    fullWidth 
+                                <FormControl
+                                    variant="outlined"
+                                    fullWidth
                                     error={this.state.errors.confirm}
                                     style={{marginTop: 20,height:'65px'}}>
                                     <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
@@ -232,17 +234,17 @@ class ResetPassword extends Component {
                         </div>
                         <div className='child_action_container'>
                             <span></span>
-							<Button type="submit" className="next_button" onClick={this.handleClick.bind(this)}>
+							<Button type="submit" className="next_button" onClick={this.handleSubmitClick}>
                                 <span style={{color:'white', fontWeight:'bold', textTransform:'none'}}>
                                     Next
                                 </span>
-							</Button>	
+							</Button>
                         </div>
-                    </div>					
+                    </div>
                 </div>
             </div>
         );
-    }   
+    }
 }
 
 export default withRouter(ResetPassword);
