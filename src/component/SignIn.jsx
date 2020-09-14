@@ -85,7 +85,6 @@ class Login extends Component{
             case 'password':
                 var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
                 if (!passwordPattern.test(this.state.password)) {
-                      console.log(passwordPattern.test(this.state.password))  
                       isValid = false;
                       errors["password"] = "*Please enter valid password.";
                 }

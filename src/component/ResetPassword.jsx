@@ -12,8 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import SnackBar from '../util/SnackBar';
 import UserService from '../service/UserService';
-
 import Typography from '@material-ui/core/Typography';
+
 class ResetPassword extends Component {
 
     constructor(props){
@@ -110,13 +110,11 @@ class ResetPassword extends Component {
 
     handleSubmitClick = (event) => {
         console.log("Handle=click");
-        // if(this.state.validateForm){
             let token=window.location.pathname.substring(15,(15+64));
             const data = {
                 "newPassword":this.state.password
             }
             UserService.resetPassword(data,token).then((res) => {
-				console.log("res  "+res);
 				this.setState({
                     sty:"success",
                     message:"Password Updated Successfully",
@@ -124,7 +122,6 @@ class ResetPassword extends Component {
                 this.handleClick();
 			})
 			.catch((err) => {
-                console.log('Err=handle-click');
                 this.setState({
                     sty:"error",
                     message:"Password Not Updated",
@@ -132,7 +129,6 @@ class ResetPassword extends Component {
                 this.handleClick();
 				console.log(err);
 			})
-        // }
     }
 
     render() {

@@ -5,6 +5,7 @@ import SignUp from '../component/SignUp';
 import DashBoard from '../component/DashBoard';
 import ForgetPassword from '../component/ForgetPassword';
 import ResetPassword from '../component/ResetPassword';
+import EditLabel from '../component/EditLabel';
 import PrivateRoute from './PrivateRoute';
 
 export default function DefaultRoute () {
@@ -16,6 +17,7 @@ export default function DefaultRoute () {
                 <Route path='/register' exact component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
                 <Route path='/resetpassword' component={ResetPassword} />
+                <Route path='/edit' component={EditLabel} />
 				<PrivateRoute path='/dashboard' exact component={DashBoard} />
             </Switch>
         </BrowserRouter>

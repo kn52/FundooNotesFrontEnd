@@ -24,10 +24,7 @@ class UserService {
 
 	resetPassword(data,token) {
 		let url=BASEURL.fundooUrl + '/user/reset-password';
-		console.log("===============================");
 		let headers={};
-		headers.access_token=token;
-		console.log(headers);
 		return this.axiosservice.post(url+`?access_token=${token}`,data,true,headers);
 	}
 }
