@@ -12,13 +12,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow:1
   },
   menuButton: {
-    color:'black',
+    color:'#5f6368',
     marginLeft: theme.spacing(-1),
   },
   title: {
     flexGrow: 1,
     textAlign:'left',
-    color:'black',
   },
   drawer: {
     width: drawerWidth,

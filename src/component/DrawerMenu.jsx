@@ -1,20 +1,13 @@
-import { EmojiObjectsOutlined, NotificationsOutlined, SettingsOutlined } from "@material-ui/icons";
+import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
-import { ViewAgendaOutlined, DashboardOutlined } from '@material-ui/icons';
 import React from 'react';
 import clsx from 'clsx';
-import Avatar from '@material-ui/core/Avatar';
-import KeepIcon from '../assets/images/keepimage.jpg';
+import NavBar from '../util/NavBar';
 import useStyle from '../scss/DrawerMenuCSS';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -33,47 +26,15 @@ const DrawerMenu = () => {
   const handleDrawerOpen = () => {
     let opn = open ? false : true;
     setValues({
+      text:text,
       open:opn,
-    });
-  };
-
-  const handleTextChange = (txt) => {
-      setValues({
-        text:txt
-      })
-  }
-
-  const handleToggleView = () =>{
-
+    })
   }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classes.appBar}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <IconButton color="inherit">
-            <img src={KeepIcon} alt='' className={classes.image}/>
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-              {text}
-          </Typography>
-          <SettingsOutlined button style={{color:'gray'}}/>
-          <DashboardOutlined style={{color:'gray'}}/>
-          <Avatar>{process.env.REACT_APP_BASE_URL}</Avatar>
-        </Toolbar>
-      </AppBar>
+      <NavBar open={open} txt={text} onchange={handleDrawerOpen}/>
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -91,11 +52,11 @@ const DrawerMenu = () => {
         </div>
         <Divider />
         <List>
-          <ListItem button key="Notes" onClick={()=>{handleTextChange('Keep')}}>
+          <ListItem  autoFocus style={{borderRadius:'45%'}} button key="Notes" onClick={()=>{setValues({text:'Fundoo'})}}>
             <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
             <ListItemText primary="Notes" />
           </ListItem>
-          <ListItem button key="Reminder" onClick={()=>{handleTextChange('Reminder')}}>
+          <ListItem button key="Reminder" onClick={()=>{setValues({text:'Reminder'})}}>
             <ListItemIcon><NotificationsOutlined /></ListItemIcon>
             <ListItemText primary="Reminder" />
           </ListItem>
@@ -103,11 +64,11 @@ const DrawerMenu = () => {
             <ListItemIcon><CreateOutlined/></ListItemIcon>
             <ListItemText primary="Edit Label" />
           </ListItem>
-          <ListItem button key="Archieve" onClick={()=>{handleTextChange('Archieve')}}>
+          <ListItem button key="Archieve" onClick={()=>{setValues({text:'Archieve'})}}>
             <ListItemIcon><ArchiveOutlined /></ListItemIcon>
             <ListItemText primary="Archieve" />
           </ListItem>
-          <ListItem button key="Trash" onClick={()=>{handleTextChange('Trash')}}> 
+          <ListItem button key="Trash" onClick={()=>{setValues({text:'Trash'})}}> 
             <ListItemIcon><DeleteOutlined/></ListItemIcon>
             <ListItemText primary="Trash" />
           </ListItem>

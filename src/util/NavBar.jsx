@@ -1,66 +1,41 @@
 import React from 'react';
 import '../scss/Navbar.scss';
-import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import KeepImage from '../assets/images/keepimage.jpg';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import SettingIcon from '@material-ui/icons/SettingsOutlined';
+import KeepIcon from '../assets/images/keepimage.jpg';
+import useStyle from '../scss/DrawerMenuCSS';
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    textAlign:'left',
-    display:'flex',
-    justifyContent:'flex-start',
-    backgroundColor:'white',
-    borderBottom:'1px solid silver'
-  },
-  menuButton: {
-    color:'black',
-    marginRight: theme.spacing(0),
-  },
-  title: {
-    flexGrow: 1,
-    color:'black',
-    fontFamily:'Cambria',
-  },
-}));
 
 export default function DisplayAppBar (props) {
 
-    const classes = useStyles();
-
+    const classes = useStyle();
+    let txt = props.text;
 	return (
-      <div className={classes.root}>
-      <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <img src={KeepImage} alt='' />
-          </IconButton>
-          <Typography variant="h5" className={classes.title}>
-            Keep
-          </Typography>
-          <div className="search">
-            <div className="searchIcon">
-              <SearchIcon />
-              </div>
-                <InputBase
-                  placeholder=" Search"
-                  id="input_base"
-                />
-              </div>
-              <SettingIcon  style={{border:'1px solid black',color:'gray'}}/>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar
+    position="fixed"
+    className={classes.appBar}
+    >
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={()=> { props.onchange() } }
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <IconButton color="inherit">
+          { txt === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
+        </IconButton>
+        <Typography variant="h6" className={classes.title} >
+            <span style={{color: props.txt ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{props.txt}</span>
+        </Typography>
+        <Avatar>{process.env.REACT_APP_BASE_URL}</Avatar>
+      </Toolbar>
+    </AppBar>      
     );
 }

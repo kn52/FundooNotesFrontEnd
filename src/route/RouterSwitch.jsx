@@ -13,7 +13,7 @@ export default function DefaultRoute () {
         <BrowserRouter>
             <Switch>
                 <Route path='/login' exact component={SignIn} />
-                <Route exact path='/' render={()=>{ return (<Redirect to='/login'/>)}}/>
+                <Route exact path='/' render={()=>{ return (<Redirect to='/dashboard'/>)}}/>
                 <Route path='/register' exact component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
                 <Route path='/resetpassword' component={ResetPassword} />
