@@ -1,2 +1,31 @@
-$font-stack: 'Poppins', sans-serif ; 
-$font_wt:500;
+.MainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: none;
+    transition: margin .20s linear;
+}
+
+.slideMainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 160px;
+    margin-right: -3.7%;
+    transition: margin .20s linear;
+}
+
+.bulbContainer{
+    display: flex;
+    justify-content: center;
+    align-content: center; 
+    flex-direction: column;
+    margin-top: 15%;
+}
+
+.bulbImage{
+    width: 100px;
+    height: 100px;
+    filter: contrast(0%);
+    align-self: center;
+}

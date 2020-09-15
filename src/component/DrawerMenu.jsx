@@ -11,6 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Notes from './Notes';
+import { withRouter} from 'react-router-dom';
 
 const DrawerMenu = () => {
   
@@ -24,7 +26,6 @@ const DrawerMenu = () => {
   const [{open,text}, setValues] = React.useState(initialState);
 
   const handleDrawerOpen = () => {
-    console.log("====handleDrawer======")
     let opn = open ? false : true;
     setValues({
       text:text,
@@ -54,7 +55,9 @@ const DrawerMenu = () => {
           <List className={classes.listStyle}>
             <ListItem button autoFocus key="Notes" onClick={()=>{
               open && setValues({open:true,text:'Fundoo'})
-              }} className={classes.listItemStyle} style={text === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
+              this.props.history.push('/dashboard/notes')
+            }} className={classes.listItemStyle} 
+              style={text === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
             </ListItem>
@@ -87,11 +90,11 @@ const DrawerMenu = () => {
           </List>
         </div>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar}/>
+      <main >
+        { text === 'Fundoo' && <Notes opn={open}/>}
       </main>
     </div>
   );
 }
 
-export default DrawerMenu;
+export default withRouter(DrawerMenu);
