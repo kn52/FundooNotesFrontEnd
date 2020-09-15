@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor:'white',
-    flexGrow:1
   },
   menuButton: {
     color:'#5f6368',
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
@@ -63,6 +61,78 @@ const useStyles = makeStyles((theme) => ({
     width:35,
     height:35
   },
+
+  profile: {
+    width: '100px',
+    height: '100px',
+    fontSize: '60px',
+  },
+
+  gridContainer: {
+    border:1,
+    minWidth:300,
+    maxWidth: 445,
+    padding: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      padding: 20,
+   },
+  },
+  
+  listStyle: {
+    '& .MuiListItem-button:hover ': {
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:focus ': {
+        backgroundColor: '#feefc3',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:active ': {
+        backgroundColor: '#feefc3',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiTypography-body1': {
+        fontWeight: 500,
+    },
+    marginLeft: theme.spacing(0),
+    transform: 'none',
+    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
+},
+
+listStyle2: {
+    '& .MuiListItem-button:hover ': {
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:focus ': {
+        backgroundColor: 'none',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:active ': {
+        backgroundColor: 'none',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiTypography-body1': {
+        fontWeight: 500,
+    },
+    marginLeft: theme.spacing(0),
+    transform: 'none',
+    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
+},
+
+listItemStyle: {
+    borderBottomRightRadius: '2em',
+    borderTopRightRadius: '2em',
+},
 
 }));
 

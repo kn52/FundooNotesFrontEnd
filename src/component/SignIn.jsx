@@ -131,6 +131,7 @@ class Login extends Component{
             UserService.login(data).then((res) => {
                 let  token= res.data.id;
                 localStorage.setItem("userToken",token);
+                localStorage.setItem("email",this.state.email)
                 this.setState({
                     sty:"success",
                     message:"Logged in Successfully",
@@ -146,7 +147,6 @@ class Login extends Component{
                 this.handleClick();
           	})
 		}
-        this.showLoader();
     }
     
     render() {

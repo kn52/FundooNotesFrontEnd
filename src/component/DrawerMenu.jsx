@@ -24,6 +24,7 @@ const DrawerMenu = () => {
   const [{open,text}, setValues] = React.useState(initialState);
 
   const handleDrawerOpen = () => {
+    console.log("====handleDrawer======")
     let opn = open ? false : true;
     setValues({
       text:text,
@@ -37,10 +38,8 @@ const DrawerMenu = () => {
       <NavBar open={open} txt={text} onchange={handleDrawerOpen}/>
       <Drawer
         variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
+        open={open}
+        className={clsx(classes.drawer)}
         classes={{
           paper: clsx({
             [classes.drawerOpen]: open,
@@ -51,31 +50,45 @@ const DrawerMenu = () => {
         <div className={classes.toolbar}>
         </div>
         <Divider />
-        <List>
-          <ListItem  autoFocus style={{borderRadius:'45%'}} button key="Notes" onClick={()=>{setValues({text:'Fundoo'})}}>
-            <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
-            <ListItemText primary="Notes" />
-          </ListItem>
-          <ListItem button key="Reminder" onClick={()=>{setValues({text:'Reminder'})}}>
-            <ListItemIcon><NotificationsOutlined /></ListItemIcon>
-            <ListItemText primary="Reminder" />
-          </ListItem>
-          <ListItem button key="Edit Label">
-            <ListItemIcon><CreateOutlined/></ListItemIcon>
-            <ListItemText primary="Edit Label" />
-          </ListItem>
-          <ListItem button key="Archieve" onClick={()=>{setValues({text:'Archieve'})}}>
-            <ListItemIcon><ArchiveOutlined /></ListItemIcon>
-            <ListItemText primary="Archieve" />
-          </ListItem>
-          <ListItem button key="Trash" onClick={()=>{setValues({text:'Trash'})}}> 
-            <ListItemIcon><DeleteOutlined/></ListItemIcon>
-            <ListItemText primary="Trash" />
-          </ListItem>
-        </List>
+        <div>
+          <List className={classes.listStyle}>
+            <ListItem button autoFocus key="Notes" onClick={()=>{
+              open && setValues({open:true,text:'Fundoo'})
+              }} className={classes.listItemStyle} style={text === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
+              <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
+              <ListItemText primary="Notes" />
+            </ListItem>
+            
+            <ListItem button key="Reminder" onClick={()=>{
+              open && setValues({open:true,text:'Reminder'})
+              }} className={classes.listItemStyle} style={text === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
+              <ListItemIcon><NotificationsOutlined /></ListItemIcon>
+              <ListItemText primary="Reminder" />
+            </ListItem>
+            
+            <ListItem button key="Edit Label" className='listStyle2'>
+              <ListItemIcon><CreateOutlined/></ListItemIcon>
+              <ListItemText primary="Edit Label" />
+            </ListItem>
+            
+            <ListItem button key="Archieve" onClick={()=>{
+              open && setValues({open:true,text:'Archieve'})
+              }} className={classes.listItemStyle} style={text === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
+              <ListItemIcon><ArchiveOutlined /></ListItemIcon>
+              <ListItemText primary="Archieve" />
+            </ListItem>
+            
+            <ListItem button key="Trash" onClick={()=>{
+              open && setValues({open:true,text:'Trash'})
+              }} className={classes.listItemStyle} style={text === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
+              <ListItemIcon><DeleteOutlined/></ListItemIcon>
+              <ListItemText primary="Trash" /> 
+            </ListItem>
+          </List>
+        </div>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}/>
       </main>
     </div>
   );

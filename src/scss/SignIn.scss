@@ -1,3 +1,7 @@
+$font-stack: 'Poppins', sans-serif ; 
+$font_wt:500;
+$primary-color:#1a73e8;
+
 #loader_container{
 	border:1px solid;
     width:100%;
@@ -12,7 +16,7 @@
     width: 0;
     height: 0.3em;
     border-radius: 8px;
-    background-color: #1a73e8;
+    background-color: $primary-color;
 }
 
 input[type=text] {
@@ -36,8 +40,8 @@ input[type=text] {
 
 .main_title {
     font-size:2em;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-family: $font-stack;
+    font-weight: $font_wt;
 }
 
 .child_content {
@@ -51,15 +55,15 @@ input[type=text] {
 .sign_title {
     font-size:x-large;
     color:black;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-family: $font-stack;
+    font-weight: $font_wt;
 }
 
 .txt_title {
     font-size:large;
     color:black;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-family: $font-stack;
+    font-weight: $font_wt;
     text-transform: none;
 }
 
@@ -100,10 +104,10 @@ input[type=text] {
 }
 
 .next_button {
-    font-family: 'Poppins', sans-serif;
+    font-family: $font-stack;
     width: 80px; 
     height: 35px;
-    background-color: #1a73e8 !important;
+    background-color:  $primary-color !important;
 }
 
 @media (max-width: 1200px) {
