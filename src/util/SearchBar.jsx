@@ -29,27 +29,35 @@ export default function SearchBar() {
 
   const [clickaway,setClickAway]=useState(false);
 
+  const [searchText,setSearchText]=useState('');
+
+  const displaySearch = (
+    <>
+      <IconButton className={classes.iconButton} aria-label="menu">
+          <SearchIcon />
+        </IconButton>
+        <InputBase
+          className={classes.input}
+          placeholder="Search"
+          value={searchText}
+          inputProps={{ 'aria-label': 'search notes' }}
+          onChange={ (e) => {setSearchText({searchText:e.target.value})} }
+          onClick={()=>setClickAway(true)}
+        />
+        <IconButton  className={classes.iconButton} aria-label="directions">
+          { clickaway && <CrossIcon onClick={()=>{ setSearchText({searchText:''}) }}/> }
+        </IconButton>
+    </>
+  )
+
   const handleClickAway = () =>{
     setClickAway(false);
   }
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Paper component="form" className={classes.root} 
-        style={ clickaway ? { backgroundColor:'white'}: { backgroundColor:'#f1f3f4'} }>
-        <IconButton className={classes.iconButton} aria-label="menu">
-        <SearchIcon />
-        </IconButton>
-        <InputBase
-          className={classes.input}
-          placeholder="Search..."
-          inputProps={{ 'aria-label': 'search notes' }}
-          onClick={()=>setClickAway(true)}
-        />
-        <IconButton  className={classes.iconButton} aria-label="directions">
-          { clickaway && <CrossIcon /> }
-        </IconButton>
-      </Paper>
+      { clickaway ? <Paper component="form" className={classes.root} style={{backgroundColor:'white'}}>{displaySearch}</Paper>
+                  : <div className={classes.root} style={{backgroundColor:'#f1f3f4'}}>{displaySearch}</div> }
     </ClickAwayListener>
   );
 }
