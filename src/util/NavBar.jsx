@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../scss/Navbar.scss';
-// import {GrayToolTip} from '../scss/DrawerMenuCSS';
 import { Typography, Divider, Grid, AppBar, Toolbar, } from '@material-ui/core/';
 import { Avatar, IconButton, Button, Popover } from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -8,6 +7,7 @@ import SearchBar from './SearchBar';
 import KeepIcon from '../assets/images/keepimage.jpg';
 import useStyle from '../scss/DrawerMenuCSS';
 import { withRouter} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const userName = () => {
   let email = localStorage.getItem("email");
@@ -18,6 +18,8 @@ const userName = () => {
 const DisplayAppBar = (props) => {
 
     const classes = useStyle();
+
+    const label = useSelector(state=>state.currentLabelId);
 
     const [openPopover,setPopover]=useState(false);
 
@@ -80,10 +82,10 @@ const DisplayAppBar = (props) => {
             </IconButton>
           {/* </GrayToolTip> */}
           <IconButton color="inherit">
-            { props.txt === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
+            { label === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
           </IconButton>
           <Typography variant="h6" className={classes.title} >
-              <span style={{color: props.txt ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{props.txt}</span>
+              <span style={{color: props.txt ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{label}</span>
           </Typography>
           <SearchBar/>
           <IconButton onClick={()=>{setPopover(true)}}>

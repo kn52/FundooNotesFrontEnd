@@ -63,7 +63,7 @@ const DrawerMenu = () => {
               dispatch(setLabelPage('Fundoo'))
               setValues({open:true,text:'Fundoo'})
             }} className={classes.listItemStyle} 
-              style={text === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
+              style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
             </ListItem>
@@ -71,7 +71,7 @@ const DrawerMenu = () => {
             <ListItem button key="Reminder" onClick={()=>{
               dispatch(setLabelPage('Reminder'))
               setValues({open:true,text:'Reminder'})
-              }} className={classes.listItemStyle} style={text === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
+              }} className={classes.listItemStyle} style={labels === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><NotificationsOutlined /></ListItemIcon>
               <ListItemText primary="Reminder" />
             </ListItem>
@@ -86,7 +86,7 @@ const DrawerMenu = () => {
             <ListItem button key="Archieve" onClick={()=>{
               dispatch(setLabelPage('Archieve'))
               setValues({open:true,text:'Archieve'})
-              }} className={classes.listItemStyle} style={text === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
+              }} className={classes.listItemStyle} style={labels === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><ArchiveOutlined /></ListItemIcon>
               <ListItemText primary="Archieve" />
             </ListItem>
@@ -94,7 +94,7 @@ const DrawerMenu = () => {
             <ListItem button key="Trash" onClick={()=>{
                dispatch(setLabelPage('Trash')) 
                setValues({open:true,text:'Trash'})
-              }} className={classes.listItemStyle} style={text === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
+              }} className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 
             </ListItem>
