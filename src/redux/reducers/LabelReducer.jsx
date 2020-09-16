@@ -1,4 +1,4 @@
-import {CURRENT_LABEL_PAGE} from './LabelAction'
+import {CURRENT_LABEL_PAGE} from '../actions/LabelAction'
 
 const initialState = {
     currentLabelId : 'Fundoo'

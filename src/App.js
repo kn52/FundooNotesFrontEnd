@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import DefaultRoute from "./route/RouterSwitch";
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from './redux/store/store';
 
 export default function App() {
     return (

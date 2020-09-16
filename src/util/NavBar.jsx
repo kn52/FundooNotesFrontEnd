@@ -7,7 +7,8 @@ import SearchBar from './SearchBar';
 import KeepIcon from '../assets/images/keepimage.jpg';
 import useStyle from '../scss/DrawerMenuCSS';
 import { withRouter} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';
 
 const userName = () => {
   let email = localStorage.getItem("email");
@@ -19,7 +20,10 @@ const DisplayAppBar = (props) => {
 
     const classes = useStyle();
 
-    const label = useSelector(state=>state.currentLabelId);
+    const label = useSelector(state=>state.label.currentLabelId);
+    const openDrawer = useSelector(state=>state.drawer.openDrawer);
+
+    const dispatch = useDispatch();
 
     const [openPopover,setPopover]=useState(false);
 
@@ -64,6 +68,8 @@ const DisplayAppBar = (props) => {
     </Popover>
     );
 
+    console.log(openDrawer);
+
     return (
       <>
       <AppBar
@@ -75,7 +81,9 @@ const DisplayAppBar = (props) => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={()=> { props.onchange() } }
+              onClick={()=> { 
+                dispatch( openDrawer ? toggleDrawerClose() : toggleDrawerOpen() )
+               } }
               className={classes.menuButton}
             >
               <MenuIcon />
@@ -85,7 +93,7 @@ const DisplayAppBar = (props) => {
             { label === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
           </IconButton>
           <Typography variant="h6" className={classes.title} >
-              <span style={{color: props.txt ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{label}</span>
+              <span style={{color: label ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{label}</span>
           </Typography>
           <SearchBar/>
           <IconButton onClick={()=>{setPopover(true)}}>

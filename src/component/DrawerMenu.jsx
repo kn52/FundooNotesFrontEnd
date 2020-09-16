@@ -1,6 +1,6 @@
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
-import setLabelPage from '../redux/LabelAction';
+import setLabelPage from '../redux/actions/LabelAction';
 import React from 'react';
 import clsx from 'clsx';
 import NavBar from '../util/NavBar';
@@ -20,29 +20,15 @@ const DrawerMenu = () => {
 
   const classes = useStyle();
 
-  const labels = useSelector(state=>state.currentLabelId);
+  const labels = useSelector(state=>state.label.currentLabelId);
+  const open = useSelector(state=>state.drawer.openDrawer)
 
-  const  dispatch =useDispatch();
-
-  const initialState = {
-    open:false,
-    text:'Fundoo'
-  }
-  
-  const [{open,text}, setValues] = React.useState(initialState);
-
-  const handleDrawerOpen = () => {
-    let opn = open ? false : true;
-    setValues({
-      text:text,
-      open:opn,
-    })
-  }
+  const  dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavBar open={open} txt={labels} onchange={handleDrawerOpen}/>
+      <NavBar />
       <Drawer
         variant="permanent"
         open={open}
@@ -59,19 +45,14 @@ const DrawerMenu = () => {
         <Divider />
         <div>
           <List className={classes.listStyle}>
-            <ListItem button autoFocus key="Notes" onClick={()=>{
-              dispatch(setLabelPage('Fundoo'))
-              setValues({open:true,text:'Fundoo'})
-            }} className={classes.listItemStyle} 
-              style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
+            <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) }} 
+                className={classes.listItemStyle} style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
             </ListItem>
             
-            <ListItem button key="Reminder" onClick={()=>{
-              dispatch(setLabelPage('Reminder'))
-              setValues({open:true,text:'Reminder'})
-              }} className={classes.listItemStyle} style={labels === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
+            <ListItem button key="Reminder" onClick={()=>{ open &&  dispatch(setLabelPage('Reminder')) }} 
+                className={classes.listItemStyle} style={labels === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><NotificationsOutlined /></ListItemIcon>
               <ListItemText primary="Reminder" />
             </ListItem>
@@ -83,18 +64,14 @@ const DrawerMenu = () => {
             </ListItem>
           </List> 
           <List className={classes.listStyle}>
-            <ListItem button key="Archieve" onClick={()=>{
-              dispatch(setLabelPage('Archieve'))
-              setValues({open:true,text:'Archieve'})
-              }} className={classes.listItemStyle} style={labels === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
+            <ListItem button key="Archieve" onClick={()=>{ open && dispatch(setLabelPage('Archieve')) }} 
+                className={classes.listItemStyle} style={labels === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><ArchiveOutlined /></ListItemIcon>
               <ListItemText primary="Archieve" />
             </ListItem>
             
-            <ListItem button key="Trash" onClick={()=>{
-               dispatch(setLabelPage('Trash')) 
-               setValues({open:true,text:'Trash'})
-              }} className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
+            <ListItem button key="Trash" onClick={()=>{ open && dispatch(setLabelPage('Trash')) }} 
+                className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 
             </ListItem>
@@ -102,7 +79,7 @@ const DrawerMenu = () => {
         </div>
       </Drawer>
       <main >
-        { text === 'Fundoo' && <Notes opn={open}/>}
+        { labels === 'Fundoo' && <Notes opn={open}/>}
       </main>
     </div>
   );
