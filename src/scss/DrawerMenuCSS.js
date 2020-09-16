@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 240;
 
@@ -135,5 +136,13 @@ listItemStyle: {
 },
 
 }));
+
+export const DisplayTooltip = withStyles(theme => ({
+  tooltip: {
+      backgroundColor: '#404040',
+      color: 'white',
+      fontSize: 12,
+  },
+}))(Tooltip);
 
 export default useStyles;

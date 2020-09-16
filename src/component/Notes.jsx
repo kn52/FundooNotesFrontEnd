@@ -2,8 +2,7 @@ import React from "react";
 import '../scss/Notes.scss';
 import NotesCollapsed from './NotesCollapsed';
 import NotesExpanded from './NotesExpanded';
-import NoteCard from './NotesCard'; 
-import { Container, ClickAwayListener, Typography } from "@material-ui/core";
+import { Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 
 class Notes extends React.Component {
@@ -49,11 +48,6 @@ class Notes extends React.Component {
     }
 
     isEmpty = (obj) => {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
-                return false;
-        }
-        return true;
     }
 
     componentDidMount() {
@@ -87,56 +81,10 @@ class Notes extends React.Component {
                         this.state.pinNotes === null && this.state.unpinNotes === null &&
                         <div className="bulbContainer">
                             <img alt="temp background" src={bulbImage} className="bulbImage" />
-                            <h2>Notes you add appear here</h2>
+                            <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
                         </div>
                     }
-
-                    {/* {
-                        !this.isEmpty(this.state.pinNotes) &&
-                        <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '4em', marginLeft: '10.5em' }}
-                        >
-                            PINNED:- {Object.keys(this.state.pinNotes).length}
-                        </Typography>
-                    }
-                    <Masonry className={!this.props.toggleView ? "gridView" : "listView"}>
-                        {
-                            this.state.pinNotes !== null &&
-                            Object.getOwnPropertyNames(this.state.pinNotes).map((key, index) => (
-                                <NoteCard
-                                    key={key}
-                                    Notekey={key}
-                                    NoteObj={this.state.pinNotes[key]}
-                                    ToggleView={this.props.toggleView}
-                                    HandleArchiveChange={this.handleArchiveChange}
-                                />
-                            ))
-                        }
-                    </Masonry>
-                    {
-                        !this.isEmpty(this.state.pinNotes) && !this.isEmpty(this.state.unpinNotes) &&
-                        <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '3em', marginLeft: '10.5em' }}
-                        >
-                            OTHERS:- {Object.keys(this.state.unpinNotes).length}
-                        </Typography>
-                    }
-
-                    <Masonry className={!this.props.toggleView ? "gridView" : "listView"}>
-                        {
-                            this.state.unpinNotes !== null &&
-                            Object.getOwnPropertyNames(this.state.unpinNotes).map((key, index) => (
-                                <NoteCard
-                                    key={key}
-                                    Notekey={key}
-                                    NoteObj={this.state.unpinNotes[key]}
-                                    ToggleView={this.props.toggleView}
-                                    HandleArchiveChange={this.handleArchiveChange}
-                                />
-                            ))
-                        }
-                    </Masonry> */}
-                </div>
+              </div>
             </Container>
         );
     }

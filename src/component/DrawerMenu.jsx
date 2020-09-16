@@ -1,5 +1,6 @@
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
+import setLabelPage from '../redux/LabelAction';
 import React from 'react';
 import clsx from 'clsx';
 import NavBar from '../util/NavBar';
@@ -13,10 +14,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Notes from './Notes';
 import { withRouter} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 const DrawerMenu = () => {
-  
+
   const classes = useStyle();
+
+  const labels = useSelector(state=>state.currentLabelId);
+
+  const  dispatch =useDispatch();
 
   const initialState = {
     open:false,
@@ -36,7 +42,7 @@ const DrawerMenu = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavBar open={open} txt={text} onchange={handleDrawerOpen}/>
+      <NavBar open={open} txt={labels} onchange={handleDrawerOpen}/>
       <Drawer
         variant="permanent"
         open={open}
@@ -54,8 +60,8 @@ const DrawerMenu = () => {
         <div>
           <List className={classes.listStyle}>
             <ListItem button autoFocus key="Notes" onClick={()=>{
-              open && setValues({open:true,text:'Fundoo'})
-              this.props.history.push('/dashboard/notes')
+              dispatch(setLabelPage('Fundoo'))
+              setValues({open:true,text:'Fundoo'})
             }} className={classes.listItemStyle} 
               style={text === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
@@ -63,26 +69,31 @@ const DrawerMenu = () => {
             </ListItem>
             
             <ListItem button key="Reminder" onClick={()=>{
-              open && setValues({open:true,text:'Reminder'})
+              dispatch(setLabelPage('Reminder'))
+              setValues({open:true,text:'Reminder'})
               }} className={classes.listItemStyle} style={text === 'Reminder' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><NotificationsOutlined /></ListItemIcon>
               <ListItemText primary="Reminder" />
             </ListItem>
-            
-            <ListItem button key="Edit Label" className='listStyle2'>
+          </List> 
+          <List className={classes.listStyle2}>
+            <ListItem button key="Edit Label" className='listItemStyle'>
               <ListItemIcon><CreateOutlined/></ListItemIcon>
               <ListItemText primary="Edit Label" />
             </ListItem>
-            
+          </List> 
+          <List className={classes.listStyle}>
             <ListItem button key="Archieve" onClick={()=>{
-              open && setValues({open:true,text:'Archieve'})
+              dispatch(setLabelPage('Archieve'))
+              setValues({open:true,text:'Archieve'})
               }} className={classes.listItemStyle} style={text === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><ArchiveOutlined /></ListItemIcon>
               <ListItemText primary="Archieve" />
             </ListItem>
             
             <ListItem button key="Trash" onClick={()=>{
-              open && setValues({open:true,text:'Trash'})
+               dispatch(setLabelPage('Trash')) 
+               setValues({open:true,text:'Trash'})
               }} className={classes.listItemStyle} style={text === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 

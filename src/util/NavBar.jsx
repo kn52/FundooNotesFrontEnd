@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../scss/Navbar.scss';
+// import {GrayToolTip} from '../scss/DrawerMenuCSS';
 import { Typography, Divider, Grid, AppBar, Toolbar, } from '@material-ui/core/';
 import { Avatar, IconButton, Button, Popover } from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -68,14 +69,16 @@ const DisplayAppBar = (props) => {
       className={classes.appBar}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={()=> { props.onchange() } }
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
+          {/* <GrayToolTip title='Main Menu'> */}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={()=> { props.onchange() } }
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+          {/* </GrayToolTip> */}
           <IconButton color="inherit">
             { props.txt === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
           </IconButton>

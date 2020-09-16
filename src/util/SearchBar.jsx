@@ -1,9 +1,6 @@
-
-import React from 'react';
+import React, { useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
+import { InputBase, Paper, ClickAwayListener, IconButton } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import CrossIcon from '@material-ui/icons/Clear'
 
@@ -30,19 +27,29 @@ const useStyles = makeStyles(theme => ({
 export default function SearchBar() {
   const classes = useStyles();
 
+  const [clickaway,setClickAway]=useState(false);
+
+  const handleClickAway = () =>{
+    setClickAway(false);
+  }
+
   return (
-    <Paper component="form" className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
-      <SearchIcon />
-      </IconButton>
-      <InputBase
-        className={classes.input}
-        placeholder="Search..."
-        inputProps={{ 'aria-label': 'search notes' }}
-      />
-      <IconButton  className={classes.iconButton} aria-label="directions">
-        <CrossIcon />
-      </IconButton>
-    </Paper>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Paper component="form" className={classes.root} 
+        style={ clickaway ? { backgroundColor:'white'}: { backgroundColor:'#f1f3f4'} }>
+        <IconButton className={classes.iconButton} aria-label="menu">
+        <SearchIcon />
+        </IconButton>
+        <InputBase
+          className={classes.input}
+          placeholder="Search..."
+          inputProps={{ 'aria-label': 'search notes' }}
+          onClick={()=>setClickAway(true)}
+        />
+        <IconButton  className={classes.iconButton} aria-label="directions">
+          { clickaway && <CrossIcon /> }
+        </IconButton>
+      </Paper>
+    </ClickAwayListener>
   );
 }
