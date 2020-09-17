@@ -21,9 +21,16 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
+    flexShrink:0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
+    '&. MuiDrawer-paperAnchorDockedLeft': {
+      border:'none'
+    },
+    // '&. makeStyles-drawer-5':{
+    //   width:'240px'
+    // },
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -31,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    '&. MuiDrawer-paperAnchorDockedLeft': {
+        border:'none'
+    },
+    // '&. makeStyles-drawer-5':{
+    //   width:'0px'
+    // },
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -51,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   content: {
+    flexGrow:1,
     padding: theme.spacing(3),
   },
 
@@ -90,12 +104,12 @@ const useStyles = makeStyles((theme) => ({
         borderTopRightRadius: '2em',
     },
     '& .MuiListItem-button:focus ': {
-        backgroundColor: '#feefc3',
+        // backgroundColor: '#feefc3',
         borderBottomRightRadius: '2em',
         borderTopRightRadius: '2em',
     },
     '& .MuiListItem-button:active ': {
-        backgroundColor: '#feefc3',
+        // backgroundColor: '#feefc3',
         borderBottomRightRadius: '2em',
         borderTopRightRadius: '2em',
     },

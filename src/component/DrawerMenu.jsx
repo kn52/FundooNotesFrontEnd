@@ -1,20 +1,15 @@
-import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
-import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
-import setLabelPage from '../redux/actions/LabelAction';
 import React from 'react';
 import clsx from 'clsx';
+import setLabelPage from '../redux/actions/LabelAction';
 import NavBar from '../util/NavBar';
-import useStyle from '../scss/DrawerMenuCSS';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Notes from './Notes';
+import useStyle from '../scss/DrawerMenuCSS';
+import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
+import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
+import { Drawer,List, CssBaseline,Divider,ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
 import { withRouter} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { toggleDrawerOpen, toggleDrawerClose } from "../redux/actions/DrawerAction";
 
 const DrawerMenu = () => {
 
@@ -32,8 +27,10 @@ const DrawerMenu = () => {
       <Drawer
         variant="permanent"
         open={open}
+        // onMouseEnter={ ()=> {dispatch(toggleDrawerOpen())} }
+        // onMouseLeave={ ()=> {dispatch(toggleDrawerClose())} }
         className={clsx(classes.drawer)}
-        classes={{
+        classes={{ 
           paper: clsx({
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
@@ -78,7 +75,7 @@ const DrawerMenu = () => {
           </List>
         </div>
       </Drawer>
-      <main >
+      <main className={classes.content} style={{minHeight:'390px'}}>
         { labels === 'Fundoo' && <Notes opn={open}/>}
       </main>
     </div>

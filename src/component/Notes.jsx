@@ -2,18 +2,22 @@ import React from "react";
 import '../scss/Notes.scss';
 import NotesCollapsed from './NotesCollapsed';
 import NotesExpanded from './NotesExpanded';
+import NoteCard from './NotesCard';
 import { Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
+import { connect } from 'react-redux';
+import { addNote, removeNote } from "../redux/actions/NoteAction";
 
 class Notes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sliderClassName: !false ? 'MainContainer' : 'slideMainContainer',
+            sliderClassName: !this.props.openDrawer ? 'MainContainer' : 'slideMainContainer',
             noteTakerState: false,
             clickAway: false,
             noteTitle: '',
             noteContent: '',
+            noteColor:'white',
             pinStatus: false,
             archive: false,
             trash: false,
@@ -24,10 +28,25 @@ class Notes extends React.Component {
 
     handleClickAway = () => {
         this.setState({ clickAway: false });
+        if(this.state.noteTitle!=='') {
+            var newId = this.props.notes.length+1;
+            const data = {
+                id:newId,
+                noteTitle: this.state.noteTitle,
+                noteContent: this.state.noteContent,
+                noteContent: this.state.noteColor,
+                pinStatus: this.state.pinStatus,
+                archive: this.state.archive,
+                trash: this.state.trash,
+            }
+            this.props.addNote(data);
+        }
+        
         if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
             this.setState({
                 noteTitle: '',
                 noteContent: '',
+                noteColor:'',
                 pinStatus: false,
                 Archive: false,
             })
@@ -64,9 +83,10 @@ class Notes extends React.Component {
                                 !this.state.clickAway
                                     ? <NotesCollapsed handleNoteTakerClick={() => this.setState({ clickAway: true })} />
                                     : <NotesExpanded
-                                        handleClickAway={this.handleClickAway}
+                                        handleClickAway={ ()=> {this.handleClickAway()} }
                                         noteTitleValue={this.state.noteTitle}
                                         noteContentValue={this.state.noteContent}
+                                        noteColorvalue={this.state.noteColor}
                                         handleNoteChange={this.handleNoteChange}
                                         HandlePinStatusChange={() => this.setState({ pinStatus: !this.state.PinStatus })}
                                         pinStatus={this.state.pinStatus}
@@ -76,17 +96,47 @@ class Notes extends React.Component {
                             }
                         </div>
                     </ClickAwayListener>
-                    
                     { 
-                        this.state.pinNotes === null && this.state.unpinNotes === null &&
+                        this.props.notes.length === 0 &&
                         <div className="bulbContainer">
                             <img alt="temp background" src={bulbImage} className="bulbImage" />
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
                         </div>
+                    }
+
+    
+                    {
+                        this.props.notes.length>0 && 
+                        this.props.notes.map((key,index)=>{
+                            return <NoteCard
+                                    key={index}
+                                    Notekey={key.notes.id}
+                                    NoteObj={key.notes}
+                                    HandleArchiveChange={this.handleArchiveChange}
+                                />
+                        })
                     }
               </div>
             </Container>
         );
     }
 }
-export default Notes;
+
+const mapToStateProps = state => {
+    if(state.note.notes.length>0){
+        console.log(state.note.notes[0]);
+    }
+    return {
+        openDrawer: state.drawer.openDrawer,
+        notes:state.note.notes
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addNote: (data)=> dispatch(addNote(data)),
+        removeNote:(id)=>dispatch(removeNote(id))
+    }
+}
+
+export default connect(mapToStateProps,mapDispatchToProps)(Notes);
