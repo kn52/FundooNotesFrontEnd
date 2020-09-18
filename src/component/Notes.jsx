@@ -24,6 +24,7 @@ class Notes extends React.Component {
             trash: false,
             pinNotes: null,
             unpinNotes: null,
+            getNotes:{}
         };
     }
 
@@ -35,7 +36,7 @@ class Notes extends React.Component {
                 id:newId,
                 noteTitle: this.state.noteTitle,
                 noteContent: this.state.noteContent,
-                noteContent: this.state.noteColor,
+                noteColor: this.state.noteColor,
                 pinStatus: this.state.pinStatus,
                 archive: this.state.archive,
                 trash: this.state.trash,
@@ -45,12 +46,12 @@ class Notes extends React.Component {
         
         if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
             const data2 = {
-                title: this.state.noteTitle,
-                description: this.state.noteContent,
-                noteContent: this.state.noteColor,
-                isPined: this.state.pinStatus,
-                isArchive: this.state.archive,
-                isDeleted: this.state.trash,
+                "title": this.state.noteTitle,
+                "description": this.state.noteContent,
+                "color": this.state.noteColor,
+                "isPined": this.state.pinStatus,
+                "isArchive": this.state.archive,
+                "isDeleted": this.state.trash,
             }
             
             NoteService.addNote(data2).then((res) => {
@@ -59,13 +60,17 @@ class Notes extends React.Component {
 			.catch((err) => {
                 console.log(err);
             })
-
             NoteService.getNotes().then((res) => {
                 console.log(res.data);
+                const notes = res.data.data;
+                this.setState({
+                    getNotes:notes
+                })
             })
-			.catch((err) => {
+            .catch((err) => {
                 console.log(err);
-            })
+            })                
+            console.log(this.state.getNotes);
             this.setState({
                 noteTitle: '',
                 noteContent: '',
@@ -92,7 +97,21 @@ class Notes extends React.Component {
     isEmpty = (obj) => {
     }
 
-  render() {
+    componentDidMount() {
+            NoteService.getNotes().then((res) => {
+                console.log(res.data);
+                const notes = res.data.data;
+                this.setState({
+                    getNotes:notes
+                })
+            })
+			.catch((err) => {
+                console.log(err);
+            })
+            console.log(this.state.getNotes);
+    }
+
+    render() {
         return (
             <Container>
                 <div className={this.state.sliderClassName}>

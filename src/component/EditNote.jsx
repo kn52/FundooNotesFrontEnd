@@ -19,6 +19,8 @@ import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
 import UnPinIcon from "../assets/images/pin.png";
 import PinIcon from "../assets/images/pinned.png";
 import Popover from '@material-ui/core/Popover';
+import NoteService from '../service/NoteService'; 
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -116,6 +118,17 @@ export default function EditNote(props) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const updateNote = async () => {
+        const data = {
+            "noteId":"5f64d38b5671b9001f4c5448",
+            "title":"Hi jitesh dubey",
+            "description":"How are you"
+        }
+        NoteService.updateNote(data).then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
         props.handleClose()
     }
 

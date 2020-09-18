@@ -18,6 +18,12 @@ class NoteService {
         return this.axiosservice.post(url,data,true,headers);
     }
 
+    updateNote(data) {
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/updateNotes';
+        return this.axiosservice.post(url,data,true,headers);
+    }
+
     getHeader = () => {
         return {
             headers: {
