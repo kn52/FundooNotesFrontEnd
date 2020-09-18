@@ -2,6 +2,7 @@ import React from 'react';
 import { useStyles } from '../scss/NoteCardCSS';
 import { Paper, Typography, Avatar, Chip } from '@material-ui/core';
 import clsx from 'clsx'
+import AddAlertIcon from '@material-ui/icons/AddAlertOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 import ImageIcon from '@material-ui/icons/ImageOutlined';
@@ -10,6 +11,7 @@ import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
 import UnPinIcon from "../assets/images/pin.png";
 import PinIcon from "../assets/images/pinned.png";
 import ClockIcon from '@material-ui/icons/AccessTimeOutlined';
+import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
 // import SnackBar from "./SnackBar";
 import EditNote from './EditNote';
 import NoteColor from './NotesColor';
@@ -29,13 +31,7 @@ export default function NoteCard(props) {
     const [more, setMore] = React.useState(false)
     const [labels, setLabels] = React.useState(null);
 
-    // const todayDate = moment().format('YYYY-DD-MM')
-    // const tomorrowDate = moment().add('days', 1).format('YYYY-DD-MM')
-
     React.useEffect(() => {
-        // getLabels((snapshot) => {
-        //     setLabels(snapshot)
-        // })
     }, []);
 
     return (
@@ -104,15 +100,15 @@ export default function NoteCard(props) {
                             [classes.paperGrid]: props.ToggleView,
                         })}
                     >
-                        {
-                            <Chip 
-                                icon={<ClockIcon />}
-                                size="small"
-                                style={{
-                                    margin: '10px 4px 4px 0px'
-                                }}
-                            />
-                        }
+                        {/* {
+                            false ? <Chip 
+                            icon={<ClockIcon />}
+                            size="small"
+                            style={{
+                                margin: '10px 4px 4px 0px'
+                            }}
+                        /> 
+                        : {} } */}
                     </Paper>
 
                     <Paper style={{ backgroundColor: props.NoteObj.noteColor, visibility: more || visible ? 'visible' : 'hidden' }}
@@ -120,15 +116,17 @@ export default function NoteCard(props) {
                             [classes.paperGrid]: props.ToggleView,
                         })}
                     >
+                        <IconButton className={classes.iconButton}>
+                            <AddAlertIcon fontSize="small" />
+                        </IconButton>
 
-                 
                         <IconButton className={classes.iconButton}>
                             <PersonAddIcon fontSize="small" />
                         </IconButton>
 
-                        <NoteColor
-                            Notekey={props.Notekey}
-                        />
+                        <IconButton className={classes.iconButton}>
+                            <NoteColor  Notekey={props.Notekey} />
+                        </IconButton>
 
                         <IconButton className={classes.iconButton}>
                             <ImageIcon fontSize="small" />
@@ -136,6 +134,10 @@ export default function NoteCard(props) {
                         <IconButton className={classes.iconButton}
                         >
                             {!props.NoteObj.Archive ? <ArchiveIcon fontSize="small" /> : <UnarchiveIcon fontSize="small" />}
+                        </IconButton>
+                        <IconButton className={classes.iconButton}
+                        >
+                            <MoreVertIcon fontSize="small"/>
                         </IconButton>
                     </Paper>
             </Paper>

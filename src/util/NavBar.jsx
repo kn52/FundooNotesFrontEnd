@@ -9,12 +9,17 @@ import useStyle from '../scss/DrawerMenuCSS';
 import { withRouter} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';
+import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const userName = () => {
-  let email = localStorage.getItem("email");
-  let user=email.substring(0,email.indexOf('@'));
-  return user.substring(0,user.indexOf(user.match(/\d/)));
-}
+const DisplayTooltip = withStyles(theme => ({
+  tooltip: {
+      backgroundColor: '#404040',
+      color: 'white',
+      fontSize: 12,
+      marginTop:'-2'
+  },
+}))(Tooltip);
 
 const DisplayAppBar = (props) => {
 
@@ -42,7 +47,7 @@ const DisplayAppBar = (props) => {
             <Avatar className={classes.profile}>{localStorage.getItem('email').slice(0,1)}</Avatar>
             <Grid item style={{textAlign: 'center'}}>
                 <Typography  variant="h6" style={{marginTop:'5%',textAlign: 'center'}}>
-                  {userName()}
+                  {localStorage.getItem('firstname') + " " + localStorage.getItem('lastname')}
                 </Typography>
                 <Typography variant="h6" color="textSecondary" style={{marginTop:'20px',textAlign: 'center', fontSize: 15}} >
                     {localStorage.getItem('email')}
@@ -77,7 +82,7 @@ const DisplayAppBar = (props) => {
       className={classes.appBar}
       >
         <Toolbar>
-          {/* <GrayToolTip title='Main Menu'> */}
+          <DisplayTooltip title='Main Menu'>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -88,7 +93,7 @@ const DisplayAppBar = (props) => {
             >
               <MenuIcon />
             </IconButton>
-          {/* </GrayToolTip> */}
+          </DisplayTooltip>
           <IconButton color="inherit">
             { label === 'Fundoo' && <img src={KeepIcon} alt='' className={classes.image}/>}
           </IconButton>
@@ -96,9 +101,21 @@ const DisplayAppBar = (props) => {
               <span style={{color: label ==='Fundoo' ? '#5f6368' : '#3c4043'}}>{label}</span>
           </Typography>
           <SearchBar/>
-          <IconButton onClick={()=>{setPopover(true)}}>
-            <Avatar>{localStorage.getItem('email').slice(0,1).toUpperCase()}</Avatar>
-          </IconButton>
+          <DisplayTooltip title={
+              <>
+                <span >Fundoo Account </span><br />
+                <span style={{color: 'lightgray'}}>
+                  {localStorage.getItem('firstname')+ ' ' + localStorage.getItem('lastname')}
+                </span><br />
+                <span style={{color: 'lightgray'}}>{localStorage.getItem('email')}</span>
+              </>
+            }
+          >
+            <IconButton onClick={()=>{setPopover(true)}}>
+              <Avatar>{localStorage.getItem('email').slice(0,1).toUpperCase()}</Avatar>
+            </IconButton>
+          </DisplayTooltip>
+          
         </Toolbar>
       </AppBar>
       {profile}      

@@ -67,6 +67,7 @@ export const useStyles = makeStyles(theme => ({
     },
 
     noteTitle: {
+        textAlign: 'left',
         marginLeft: theme.spacing(0),
         paddingTop: theme.spacing(0.5),
         flex: 1,
@@ -78,6 +79,7 @@ export const useStyles = makeStyles(theme => ({
     },
 
     noteContent: {
+        textAlign: 'left',
         paddingTop: theme.spacing(0.5),
         paddingBottom: theme.spacing(0.5),
         wordBreak: 'break-all',

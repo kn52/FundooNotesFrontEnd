@@ -7,6 +7,7 @@ import { Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
+import UserService from '../service/UserService';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -43,6 +44,12 @@ class Notes extends React.Component {
         }
         
         if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
+            UserService.addNote({}).then((res) => {
+                console.log(res)
+            })
+			.catch((err) => {
+                console.log(err);
+            })
             this.setState({
                 noteTitle: '',
                 noteContent: '',
@@ -69,16 +76,12 @@ class Notes extends React.Component {
     isEmpty = (obj) => {
     }
 
-    componentDidMount() {
-
-    }
-
-    render() {
+  render() {
         return (
             <Container>
                 <div className={this.state.sliderClassName}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <div className="noteTaker">
+                        <div className="noteTaker" style={{display:'flex',justifyContent:'center'}}>
                             {
                                 !this.state.clickAway
                                     ? <NotesCollapsed handleNoteTakerClick={() => this.setState({ clickAway: true })} />
@@ -105,6 +108,7 @@ class Notes extends React.Component {
                     }
 
     
+                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap',padding:'3%'}}>
                     {
                         this.props.notes.length>0 && 
                         this.props.notes.map((key,index)=>{
@@ -116,6 +120,7 @@ class Notes extends React.Component {
                                 />
                         })
                     }
+                    </div>
               </div>
             </Container>
         );

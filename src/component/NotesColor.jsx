@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles, Paper, Popover } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PaletteIcon from '@material-ui/icons/PaletteOutlined';
-import {  useSelector , useDispatch } from 'react-redux';
-import { changeColor } from '../redux/actions/NoteAction';
+// import {  useSelector , useDispatch } from 'react-redux';
+// import { changeColor } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ColorPalette(props) {
     const classes = useStyles();
     
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [palette, setPalette] = React.useState(null);
     
@@ -49,17 +49,17 @@ export default function ColorPalette(props) {
     const closeColorPalette = () => {
         setPalette(null);
     };
-    const data = useSelector(state=>state.note);
+    // const data = useSelector(state=>state.note);
 
     const updateBgColor = (key,color) => {
-        console.log(key);
-        key=key-1;
-        console.log(key);
-        var d = data[0];
-        console.log("======"+data);
-        // dispatch(changeColor(key,color))
+        // console.log(key);
+        // key=key-1;
+        // console.log(key);
+        // var d = data[0];
+        // console.log("======"+data);
+        // // dispatch(changeColor(key,color))
 
-        // props.onchange(color);
+        // // props.onchange(color);
     }
 
     const colorBox = Boolean(palette);

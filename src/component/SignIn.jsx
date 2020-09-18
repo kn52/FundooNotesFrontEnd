@@ -121,6 +121,19 @@ class Login extends Component{
         document.getElementById('email_cont').style.display='block';
 		document.getElementById('password_cont').style.display='none';
     }
+
+    setResponse = (data) => {
+        localStorage.setItem("userToken",data.id);
+        localStorage.setItem("email",data.email)
+        localStorage.setItem("firstname",data.firstName);
+        localStorage.setItem("lastname",data.lastName);
+        localStorage.setItem("userid",data.userId);
+        this.setState({
+                sty:"success",
+                message:"Logged in Successfully",
+            })
+        this.handleClick();
+    }
     
 	handleSubmitForm(event) {
         if(this.state.validateForm && this.validate('password')){
@@ -129,14 +142,8 @@ class Login extends Component{
 				"password":this.state.password
             }
             UserService.login(data).then((res) => {
-                let  token= res.data.id;
-                localStorage.setItem("userToken",token);
-                localStorage.setItem("email",this.state.email)
-                this.setState({
-                    sty:"success",
-                    message:"Logged in Successfully",
-                })
-                this.handleClick();
+                console.log(res)
+                this.setResponse(res.data);
 			})
 			.catch((err) => {
                 console.log(err);

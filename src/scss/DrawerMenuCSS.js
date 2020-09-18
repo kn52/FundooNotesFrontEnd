@@ -9,11 +9,11 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor:'white',
+    backgroundColor:'white'
   },
   menuButton: {
     color:'#5f6368',
-    marginLeft: theme.spacing(-1),
+    marginLeft: theme.spacing(-1.8),
   },
   title: {
     flexGrow: 1,
@@ -21,16 +21,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink:0,
+    flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
     '&. MuiDrawer-paperAnchorDockedLeft': {
       border:'none'
     },
-    // '&. makeStyles-drawer-5':{
-    //   width:'240px'
-    // },
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -39,18 +36,24 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerClose: {
     '&. MuiDrawer-paperAnchorDockedLeft': {
-        border:'none'
+      border:'none'
     },
-    // '&. makeStyles-drawer-5':{
-    //   width:'0px'
-    // },
+    '& .MuiListItem-button': {
+      width:'3.9em',
+      borderBottomRightRadius: '2em',
+      borderTopRightRadius: '2em',
+      borderBottomLeftRadius: '2em',
+      borderTopLeftRadius: '2em',      
+    },
+    marginTop:1,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    
     paddingLeft:theme.spacing(1),
     overflowX: 'hidden',
-    width: theme.spacing(7)+1,
+    width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
@@ -64,10 +67,60 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow:1,
+    minHeight:'99.5vh',
+    flexGrow: 1,
     padding: theme.spacing(3),
   },
 
+  listStyle: {
+    '& .MuiListItem-button:hover ': {
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:focus ': {
+        // backgroundColor: '#feefc3',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:active ': {
+        // backgroundColor: '#feefc3',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiTypography-body1': {
+        fontWeight: 500,
+    },
+    marginLeft: theme.spacing(0),
+    transform: 'none',
+    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
+  },
+
+  listStyle2: {
+    '& .MuiListItem-button:hover ': {
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:focus ': {
+        backgroundColor: 'none',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiListItem-button:active ': {
+        backgroundColor: 'none',
+        borderBottomRightRadius: '2em',
+        borderTopRightRadius: '2em',
+    },
+    '& .MuiTypography-body1': {
+        fontWeight: 500,
+    },
+    marginLeft: theme.spacing(0),
+    transform: 'none',
+    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
+  },
+  listItemStyle: {
+    borderBottomRightRadius: '2em',
+    borderTopRightRadius: '2em',
+  },
   buttonList: {
     backgroundColor:'lightgray'
   },
@@ -97,61 +150,9 @@ const useStyles = makeStyles((theme) => ({
       padding: 20,
    },
   },
-  
-  listStyle: {
-    '& .MuiListItem-button:hover ': {
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiListItem-button:focus ': {
-        // backgroundColor: '#feefc3',
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiListItem-button:active ': {
-        // backgroundColor: '#feefc3',
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiTypography-body1': {
-        fontWeight: 500,
-    },
-    marginLeft: theme.spacing(0),
-    transform: 'none',
-    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
-},
-
-listStyle2: {
-    '& .MuiListItem-button:hover ': {
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiListItem-button:focus ': {
-        backgroundColor: 'none',
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiListItem-button:active ': {
-        backgroundColor: 'none',
-        borderBottomRightRadius: '2em',
-        borderTopRightRadius: '2em',
-    },
-    '& .MuiTypography-body1': {
-        fontWeight: 500,
-    },
-    marginLeft: theme.spacing(0),
-    transform: 'none',
-    transition: 'transform .25s cubic-bezier(0.4,0.0,0.2,1),visibility 0s linear 0s',
-},
-
-listItemStyle: {
-    borderBottomRightRadius: '2em',
-    borderTopRightRadius: '2em',
-},
-
 }));
 
-export const DisplayTooltip = withStyles(theme => ({
+const DisplayTooltip = withStyles(theme => ({
   tooltip: {
       backgroundColor: '#404040',
       color: 'white',
@@ -159,4 +160,4 @@ export const DisplayTooltip = withStyles(theme => ({
   },
 }))(Tooltip);
 
-export default useStyles;
+export default useStyles

@@ -16,7 +16,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
 import UndoIcon from '@material-ui/icons/UndoOutlined';
 import RedoIcon from '@material-ui/icons/RedoOutlined';
 import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
-// import { trashAndRestore, updateNotesIntoFirebase } from '../Firebase/FirebaseServices';
 import UnPinIcon from "../assets/images/pin.png";
 import PinIcon from "../assets/images/pinned.png";
 import Popover from '@material-ui/core/Popover';
@@ -110,14 +109,13 @@ const useStyles = makeStyles(theme => ({
 export default function EditNote(props) {
     const classes = useStyles();
     const anchorRef = React.useRef(null);
-    const [title, setTitle] = React.useState(props.NotesObj.Title)
-    const [content, setContent] = React.useState(props.NotesObj.Content)
-    const [pin, setPin] = React.useState(props.NotesObj.PinStatus)
-    const [archive, setArchive] = React.useState(props.NotesObj.Archive)
+    const [title, setTitle] = React.useState(props.NotesObj.noteTitle)
+    const [content, setContent] = React.useState(props.NotesObj.noteContent)
+    const [pin, setPin] = React.useState(props.NotesObj.pinStatus)
+    const [archive, setArchive] = React.useState(props.NotesObj.archive)
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const updateNote = async () => {
-        // await updateNotesIntoFirebase(props.Key, title, content, pin, archive)
         props.handleClose()
     }
 
