@@ -59,6 +59,13 @@ class Notes extends React.Component {
 			.catch((err) => {
                 console.log(err);
             })
+
+            NoteService.getNotes().then((res) => {
+                console.log(res.data);
+            })
+			.catch((err) => {
+                console.log(err);
+            })
             this.setState({
                 noteTitle: '',
                 noteContent: '',

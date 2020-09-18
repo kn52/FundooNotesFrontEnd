@@ -6,6 +6,12 @@ class NoteService {
         this.axiosservice = new axiosservice();
     }
 
+    getNotes() {
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/getNotesList'; 
+        return this.axiosservice.get(url,true,headers);
+    }
+
     addNote(data) {
         const headers = this.getHeader();
         let url=BASEURL.fundooUrl + '/notes/addNotes';
