@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import setLabelPage from '../redux/actions/LabelAction';
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
@@ -13,9 +13,24 @@ import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerActi
 export default function DrawerMenu() {
   const classes = useStyle();
   
+  const [onhover,setOnhover] = useState(false);
+
   const labels = useSelector(state=>state.label.currentLabelId);
   const open = useSelector(state=>state.drawer.openDrawer);
   
+  const handleOnHover = () => {
+      if(open == false && onhover == false) {
+        document.getElementById("draw").style.position='absolute';
+        setOnhover(true);
+        dispatch(toggleDrawerOpen())
+      }
+      if(open ==true && onhover == true){
+        document.getElementById("draw").style.position='relative';
+        setOnhover(false)
+        dispatch(toggleDrawerClose())
+      }
+  }
+
   const dispatch = useDispatch(); 
   
   return (
@@ -23,9 +38,15 @@ export default function DrawerMenu() {
       <CssBaseline />
       <NavBar />
       <Drawer
+        id="draw"
         variant="permanent"
-		onMouseEnter={ ()=> {dispatch(toggleDrawerOpen())} }
-        onMouseLeave={ ()=> {dispatch(toggleDrawerClose())} }
+		    onMouseEnter={ ()=> { 
+           open ? setOnhover(false) 
+           : handleOnHover() 
+         } }
+        onMouseLeave={ ()=> { 
+          handleOnHover()
+        } }
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,

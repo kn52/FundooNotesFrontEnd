@@ -143,7 +143,8 @@ class Notes extends React.Component {
                     }
 
     
-                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap',padding:'3%'}}>
+                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap',
+                        padding: this.props.notes.length>0 ? '3%' : '0%'}}>
                     {
                         this.props.notes.length>0 && 
                         this.props.notes.map((key,index)=>{
