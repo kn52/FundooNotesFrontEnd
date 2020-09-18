@@ -7,7 +7,7 @@ import { Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
-import UserService from '../service/UserService';
+import NoteService from '../service/NoteService';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -44,8 +44,17 @@ class Notes extends React.Component {
         }
         
         if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
-            UserService.addNote({}).then((res) => {
-                console.log(res)
+            const data2 = {
+                title: this.state.noteTitle,
+                description: this.state.noteContent,
+                noteContent: this.state.noteColor,
+                isPined: this.state.pinStatus,
+                isArchive: this.state.archive,
+                isDeleted: this.state.trash,
+            }
+            
+            NoteService.addNote(data2).then((res) => {
+                console.log(res);
             })
 			.catch((err) => {
                 console.log(err);
