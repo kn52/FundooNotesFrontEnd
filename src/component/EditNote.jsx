@@ -244,12 +244,6 @@ export default function EditNote(props) {
                             {renderMorePopper}
                         </IconButton>
 
-                        {/* <IconButton className={classes.iconButton}>
-                            <UndoIcon fontSize="small" />
-                        </IconButton>
-                        <IconButton className={classes.iconButton}>
-                            <RedoIcon fontSize="small" />
-                        </IconButton> */}
                         <Button className={classes.closeButton}
                             onClick={updateNote}
                         >

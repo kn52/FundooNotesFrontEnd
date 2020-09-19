@@ -5,14 +5,14 @@ import Alert from '@material-ui/lab/Alert';
 export default function SnackBar (props) {
 
     const handleClose = () => {
-        props.close();
+        props.onclose();
     }
 
     return (
         <Snackbar
             anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: 'bottom',
+                horizontal: 'left',
             }} 
             open={props.opn} autoHideDuration={3000} onClose={handleClose}>
             <Alert severity={props.severity}>

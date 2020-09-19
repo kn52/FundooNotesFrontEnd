@@ -191,7 +191,7 @@ class SignUp extends React.Component {
                             <span className='register_main_title' style={{color: '#0F9D58'}}>o</span>
                             <span className='register_main_title' style={{color: '#DB4437'}}>o</span>
                         </div>
-                        <SnackBar opn={this.state.open} close={this.handleClose} 
+                        <SnackBar opn={this.state.open} onclose={this.handleClose} 
                             msg={this.state.message} severity={this.state.sty}/>
                 
                         <div className='register_title'>

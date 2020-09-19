@@ -31,9 +31,6 @@ export default function NoteCard(props) {
     const [more, setMore] = React.useState(false)
     const [labels, setLabels] = React.useState(null);
 
-    React.useEffect(() => {
-    }, []);
-
     return (
         <>
             <Paper
@@ -45,7 +42,7 @@ export default function NoteCard(props) {
                     {
                         boxShadow: visible && '0em 0em 0.4em 0em gray',
                         backgroundColor: props.NoteObj.color,
-                        border: props.NoteObj.color === '#ffffff' ? '1px solid gray' : '1px solid #e0e0e0',
+                        border: props.NoteObj.color === '#ffffff' ? '1px solid #e0e0e0' : '1px solid #e0e0e0',
                     }
                 }
             >

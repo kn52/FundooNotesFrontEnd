@@ -1,0 +1,50 @@
+$primary-color:#1a73e8;
+$font-stack: 'Poppins', sans-serif ; 
+$font_wt:500;
+
+.displayFlex {
+    display:flex;
+}
+
+.flexDirectionColumn {
+    flex-direction: column;
+}
+
+.flexDirectionRow {
+    flex-direction: row;
+}
+
+.justifyContentStart {
+    justify-content: flex-start;
+}
+
+.justifyContentCenter {
+    justify-content: center;
+}
+
+.justifyContentEnd {
+    justify-content: flex-end;
+}
+
+.justifyContentSpaceBetween {
+    justify-content: space-between;
+}
+
+
+.alignItemsStart {
+    align-items: flex-start;
+}
+
+.alignItemsCenter {
+    align-items: center;
+}
+
+.alignItemsEnd {
+    @extend .displayFlex;
+    align-items: flex-end;
+}
+
+@mixin  fontStyle ( $family ,$weight ) {
+    font-family: $family;
+    font-weight: $weight;
+}

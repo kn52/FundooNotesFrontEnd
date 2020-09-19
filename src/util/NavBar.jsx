@@ -80,6 +80,7 @@ const DisplayAppBar = (props) => {
       <AppBar
       position="fixed"
       className={classes.appBar}
+      style={{borderBottom:'1px solid #e0e0e0'}}
       >
         <Toolbar>
           <DisplayTooltip title='Main Menu'>
@@ -115,7 +116,6 @@ const DisplayAppBar = (props) => {
               <Avatar>{localStorage.getItem('email').slice(0,1).toUpperCase()}</Avatar>
             </IconButton>
           </DisplayTooltip>
-          
         </Toolbar>
       </AppBar>
       {profile}      

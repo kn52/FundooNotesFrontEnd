@@ -8,7 +8,7 @@ import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
-import { withRouter } from 'react-router-dom';
+import SnackBar from '../util/SnackBar';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -25,8 +25,19 @@ class Notes extends React.Component {
             trash: false,
             pinNotes: null,
             unpinNotes: null,
+            opn:false,
+            msg:'',
+            sty:'',
             getNotes:[]
         };
+    }
+
+    handleSnackClose() {
+        this.setState({
+            opn:false,
+            msg:'',
+            sty:'',
+        })
     }
 
     handleClickAway = () => {
@@ -57,21 +68,21 @@ class Notes extends React.Component {
             
             NoteService.addNote(data2).then((res) => {
                 console.log(res);
+                this.setState({
+                    opn:true,
+                    msg:'Note Added Successfully',
+                    sty:'success'  
+                })
             })
 			.catch((err) => {
                 console.log(err);
-            })
-            NoteService.getNotes().then((res) => {
-                console.log(res.data);
-                const notes = res.data.data;
                 this.setState({
-                    getNotes:notes
+                    opn:true,
+                    msg:'Not Added',
+                    sty:'error'  
                 })
             })
-            .catch((err) => {
-                console.log(err);
-            })                
-            console.log(this.state.getNotes);
+            this.getData();
             this.setState({
                 noteTitle: '',
                 noteContent: '',
@@ -95,20 +106,24 @@ class Notes extends React.Component {
         })
     }
 
+    getData() {
+        NoteService.getNotes().then((res) => {
+            console.log(res.data);
+            const notes = res.data.data.data;
+            this.setState({
+                getNotes:notes
+            },)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     isEmpty = (obj) => {
     }
 
     componentDidMount() {
-            NoteService.getNotes().then((res) => {
-                console.log(res.data);
-                const notes = res.data.data.data;
-                this.setState({
-                    getNotes:notes
-                },)
-            })
-			.catch((err) => {
-                console.log(err);
-            })
+          this.getData();  
     }
 
     render() {
@@ -145,8 +160,8 @@ class Notes extends React.Component {
     
                     <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
                         paddingTop: this.state.getNotes.length>0 ? '3%' : '0%',
-                        paddingLeft: this.props.openDrawer && this.props.onHover ? '10%' 
-                                        : this.props.openDrawer ? '1%' :'10%'}}>
+                        paddingLeft: this.props.openDrawer && this.props.onHover ? '9%' 
+                                        : this.props.openDrawer ? '1.6%' :'9%'}}>
                     {
                         this.state.getNotes.length>0 && 
                         this.state.getNotes.map((key,index)=>{
@@ -160,6 +175,8 @@ class Notes extends React.Component {
                     }
                     </div>
               </div>
+              <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
+                        onclose={()=>{this.handleSnackClose()}}/>
             </Container>
         );
     }
@@ -183,5 +200,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-// export default withRouter(Notes);
 export default connect(mapToStateProps,mapDispatchToProps)(Notes);

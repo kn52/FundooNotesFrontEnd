@@ -171,7 +171,7 @@ class Login extends Component{
                     <span className='title' style={{color: '#0F9D58'}}>o</span>
                     <span className='title' style={{color: '#DB4437'}}>o</span>
                 </div>
-                <SnackBar opn={this.state.open} close={this.handleClose} 
+                <SnackBar opn={this.state.open} onclose={this.handleClose} 
                     msg={this.state.message} severity={this.state.sty}/>
                 <div id='email_cont' className="child_container">
                     <div className='child_content'>

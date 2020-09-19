@@ -1,5 +1,4 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 280;
 
@@ -9,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor:'white'
+    backgroundColor:'white',
   },
   menuButton: {
     color:'#5f6368',
@@ -78,12 +77,10 @@ const useStyles = makeStyles((theme) => ({
         borderTopRightRadius: '2em',
     },
     '& .MuiListItem-button:focus ': {
-        // backgroundColor: '#feefc3',
         borderBottomRightRadius: '2em',
         borderTopRightRadius: '2em',
     },
     '& .MuiListItem-button:active ': {
-        // backgroundColor: '#feefc3',
         borderBottomRightRadius: '2em',
         borderTopRightRadius: '2em',
     },
@@ -151,13 +148,5 @@ const useStyles = makeStyles((theme) => ({
    },
   },
 }));
-
-const DisplayTooltip = withStyles(theme => ({
-  tooltip: {
-      backgroundColor: '#404040',
-      color: 'white',
-      fontSize: 12,
-  },
-}))(Tooltip);
 
 export default useStyles

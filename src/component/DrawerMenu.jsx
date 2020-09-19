@@ -49,12 +49,7 @@ function DrawerMenu() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          {/* <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton> */}
-        </div>
-        <Divider />
+        <div className={classes.toolbar}></div>
         <List className={classes.listStyle}>
             <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) }} 
                 className={classes.listItemStyle} style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
