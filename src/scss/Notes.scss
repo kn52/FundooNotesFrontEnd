@@ -1,25 +1,20 @@
+@import "Common.scss";
+
 .MainContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
     box-sizing: none;
     transition: margin .20s linear;
 }
 
 .slideMainContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
     margin-left: 160px;
     margin-right: -3.7%;
     transition: margin .20s linear;
 }
 
 .bulbContainer{
-    display: flex;
-    justify-content: center;
-    align-content: center; 
-    flex-direction: column;
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter, alignContentCenter !optional;
     margin-top: 15%;
 }
 
