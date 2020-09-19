@@ -68,7 +68,6 @@ class SignUp extends React.Component {
 
         var emailPattern = /^[a-zA-Z]{3,}([-|+|.|_]?[a-zA-Z0-9]+)?[@]{1}[A-Za-z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]+)?$/;
         var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^$@!#%*?&]*[$#@!%*?&][^$@!#%*?&]*$).{8,}$/;
-		var namePattern = /[A-Z]{1}[a-zA-Z]{2,}$/;
 		var number = /[0-9]{1,}$/;
         
         if ( type === 'firstname' || type === 'All' )

@@ -7,11 +7,11 @@ export default class DashBoard extends React.Component {
     
     render() {
         return(
-            <>
+            <div style={{display:'flex',flexDirection:'column'}}>
                 <CssBaseline />
                 <NavBar/>
                 <DrawerMenu/>
-            </>
+            </div>
         );
     }
 }

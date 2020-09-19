@@ -5,10 +5,8 @@ const initialState = {
 }
 
 function NotesReducer(state = initialState, action) {
-    console.log("Note Reducer"); 
     switch(action.type) {
     case ADD_NOTE:
-        console.log("Add reducer"); 
       return {notes: [
         ...state.notes,
         {

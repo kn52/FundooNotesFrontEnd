@@ -109,7 +109,6 @@ class Notes extends React.Component {
 			.catch((err) => {
                 console.log(err);
             })
-            console.log(this.state.getNotes);
     }
 
     render() {
@@ -145,7 +144,9 @@ class Notes extends React.Component {
 
     
                     <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
-                        justifyContent:'center',paddingTop: this.state.getNotes.length>0 ? '3%' : '0%'}}>
+                        paddingTop: this.state.getNotes.length>0 ? '3%' : '0%',
+                        paddingLeft: this.props.openDrawer && this.props.onHover ? '10%' 
+                                        : this.props.openDrawer ? '1%' :'10%'}}>
                     {
                         this.state.getNotes.length>0 && 
                         this.state.getNotes.map((key,index)=>{
@@ -170,6 +171,7 @@ const mapToStateProps = state => {
     }
     return {
         openDrawer: state.drawer.openDrawer,
+        onHover: state.drawer.onHover,
         notes:state.note.notes
     }
 }

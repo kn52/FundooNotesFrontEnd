@@ -4,29 +4,26 @@ import setLabelPage from '../redux/actions/LabelAction';
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
 import { Drawer,List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
-import Notes from './Notes';
 import useStyle from '../scss/DrawerMenuCSS';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';
+import { toggleHoverOpen, toggleHoverClose } from '../redux/actions/DrawerAction';
 import { withRouter } from 'react-router-dom';
 
 function DrawerMenu() {
   const classes = useStyle();
-  
-  const [onhover,setOnhover] = useState(false);
 
   const labels = useSelector(state=>state.label.currentLabelId);
   const open = useSelector(state=>state.drawer.openDrawer);
+  const onhover = useSelector(state=>state.drawer.onHover);
   
   const handleOnHover = () => {
       if(open === false && onhover === false) {
-        document.getElementById("draw").style.position='absolute';
-        setOnhover(true);
+        dispatch(toggleHoverOpen())
         dispatch(toggleDrawerOpen())
       }
       if(open === true && onhover === true){
-        document.getElementById("draw").style.position='';
-        setOnhover(false)
+        dispatch(toggleHoverClose())
         dispatch(toggleDrawerClose())
       }
   }
@@ -37,14 +34,10 @@ function DrawerMenu() {
     <>
       <Drawer
         id="draw"
+        style={ open && onhover ? {position:'absolute'} : {position: ''}}
         variant="permanent"
-		    onMouseEnter={ ()=> { 
-           open ? setOnhover(false) 
-           : handleOnHover() 
-         } }
-        onMouseLeave={ ()=> { 
-          handleOnHover()
-        } }
+		    onMouseEnter={ ()=> { open ? dispatch(toggleHoverClose()) : handleOnHover() } }
+        onMouseLeave={ ()=> { handleOnHover() } }
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
@@ -90,9 +83,6 @@ function DrawerMenu() {
             </ListItem>
           </List> 
       </Drawer>
-      {/* <main className={classes.content}>
-        <div className={classes.toolbar} />
-      </main> */}
     </>
   );
 }
