@@ -54,6 +54,7 @@ class ResetPassword extends Component {
                 message:'',
                 errors:{}
             })
+            localStorage.clear();
             this.props.history.push('/');
         }
 

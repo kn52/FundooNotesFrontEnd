@@ -111,17 +111,17 @@ const useStyles = makeStyles(theme => ({
 export default function EditNote(props) {
     const classes = useStyles();
     const anchorRef = React.useRef(null);
-    const [title, setTitle] = React.useState(props.NotesObj.noteTitle)
-    const [content, setContent] = React.useState(props.NotesObj.noteContent)
-    const [pin, setPin] = React.useState(props.NotesObj.pinStatus)
-    const [archive, setArchive] = React.useState(props.NotesObj.archive)
+    const [title, setTitle] = React.useState(props.NotesObj.title)
+    const [content, setContent] = React.useState(props.NotesObj.description)
+    const [pin, setPin] = React.useState(props.NotesObj.isPinned)
+    const [archive, setArchive] = React.useState(props.NotesObj.isArchived)
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const updateNote = async () => {
         const data = {
-            "noteId":"5f64d38b5671b9001f4c5448",
-            "title":"Hi jitesh dubey",
-            "description":"How are you"
+            "noteId":props.Key,
+            "title":title,
+            "description":content
         }
         NoteService.updateNote(data).then((res) => {
             console.log(res);
@@ -244,12 +244,12 @@ export default function EditNote(props) {
                             {renderMorePopper}
                         </IconButton>
 
-                        <IconButton className={classes.iconButton}>
+                        {/* <IconButton className={classes.iconButton}>
                             <UndoIcon fontSize="small" />
                         </IconButton>
                         <IconButton className={classes.iconButton}>
                             <RedoIcon fontSize="small" />
-                        </IconButton>
+                        </IconButton> */}
                         <Button className={classes.closeButton}
                             onClick={updateNote}
                         >

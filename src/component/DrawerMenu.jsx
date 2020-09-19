@@ -3,14 +3,14 @@ import clsx from 'clsx';
 import setLabelPage from '../redux/actions/LabelAction';
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
-import { Drawer,List, CssBaseline,Divider,ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
+import { Drawer,List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
 import Notes from './Notes';
 import useStyle from '../scss/DrawerMenuCSS';
 import { useSelector, useDispatch } from 'react-redux';
-import NavBar from '../util/NavBar';
 import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';
+import { withRouter } from 'react-router-dom';
 
-export default function DrawerMenu() {
+function DrawerMenu() {
   const classes = useStyle();
   
   const [onhover,setOnhover] = useState(false);
@@ -19,13 +19,13 @@ export default function DrawerMenu() {
   const open = useSelector(state=>state.drawer.openDrawer);
   
   const handleOnHover = () => {
-      if(open == false && onhover == false) {
+      if(open === false && onhover === false) {
         document.getElementById("draw").style.position='absolute';
         setOnhover(true);
         dispatch(toggleDrawerOpen())
       }
-      if(open ==true && onhover == true){
-        document.getElementById("draw").style.position='relative';
+      if(open === true && onhover === true){
+        document.getElementById("draw").style.position='';
         setOnhover(false)
         dispatch(toggleDrawerClose())
       }
@@ -34,9 +34,7 @@ export default function DrawerMenu() {
   const dispatch = useDispatch(); 
   
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <NavBar />
+    <>
       <Drawer
         id="draw"
         variant="permanent"
@@ -92,10 +90,11 @@ export default function DrawerMenu() {
             </ListItem>
           </List> 
       </Drawer>
-      <main className={classes.content}>
+      {/* <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Notes />
-      </main>
-    </div>
+      </main> */}
+    </>
   );
 }
+
+export default withRouter(DrawerMenu);

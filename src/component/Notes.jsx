@@ -8,6 +8,7 @@ import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
+import { withRouter } from 'react-router-dom';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Notes extends React.Component {
             trash: false,
             pinNotes: null,
             unpinNotes: null,
-            getNotes:{}
+            getNotes:[]
         };
     }
 
@@ -100,10 +101,10 @@ class Notes extends React.Component {
     componentDidMount() {
             NoteService.getNotes().then((res) => {
                 console.log(res.data);
-                const notes = res.data.data;
+                const notes = res.data.data.data;
                 this.setState({
                     getNotes:notes
-                })
+                },)
             })
 			.catch((err) => {
                 console.log(err);
@@ -135,7 +136,7 @@ class Notes extends React.Component {
                         </div>
                     </ClickAwayListener>
                     { 
-                        this.props.notes.length === 0 &&
+                        this.state.getNotes.length === 0 &&
                         <div className="bulbContainer">
                             <img alt="temp background" src={bulbImage} className="bulbImage" />
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
@@ -143,15 +144,15 @@ class Notes extends React.Component {
                     }
 
     
-                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap',
-                        padding: this.props.notes.length>0 ? '3%' : '0%'}}>
+                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
+                        justifyContent:'center',paddingTop: this.state.getNotes.length>0 ? '3%' : '0%'}}>
                     {
-                        this.props.notes.length>0 && 
-                        this.props.notes.map((key,index)=>{
+                        this.state.getNotes.length>0 && 
+                        this.state.getNotes.map((key,index)=>{
                             return <NoteCard
                                     key={index}
-                                    Notekey={key.notes.id}
-                                    NoteObj={key.notes}
+                                    Notekey={key.id}
+                                    NoteObj={key}
                                     HandleArchiveChange={this.handleArchiveChange}
                                 />
                         })
@@ -180,4 +181,5 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+// export default withRouter(Notes);
 export default connect(mapToStateProps,mapDispatchToProps)(Notes);

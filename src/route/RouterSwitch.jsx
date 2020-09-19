@@ -7,19 +7,19 @@ import ForgetPassword from '../component/ForgetPassword';
 import ResetPassword from '../component/ResetPassword';
 import EditLabel from '../component/EditLabel';
 import PrivateRoute from './PrivateRoute';
+import Notes from '../component/Notes';
 
 export default function DefaultRoute () {
     return (
         <BrowserRouter>
-            <Switch>
                 <Route path='/login' exact component={SignIn} />
-                <Route exact path='/' render={()=>{ return (<Redirect to='/dashboard'/>)}}/>
+                <Route exact path={['/','/dashboard']} render={()=>{ return (<Redirect to='/dashboard/notes'/>)}}/>
                 <Route path='/register' component={SignUp} />
                 <Route path='/forgetpassword' exact component={ForgetPassword} />
                 <Route path='/resetpassword' component={ResetPassword} />
                 <Route path='/edit' component={EditLabel} />
-				<PrivateRoute path='/dashboard' exact component={DashBoard} />
-            </Switch>
+				<PrivateRoute path='/dashboard' component={DashBoard} />
+                <PrivateRoute path='/dashboard/notes' component={Notes} />
         </BrowserRouter>
     );
 }

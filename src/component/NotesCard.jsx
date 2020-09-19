@@ -43,10 +43,9 @@ export default function NoteCard(props) {
                 onMouseLeave={() => setVisibility(false)}
                 style={
                     {
-                        border:'1px solid maroon',
                         boxShadow: visible && '0em 0em 0.4em 0em gray',
-                        backgroundColor: props.NoteObj.noteColor,
-                        border: props.NoteObj.noteColor === '#ffffff' ? '1px solid lightgray' : '1px solid #ffffff',
+                        backgroundColor: props.NoteObj.color,
+                        border: props.NoteObj.color === '#ffffff' ? '1px solid gray' : '1px solid #e0e0e0',
                     }
                 }
             >
@@ -62,7 +61,7 @@ export default function NoteCard(props) {
                                 }
                             }
                         >
-                            {props.NoteObj.noteTitle}
+                            {props.NoteObj.title}
                         </Typography>
                         <IconButton
                             style={{ visibility: visible || more ? 'visible' : 'hidden' }}
@@ -90,7 +89,7 @@ export default function NoteCard(props) {
                         }
                     >
                         <Typography className={classes.noteContent}>
-                            {props.NoteObj.noteContent}
+                            {props.NoteObj.description}
                         </Typography>
                     </Paper>
 
