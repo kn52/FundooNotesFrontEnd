@@ -27,7 +27,7 @@ input[type=text] {
 }
 
 .main_container {
-    @extend .displayFlex, .flexDirectionColumn;    
+    @extend .displayFlex, .flexDirectionColumn !optional;    
 	width:22vw;
     border-radius: 1.5%;
     border:1px solid silver;
@@ -67,7 +67,7 @@ input[type=text] {
 }
 
 .child_form {
-    @extend .displayFlex, .flexDirectionColumn;
+    @extend .displayFlex, .flexDirectionColumn !optional;
     border:1px solid white;
 	width:100%;
     border-bottom: 2%;
@@ -79,13 +79,13 @@ input[type=text] {
 
 .forget {
     text-align: left;
-    @extend .displayFlex, .flexDirectionRow, .justifyContentSpaceBetween, .alignItemsStart;
+    @extend .displayFlex, .flexDirectionRow, .justifyContentSpaceBetween, .alignItemsStart !optional;
     padding-top:10%;
     padding-bottom: 10%;
 }
 
 .child_action_container {
-    @extend .displayFlex, .flexDirectionRow, .justifyContentSpaceBetween, .alignItemsStart;
+    @extend .displayFlex, .flexDirectionRow, .justifyContentSpaceBetween, .alignItemsStart !optional;
     padding-top: 20%;
     padding-bottom: 10%;
 }
