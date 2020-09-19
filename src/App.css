@@ -56,7 +56,7 @@ body {
 
 @media (min-width: 1280px) {
     .MuiContainer-maxWidthLg {
-        max-width: 1280px;
+        max-width: 1800px !important;
     } 
 }
 

@@ -1,4 +1,4 @@
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 280;
 
@@ -37,8 +37,12 @@ const useStyles = makeStyles((theme) => ({
     '&. MuiDrawer-paperAnchorDockedLeft': {
       border:'none'
     },
+
+    '& .MuiListItem-gutters': {
+      paddingLeft:'13px',
+    },
     '& .MuiListItem-button': {
-      width:'3.9em',
+      width:'3.5em',
       borderBottomRightRadius: '2em',
       borderTopRightRadius: '2em',
       borderBottomLeftRadius: '2em',
@@ -49,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    
     paddingLeft:theme.spacing(1),
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
