@@ -8,6 +8,8 @@ import EditNotetrash from './EditNoteTrash'
 import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/icons';
 import NoteService from '../service/NoteService';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { callToApi } from '../redux/actions/ApiAction';
 
 const useStyles = makeStyles(theme => ({
 
@@ -176,6 +178,8 @@ const useStyles = makeStyles(theme => ({
 export default function NoteInTrash(props) {
     const classes = useStyles(); 
  
+    const dispatch = useDispatch();
+
     const [visible, setVisibility] = React.useState(false)
     const [opn, setSnack] = React.useState(false);
     const [msg, setMsg] = React.useState(null);
@@ -195,6 +199,7 @@ export default function NoteInTrash(props) {
         .catch((err)=>{
             console.log(err);
         })
+        dispatch(CallToApi("TRASH"));
     }
     
     const deleteNotesdata = (key) => {
@@ -207,6 +212,7 @@ export default function NoteInTrash(props) {
         .catch((err)=>{
             console.log(err);
         })
+        dispatch(CallToApi("TRASH"));
     }
 
     return (

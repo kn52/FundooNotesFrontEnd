@@ -127,6 +127,10 @@ class Notes extends React.Component {
     }
 
     render() {
+        if(this.props.apiCall === "NOTES") {
+            this.getData();
+            this.props.noCall("");
+        }
         return (
             <Container>
                 <div className={this.state.sliderClassName}>
@@ -189,14 +193,16 @@ const mapToStateProps = state => {
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,
-        notes:state.note.notes
+        notes:state.note.notes,
+        apiCall: state.api.apiName
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addNote: (data)=> dispatch(addNote(data)),
-        removeNote:(id)=>dispatch(removeNote(id))
+        removeNote:(id)=>dispatch(removeNote(id)),
+        noCall: (name)=> dispatch(noCallToApi(name)),
     }
 }
 

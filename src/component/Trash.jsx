@@ -41,6 +41,10 @@ class Trash extends React.Component {
     }
 
     render() {
+        if(this.props.apiCall === "TRASH") {
+            this.getTrashNotes();
+            this.props.noCall("");
+        }
         return (
             <Container style={{marginTop: '6em'}}>
 
@@ -68,7 +72,14 @@ class Trash extends React.Component {
 const mapToStateProps = state => {
     return {
         drawerOpen: state.drawer.drawerOpen,
+        apiCall: state.api.apiName
     }
 }
 
-export default connect(mapToStateProps)(Trash);
+const mapDispatchToProps = dispatch => {
+    return {
+        noCall: (name)=> dispatch(noCallToApi(name)),
+    }
+}
+
+export default connect(mapToStateProps,mapDispatchToProps)(Trash);

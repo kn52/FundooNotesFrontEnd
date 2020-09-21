@@ -8,6 +8,8 @@ import { Paper, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/icons';
 import NoteService from '../service/NoteService';
+import { useDispatch } from 'react-redux';
+import { callToApi } from '../redux/actions/ApiAction';
 
 const useStyles = makeStyles(theme => ({
 
@@ -94,6 +96,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function EditNote(props) {
     const classes = useStyles();
+    
+    const dispatch = useDispatch();
+
     const [title] = React.useState(props.NotesObj.title)
     const [content] = React.useState(props.NotesObj.description)
 
@@ -110,6 +115,7 @@ export default function EditNote(props) {
         .catch((err)=>{
             console.log(err);
         })
+        dispatch(CallToApi("TRASH"));
     }
     
     const deleteNotesdata = (key) => {
@@ -122,6 +128,7 @@ export default function EditNote(props) {
         .catch((err)=>{
             console.log(err);
         })
+        dispatch(CallToApi("TRASH"));
     }
 
     return (

@@ -3,6 +3,8 @@ import { makeStyles, Paper, Popover } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PaletteIcon from '@material-ui/icons/PaletteOutlined';
 import NoteService from '../service/NoteService';
+import { useDispatch } from 'react-redux';
+import { callToApi } from '../redux/actions/ApiAction';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ColorPalette(props) {
     const classes = useStyles();
     
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [palette, setPalette] = React.useState(null);
     
@@ -48,8 +50,7 @@ export default function ColorPalette(props) {
     const closeColorPalette = () => {
         setPalette(null);
     };
-    // const data = useSelector(state=>state.note);
-
+    
     const updateBgColor = (key,color) => {
 
         const data = {
@@ -62,6 +63,7 @@ export default function ColorPalette(props) {
         .catch((err)=>{
             console.log(err);
         }) 
+        dispatch(callToApi("NOTES"))
     }
 
     const colorBox = Boolean(palette);

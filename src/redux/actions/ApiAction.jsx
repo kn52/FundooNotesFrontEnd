@@ -8,7 +8,7 @@ export const callToApi = (name) => {
     }
 }
 
-export const NoCallToApi = (name) => {
+export const noCallToApi = (name) => {
     return {
         type: NO_CALL,
         payload:name

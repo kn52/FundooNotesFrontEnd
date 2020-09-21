@@ -18,7 +18,8 @@ import UnPinIcon from "../assets/images/pin.png";
 import PinIcon from "../assets/images/pinned.png";
 import Popover from '@material-ui/core/Popover';
 import NoteService from '../service/NoteService'; 
-
+import { useDispatch } from 'react-redux';
+import { callToApi } from '../redux/actions/ApiAction';
 
 const useStyles = makeStyles(theme => ({
 
@@ -108,6 +109,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function EditNote(props) {
     const classes = useStyles();
+
+    const dispatch = useDispatch();
+
     const anchorRef = React.useRef(null);
     const [title, setTitle] = React.useState(props.NotesObj.title)
     const [content, setContent] = React.useState(props.NotesObj.description)
@@ -127,7 +131,8 @@ export default function EditNote(props) {
         .catch((err) => {
             console.log(err);
         })
-        props.handleClose()
+        dispatch(callToApi("NOTES"));
+        props.handleClose();
     }
 
     const handleClick = event => {
