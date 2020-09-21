@@ -1,0 +1,27 @@
+.root_search {
+    position:absolute;
+    display: flex;
+    // padding: 2px 4px;
+    // width: 50%;
+    align-items: center;
+    border-radius: 8px;
+    margin-left: 320px, 
+}
+
+.search {
+    padding: 2px 4px;
+    width: 50%;
+}
+
+.responsive_search {
+    padding: 0px 0px;
+    width: 0%;
+}
+
+.input_search {
+    margin-left: 1px;
+    flex: 0;
+}
+iconButton {
+    padding: 10;
+}

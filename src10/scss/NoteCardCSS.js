@@ -161,41 +161,4 @@ export const useStyles = makeStyles(theme => ({
         justifyContent: 'space-around',
         padding: theme.spacing(0.5,0.5),
     },
-
-    addLabelPaper: {
-        width: 200,
-        padding: '5px 10px'
-    },
-
-    reminderPaper: {
-        '& .MuiPopover-paper': {
-            boxShadow: '0em 0.1em 0.1em 0em lightgray',
-            border: '1px solid lightgray',
-            borderRadius: '6px',
-        }
-    },
-
-    reminderList: {
-        width: 290,
-        maxWidth: 290,
-    },
-
-    dateField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 250,
-    },
-
-    timeField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 250,
-        borderBottom: '1px solid gray'
-    },
-
-    timeList: {
-        width: 250,
-        maxWidth: 250,
-    },
-
 }));

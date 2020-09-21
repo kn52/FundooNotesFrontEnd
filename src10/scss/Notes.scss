@@ -1,0 +1,88 @@
+@import "Common.scss";
+
+.MainContainer{
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
+    box-sizing: none;
+    transition: margin .20s linear;
+}
+
+.slideMainContainer{
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
+    margin-left: 160px;
+    margin-right: -3.7%;
+    transition: margin .20s linear;
+}
+
+.bulbContainer{
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter, alignContentCenter !optional;
+    margin-top: 15%;
+}
+
+.bulbImage{
+    width: 100px;
+    height: 100px;
+    filter: contrast(0%);
+    align-self: center;
+}
+
+h2 {
+    align-self: center;
+    color: gray;
+}
+
+.noteTaker{
+    display: flex;
+    margin-top: 2em;
+    align-self: center;   
+}
+
+.gridView{
+    margin-left: 17%;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1200px){
+    .gridView{
+        margin-left: 10%;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 680px){
+
+    .gridView{
+        margin: auto;
+        margin-left: 10%;
+        padding: 10px;
+        width: 80%; 
+    }
+
+    .slideNotesMainContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 0px;
+        margin-right: 0px;
+        transition: none;
+    }
+
+}
+
+@media (max-width: 540px){
+    .gridView{
+        margin: auto;
+        width: 97%; 
+    }
+}
+
+@media (max-width: 400px){
+    .notesContainer{
+        margin-left: 0%;
+        margin-right: 0%;
+        padding: 10px 0px;
+    }
+ }
