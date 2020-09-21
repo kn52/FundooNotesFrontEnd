@@ -36,6 +36,12 @@ class NoteService {
         return this.axiosservice.post(url,data,true,headers);
     }
 
+    getTrashNotes(data) {
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/getTrashNotesList';
+        return this.axiosservice.get(url,true,headers);
+    }
+
     getHeader = () => {
         return {
             headers: {
