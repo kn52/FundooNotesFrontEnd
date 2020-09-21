@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import React from "react";
 import SignIn from '../component/SignIn';
 import SignUp from '../component/SignUp';
@@ -8,7 +8,6 @@ import ResetPassword from '../component/ResetPassword';
 import EditLabel from '../component/EditLabel';
 import PrivateRoute from './PrivateRoute';
 import Notes from '../component/Notes';
-import Trash from '../component/Trash';
 
 export default function DefaultRoute () {
     return (
@@ -21,7 +20,6 @@ export default function DefaultRoute () {
                 <Route path='/edit' component={EditLabel} />
 				<PrivateRoute path='/dashboard' component={DashBoard} />
                 <PrivateRoute path='/dashboard/notes' component={Notes} />
-                <PrivateRoute path='/dashboard/trash' component={Trash} />
         </BrowserRouter>
     );
 }

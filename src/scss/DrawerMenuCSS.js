@@ -88,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
         borderTopRightRadius: '2em',
     },
     '& .MuiTypography-body1': {
-        fontWeight: 500,
+        fontWeight: 550,
+        fontSize:14,
     },
     marginLeft: theme.spacing(0),
     transform: 'none',

@@ -24,11 +24,17 @@ class NoteService {
         return this.axiosservice.post(url,data,true,headers);
     }
 
-    getTrashNotes() {
+    trashNotes(data){
         const headers = this.getHeader();
-        let url=BASEURL.fundooUrl + '/notes/getTrashNotesList';
-        return this.axiosservice.post(url,true,headers);
-    }    
+        let url=BASEURL.fundooUrl + '/notes/trashNotes';
+        return this.axiosservice.post(url,data,true,headers);
+    }
+
+    changesColorNotes(data) {
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/changesColorNotes';
+        return this.axiosservice.post(url,data,true,headers);
+    }
 
     getHeader = () => {
         return {
