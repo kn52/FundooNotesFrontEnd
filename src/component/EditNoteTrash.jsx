@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/icons';
+import NoteService from '../service/NoteService';
 
 const useStyles = makeStyles(theme => ({
 
@@ -101,10 +102,17 @@ export default function EditNote(props) {
             "isDeleted": bool, 
             "noteIdList": [key]
         }
+        NoteService.trashNotes(data).then((res)=>{
+            console.log(res.data.data);
+            let getnotes=res.data.data.data; 
+            this.setState({notes:getnotes})
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     
     const deleteNotesdata = (key) => {
-
     }
 
     return (

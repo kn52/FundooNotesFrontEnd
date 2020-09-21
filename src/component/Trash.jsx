@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../scss/Notes.scss';
 import Masonry from 'react-masonry-component';
 import { connect } from 'react-redux';
 import { Container } from "@material-ui/core";
-import NoteInTrash from './NoteInTrash';
+import { useStyles } from '../scss/NoteCardCSS';
+import { Paper, Typography } from '@material-ui/core';
+import clsx from 'clsx'
+import IconButton from '@material-ui/core/IconButton';
+import SnackBar from "../util/SnackBar";
+import EditNotetrash from './EditNoteTrash'
+import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/icons';
 import NoteService from '../service/NoteService';
 
-class Trash extends React.Component {
+class Trash extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -27,9 +33,7 @@ class Trash extends React.Component {
 
     getTrashNotes(){
         NoteService.getTrashNotes().then((res)=>{
-            console.log(res.data.data);
-            let getnotes=res.data.data.data; 
-            this.setState({notes:getnotes})
+            console.log(res);
         })
         .catch((err)=>{
             console.log(err);
@@ -37,7 +41,7 @@ class Trash extends React.Component {
     }
     
     componentDidMount() {
-        this.getTrashNotes();
+        this.getTrashNotes()
     }
 
     render() {
@@ -49,20 +53,117 @@ class Trash extends React.Component {
                     <Masonry>
                         {
                             this.state.notes !== null
-                            ?   this.state.notes.map((key, index) => (
-                                    <NoteInTrash 
-                                        Notekey = {key.id}
-                                        NoteObj = {key}
-                                        key={index}
+                            ?   Object.getOwnPropertyNames(this.state.notes).map((key, index) => (
+                                    <NoteTrash 
+                                        Notekey = {key}
+                                        NoteObj = {this.state.notes[key]}
+                                        key={key}
                                     />
                                 ))
                             : null
                         }
                     </Masonry>
+                    
                 </div>
             </Container>
         );
     }
+}
+
+const NoteTrash = (props) => {
+    const classes = useStyles();
+ 
+    const [visible, setVisibility] = React.useState(false)
+    const [opn, setSnack] = React.useState(false);
+    const [msg, setMsg] = React.useState(null);
+    const [sty, setSty] = React.useState(null);
+    const [editNote, setEditNote] = React.useState(false);
+
+    const trashAndRestore = (key,bool) => {}
+    
+    const deleteNotesdata = (key) => {
+
+    }
+
+    return (
+        <>
+            <Paper
+                component="div"
+                className={clsx(classes.root)}
+                onMouseEnter={() => setVisibility(true)}
+                onMouseLeave={() => setVisibility(false)}
+                style={{ boxShadow: visible && '0em 0em 0.4em 0em gray' }}
+            >
+                <Paper
+                    className={clsx(classes.noteTaker)}
+                >
+                    <Typography className={classes.noteTitle}
+                        onClick={
+                            () => {
+                                setEditNote(true)
+                            }
+                        }
+                    >
+                        {props.NoteObj.Title}
+                    </Typography>
+                </Paper>
+                <Paper
+                    className={clsx(classes.noteTaker)}
+                    onClick={
+                        () => {
+                            setEditNote(true)
+                        }
+                    }
+                >
+                    <Typography className={classes.noteContent}>
+                        {props.NoteObj.Content}
+                    </Typography>
+                </Paper>
+                <Paper
+                    className={clsx(classes.noteTaker)}
+                    style={{ visibility: visible ? 'visible' : 'hidden', justifyContent: 'flex-start' }}
+                >
+                    <IconButton className={classes.iconButton}
+                        onClick={() => {
+                            setSnack(true)
+                            setMsg('Note delete forever')
+                            deleteNotesdata(props.Notekey)
+                        }
+                        }
+                    >
+                        <DeleteForeverOutlined fontSize="small" />
+                    </IconButton>
+                    <IconButton className={classes.iconButton}
+                        onClick={() => {
+                            setSnack(true)
+                            setMsg('Note restored')
+                            trashAndRestore(props.Notekey, false)
+                        }}
+                    >
+                        <RestoreFromTrashOutlined fontSize="small" />
+                    </IconButton>
+                </Paper>
+            </Paper>
+
+            <EditNotetrash
+                handleClose={() => setEditNote(false)}
+                open={editNote}
+                NotesObj={props.NoteObj}
+                Key={props.Notekey}
+            />
+
+            <SnackBar
+                open={opn}
+                msg={msg}
+                handleClose={(event, reason) => {
+                    if (reason === 'clickaway') {
+                        return;
+                    }
+                    setSnack(false);
+                }}
+            />
+        </>
+    );
 }
 
 const mapToStateProps = state => {

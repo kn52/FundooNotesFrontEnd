@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import setLabelPage from '../redux/actions/LabelAction';
 import { EmojiObjectsOutlined, NotificationsOutlined } from "@material-ui/icons";
 import { CreateOutlined, ArchiveOutlined, DeleteOutlined } from '@material-ui/icons';
-import { Drawer,List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
+import { Drawer,List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core/';
 import useStyle from '../scss/DrawerMenuCSS';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';

@@ -182,10 +182,22 @@ export default function NoteInTrash(props) {
     const [sty, setSty] = React.useState(null);
     const [editNote, setEditNote] = React.useState(false);
 
-    const trashAndRestore = (key,bool) => {}
+    const trashAndRestore = (key,bool) => {
+        const data = {
+            "isDeleted": bool, 
+            "noteIdList": [key]
+        }
+        NoteService.trashNotes(data).then((res)=>{
+            console.log(res.data.data);
+            let getnotes=res.data.data.data; 
+            this.setState({notes:getnotes})
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
     
     const deleteNotesdata = (key) => {
-
     }
 
     return (

@@ -1,11 +1,8 @@
 @import "Common.scss";
 
 .MainContainer{
-    @extend .displayFlex, .flexDirectionColumn !optional;
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
     box-sizing: none;
-    border:1px solid white;
-    padding-top: 10vh;
-    min-height: 99.5vh;
     transition: margin .20s linear;
 }
 
@@ -13,7 +10,6 @@
     @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
     margin-left: 160px;
     margin-right: -3.7%;
-    min-height: 99.5vh;
     transition: margin .20s linear;
 }
 

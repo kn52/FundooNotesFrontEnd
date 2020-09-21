@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import './scss/DashBoard.scss';
 import DefaultRoute from "./route/RouterSwitch";
 import { Provider } from 'react-redux';
 import store from './redux/store/store';

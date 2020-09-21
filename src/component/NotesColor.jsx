@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles, Paper, Popover } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PaletteIcon from '@material-ui/icons/PaletteOutlined';
-import NoteService from '../service/NoteService';
+// import {  useSelector , useDispatch } from 'react-redux';
+// import { changeColor } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -51,17 +52,14 @@ export default function ColorPalette(props) {
     // const data = useSelector(state=>state.note);
 
     const updateBgColor = (key,color) => {
+        // console.log(key);
+        // key=key-1;
+        // console.log(key);
+        // var d = data[0];
+        // console.log("======"+data);
+        // // dispatch(changeColor(key,color))
 
-        const data = {
-            "color":color,
-            "noteIdList": [key]
-        }
-        NoteService.changesColorNotes(data).then((res)=>{
-            console.log(res);
-        })
-        .catch((err)=>{
-            console.log(err);
-        }) 
+        // // props.onchange(color);
     }
 
     const colorBox = Boolean(palette);
