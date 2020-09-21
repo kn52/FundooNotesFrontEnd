@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import React from "react";
 import SignIn from '../component/SignIn';
 import SignUp from '../component/SignUp';

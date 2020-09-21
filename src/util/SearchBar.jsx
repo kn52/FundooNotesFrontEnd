@@ -1,9 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase, Paper, ClickAwayListener, IconButton } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import CrossIcon from '@material-ui/icons/Clear'
-import SearcBar from "material-ui-search-bar";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,7 +28,7 @@ export default function SearchBar() {
   const classes = useStyles();
 
   const [clickaway,setClickAway]=useState(false);
-
+  const [width,setWidth]=useState(0);
   const [searchText,setSearchText]=useState('');
 
   const displaySearch = (
@@ -46,7 +45,7 @@ export default function SearchBar() {
           onClick={()=>setClickAway(true)}
         />
         <IconButton  className={classes.iconButton} aria-label="directions">
-          { clickaway && <CrossIcon onClick={()=>{ setSearchText({searchText:''}) }}/> }
+          { clickaway && <CrossIcon /> }
         </IconButton>
     </>
   )
@@ -55,6 +54,28 @@ export default function SearchBar() {
     setClickAway(false);
   }
 
+  // const getUpdatedDimensions = () => {
+  //   let size =window.innerWidth;
+  //   console.log(size);
+  //   setWidth({width:size});
+  //   console.log(width);
+  // }
+
+  useEffect(()=>{
+    function getUpdatedDimensions() {
+      let size =window.innerWidth;
+      console.log(size);
+      setWidth({width:size});
+      console.log(width);
+    }
+    window.addEventListener("resize",getUpdatedDimensions);      
+    
+    getUpdatedDimensions();
+
+    // return () => window.removeEventListener("resize", getUpdatedDimensions);
+
+  },[])
+  
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       { clickaway ? <Paper component="form" className={classes.root} style={{backgroundColor:'white'}}>{displaySearch}</Paper>

@@ -49,7 +49,7 @@ export default function NoteCard(props) {
                     <Paper
                         
                         className={clsx(classes.noteTaker)}
-                        style={{backgroundColor: props.NoteObj.noteColor }}
+                        style={{backgroundColor: props.NoteObj.color }}
                     >
                         <Typography className={classes.noteTitle}
                             onClick={
@@ -62,12 +62,10 @@ export default function NoteCard(props) {
                         </Typography>
                         <IconButton
                             style={{ visibility: visible || more ? 'visible' : 'hidden' }}
-                            className={clsx(classes.pinButton, {
-                                [classes.pinButtonList]: toggleView,
-                            })}
+                            className={clsx(classes.pinButton)}
                         >
                             <Avatar
-                                src={!props.NoteObj.PinStatus ? UnPinIcon : PinIcon}
+                                src={!props.NoteObj.isPinned ? UnPinIcon : PinIcon}
                                 className={classes.pinIcon}
 
                             ></Avatar>
@@ -75,10 +73,8 @@ export default function NoteCard(props) {
                     </Paper>
 
                     <Paper
-                        className={clsx(classes.noteTaker, {
-                            [classes.paperList]: props.ToggleView,
-                        })}
-                        style={{backgroundColor: props.NoteObj.noteColor }}
+                        className={clsx(classes.noteTaker)}
+                        style={{backgroundColor: props.NoteObj.color }}
                         onClick={
                             () => {
                                 setEditNote(true)
@@ -91,10 +87,8 @@ export default function NoteCard(props) {
                     </Paper>
 
                     <Paper
-                        style={{backgroundColor: props.NoteObj.noteColor }}
-                        className={clsx(classes.chipPaper, {
-                            [classes.paperGrid]: props.ToggleView,
-                        })}
+                        style={{backgroundColor: props.NoteObj.color }}
+                        className={clsx(classes.chipPaper)}
                     >
                         {/* {
                             false ? <Chip 
@@ -107,7 +101,7 @@ export default function NoteCard(props) {
                         : {} } */}
                     </Paper>
 
-                    <Paper style={{ backgroundColor: props.NoteObj.noteColor, visibility: more || visible ? 'visible' : 'hidden' }}
+                    <Paper style={{ backgroundColor: props.NoteObj.color, visibility: more || visible ? 'visible' : 'hidden' }}
                         className={clsx(classes.noteTaker, {
                             [classes.paperGrid]: props.ToggleView,
                         })}
