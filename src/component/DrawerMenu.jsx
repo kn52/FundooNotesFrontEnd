@@ -51,7 +51,8 @@ function DrawerMenu() {
       >
         <div className={classes.toolbar}></div>
         <List className={classes.listStyle}>
-            <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) }} 
+            <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) 
+                }} 
                 className={classes.listItemStyle} style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
@@ -71,7 +72,8 @@ function DrawerMenu() {
               <ListItemText primary="Archieve" />
             </ListItem>
             
-            <ListItem button key="Trash" onClick={()=>{ open && dispatch(setLabelPage('Trash')) }} 
+            <ListItem button key="Trash" onClick={()=>{ open && dispatch(setLabelPage('Trash'))
+               }} 
                 className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 

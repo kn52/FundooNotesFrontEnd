@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStyles } from '../scss/NoteCardCSS';
-import { Paper, Typography, Avatar, Chip } from '@material-ui/core';
 import clsx from 'clsx'
 import AddAlertIcon from '@material-ui/icons/AddAlertOutlined';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,14 +14,16 @@ import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
 // import SnackBar from "./SnackBar";
 import EditNote from './EditNote';
 import NoteColor from './NotesColor';
-// import MoreOption, { removeLabelUncheck } from './MoreOption';
-// import { UserProvider } from '../UserContext'
-// import SetReminder from './SetReminder';
-// import moment from 'moment';
+import NoteService from '../service/NoteService'; 
+import { useDispatch } from 'react-redux';
+import { Typography, Popover, Paper, Avatar, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
+import { callToApi } from '../redux/actions/ApiAction';
 
 export default function NoteCard(props) {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const anchorRef = React.useRef(null);
     const [visible, setVisibility] = React.useState(false)
     const [snack, setSnack] = React.useState(false);
     const [msg, setMsg] = React.useState(null);
@@ -30,6 +31,68 @@ export default function NoteCard(props) {
     const [editNote, setEditNote] = React.useState(false);
     const [more, setMore] = React.useState(false)
     const [labels, setLabels] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const handleClick = event => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const trashAndRestore = (key,bool) => {
+        const data = {
+            "isDeleted": bool, 
+            "noteIdList": [key]
+        }
+        NoteService.trashNotes(data).then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        dispatch(callToApi("NOTES"));
+    }
+
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    const renderMorePopper = (
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+            }}
+        >
+            <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList autoFocusItem={open} id="menu-list-grow">
+                        <MenuItem
+                            onClick={() => { trashAndRestore(props.key,true) }}
+                            dense
+                        >
+                            Delete note
+                    </MenuItem>
+                        <MenuItem onClick={handleClose} dense>Add label</MenuItem>
+                        <MenuItem onClick={handleClose} dense>Add drawing</MenuItem>
+                        <MenuItem onClick={handleClose} dense>Make a copy</MenuItem>
+                        <MenuItem onClick={handleClose} dense>Show checkboxes</MenuItem>
+                        <MenuItem onClick={handleClose} dense>Copy to google docs</MenuItem>
+                    </MenuList>
+                </ClickAwayListener>
+            </Paper>
+        </Popover>
+    );
 
     return (
         <>
@@ -126,8 +189,13 @@ export default function NoteCard(props) {
                             {!props.NoteObj.Archive ? <ArchiveIcon fontSize="small" /> : <UnarchiveIcon fontSize="small" />}
                         </IconButton>
                         <IconButton className={classes.iconButton}
+                            ref={anchorRef}
+                            aria-controls={open ? 'menu-list-grow' : undefined}
+                            aria-haspopup="true"
+                            onClick={handleClick}
                         >
-                            <MoreVertIcon fontSize="small"/>
+                            <MoreVertIcon fontSize="small" />
+                            {renderMorePopper}
                         </IconButton>
                     </Paper>
             </Paper>

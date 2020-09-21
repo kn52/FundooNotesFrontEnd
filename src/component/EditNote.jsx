@@ -135,6 +135,21 @@ export default function EditNote(props) {
         props.handleClose();
     }
 
+    const trashAndRestore = (key,bool) => {
+        const data = {
+            "isDeleted": bool, 
+            "noteIdList": [key]
+        }
+        NoteService.trashNotes(data).then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        dispatch(callToApi("NOTES"));
+        props.handleClose();
+    }
+
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
     };
@@ -165,7 +180,7 @@ export default function EditNote(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow">
                         <MenuItem
-                            // onClick={() => { trashAndRestore(props.key) }}
+                            onClick={() => { trashAndRestore(props.key,true) }}
                             dense
                         >
                             Delete note

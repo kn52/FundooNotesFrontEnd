@@ -13,15 +13,16 @@ import Trash from '../component/Trash';
 export default function DefaultRoute () {
     return (
         <BrowserRouter>
-                <Route path='/login' exact component={SignIn} />
-                <Route exact path={['/','/dashboard']} render={()=>{ return (<Redirect to='/dashboard/notes'/>)}}/>
-                <Route path='/register' component={SignUp} />
-                <Route path='/forgetpassword' exact component={ForgetPassword} />
-                <Route path='/resetpassword' component={ResetPassword} />
-                <Route path='/edit' component={EditLabel} />
-				<PrivateRoute path='/dashboard' component={DashBoard} />
-                <PrivateRoute path='/dashboard/notes' component={Notes} />
-                <PrivateRoute path='/dashboard/trash' component={Trash} />
+            <Route path='/login' exact component={SignIn} />
+            <Route exact path='/' render={()=>{ return (<Redirect to='/dashboard/notes'/>)}}/>
+            <Route exact path='/dashboard' render={()=>{ return (<Redirect to='/dashboard/notes'/>)}}/>
+            <Route path='/register' component={SignUp} />
+            <Route path='/forgetpassword' exact component={ForgetPassword} />
+            <Route path='/resetpassword' component={ResetPassword} />
+            <Route path='/edit' component={EditLabel} />
+			<PrivateRoute path='/dashboard' component={DashBoard} />
+            <PrivateRoute path='/dashboard/notes' component={Notes} />
+            <PrivateRoute path='/dashboard/trash' component={Trash} />
         </BrowserRouter>
     );
 }
