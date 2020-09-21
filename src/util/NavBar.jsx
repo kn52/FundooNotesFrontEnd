@@ -12,6 +12,7 @@ import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerActi
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
+
 const DisplayTooltip = withStyles(theme => ({
   tooltip: {
       backgroundColor: '#404040',
@@ -72,8 +73,6 @@ const DisplayAppBar = (props) => {
             </Grid>
     </Popover>
     );
-
-    console.log(openDrawer);
 
     return (
       <>

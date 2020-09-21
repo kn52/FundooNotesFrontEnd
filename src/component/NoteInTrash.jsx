@@ -154,24 +154,6 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(1),
     },
-
-    colorPalettePaper1: {
-        display: 'flex',
-        flexDirection: 'column',
-        border: 'none',
-        boxShadow: 'none',
-        padding: theme.spacing(0),
-    },
-
-    colorPalettePaper2: {
-        display: 'flex',
-        flexDirection: 'row',
-        border: 'none',
-        boxShadow: 'none',
-        width: 120,
-        justifyContent: 'space-around',
-        padding: theme.spacing(0.5,0.5),
-    },
 }));
 
 
@@ -199,7 +181,7 @@ export default function NoteInTrash(props) {
         .catch((err)=>{
             console.log(err);
         })
-        dispatch(CallToApi("TRASH"));
+        dispatch(callToApi("TRASH"));
     }
     
     const deleteNotesdata = (key) => {
@@ -212,7 +194,7 @@ export default function NoteInTrash(props) {
         .catch((err)=>{
             console.log(err);
         })
-        dispatch(CallToApi("TRASH"));
+        dispatch(callToApi("TRASH"));
     }
 
     return (
@@ -222,7 +204,7 @@ export default function NoteInTrash(props) {
                 className={clsx(classes.root)}
                 onMouseEnter={() => setVisibility(true)}
                 onMouseLeave={() => setVisibility(false)}
-                style={{backgroundColor:props.NoteObj.color, boxShadow: visible && '0em 0em 0.4em 0em gray' }}
+                style={{border:'1px solid #e0e0e0',backgroundColor:props.NoteObj.color}}
             >
                 <Paper
                     className={clsx(classes.noteTaker)} style={{backgroundColor:props.NoteObj.color}}
@@ -250,7 +232,7 @@ export default function NoteInTrash(props) {
                     </Typography>
                 </Paper>
                 <Paper
-                    className={clsx(classes.noteTaker)} style={{}}
+                    className={clsx(classes.noteTaker)}
                     style={{ backgroundColor:props.NoteObj.color,
                         visibility: visible ? 'visible' : 'hidden', justifyContent: 'flex-start' }}
                 >

@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 import SnackBar from '../util/SnackBar';
+import Masonry from 'react-masonry-component';
+import { noCallToApi } from '../redux/actions/ApiAction';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -162,22 +164,26 @@ class Notes extends React.Component {
                     }
 
     
+                <Masonry>
                     <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
-                        paddingTop: this.state.getNotes.length>0 ? '3%' : '0%',
                         paddingLeft: this.props.openDrawer && this.props.onHover ? '9%' 
                                         : this.props.openDrawer ? '1.6%' :'9%'}}>
+                    
                     {
                         this.state.getNotes.length>0 && 
                         this.state.getNotes.map((key,index)=>{
-                            return <NoteCard
+                            if(key.isDeleted === false) {
+                                return <NoteCard
                                     key={index}
                                     Notekey={key.id}
                                     NoteObj={key}
                                     HandleArchiveChange={this.handleArchiveChange}
                                 />
+                            }
                         })
                     }
                     </div>
+                    </Masonry>
               </div>
               <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
                         onclose={()=>{this.handleSnackClose()}}/>

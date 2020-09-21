@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Container } from "@material-ui/core";
 import NoteInTrash from './NoteInTrash';
 import NoteService from '../service/NoteService';
+import { noCallToApi } from '../redux/actions/ApiAction';
 
 class Trash extends React.Component {
     constructor(props){

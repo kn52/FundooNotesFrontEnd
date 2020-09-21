@@ -54,20 +54,15 @@ export default function SearchBar() {
     setClickAway(false);
   }
 
-  // const getUpdatedDimensions = () => {
-  //   let size =window.innerWidth;
-  //   console.log(size);
-  //   setWidth({width:size});
-  //   console.log(width);
-  // }
+  const getUpdatedDimensions = () => {
+    let size =window.innerWidth;
+    console.log(size);
+    setWidth(size);
+    console.log(width);
+  }
 
   useEffect(()=>{
-    function getUpdatedDimensions() {
-      let size =window.innerWidth;
-      console.log(size);
-      setWidth({width:size});
-      console.log(width);
-    }
+    
     window.addEventListener("resize",getUpdatedDimensions);      
     
     getUpdatedDimensions();

@@ -72,8 +72,6 @@ const useStyles = makeStyles(theme => ({
         width: 570,
         marginTop: theme.spacing(-1),
         marginLeft: theme.spacing(-1),
-        border: '1ps solid white',
-        boxShadow: '0.1em 0.1em 0.4em 0em #d7aefb',
         [theme.breakpoints.down('xs')]: {
             width: '100%',
         },
@@ -115,7 +113,7 @@ export default function EditNote(props) {
         .catch((err)=>{
             console.log(err);
         })
-        dispatch(CallToApi("TRASH"));
+        dispatch(callToApi("TRASH"));
     }
     
     const deleteNotesdata = (key) => {
@@ -128,7 +126,7 @@ export default function EditNote(props) {
         .catch((err)=>{
             console.log(err);
         })
-        dispatch(CallToApi("TRASH"));
+        dispatch(callToApi("TRASH"));
     }
 
     return (
@@ -136,7 +134,7 @@ export default function EditNote(props) {
             <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" 
                 className={classes.paper} >
                 <DialogTitle style={{backgroundColor:props.NotesObj.color}}>
-                    <Paper className={classes.noteTaker} style={{backgroundColor:props.NotesObj.color}}>
+                    <Paper className={classes.noteTaker} style={{boxShadow:'none',backgroundColor:props.NotesObj.color}}>
                         <Typography style={{backgroundColor:props.NotesObj.color}}
                             className={classes.inputTitle}
                         > {title} </Typography>
@@ -144,14 +142,14 @@ export default function EditNote(props) {
 
                 </DialogTitle>
                 <DialogContent style={{backgroundColor:props.NotesObj.color}}>
-                    <Paper className={classes.noteTaker} style={{backgroundColor:props.NotesObj.color}}>
+                    <Paper className={classes.noteTaker} style={{boxShadow:'none',backgroundColor:props.NotesObj.color}}>
                         <Typography
                             className={classes.inputNote}
                         > {content} </Typography>
                     </Paper>
                 </DialogContent>
                 <DialogActions style={{backgroundColor:props.NotesObj.color}}>
-                    <Paper className={classes.noteTaker} style={{backgroundColor:props.NotesObj.color, justifyContent: 'flex-start' }}>
+                    <Paper className={classes.noteTaker} style={{boxShadow:'none',backgroundColor:props.NotesObj.color, justifyContent: 'flex-start' }}>
                         <IconButton className={classes.iconButton}
                             onClick={() => {
                                 props.handleClose()

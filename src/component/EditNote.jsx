@@ -184,8 +184,8 @@ export default function EditNote(props) {
     return (
         <div>
             <Dialog open={props.open} onClose={updateNote} aria-labelledby="form-dialog-title" className={classes.paper}>
-                <DialogTitle style={{ backgroundColor: props.NotesObj.BgColor }}>
-                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.BgColor }}>
+                <DialogTitle style={{ backgroundColor: props.NotesObj.color }}>
+                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.color }}>
                         <InputBase
                             className={classes.inputTitle}
                             placeholder="Title"
@@ -203,8 +203,8 @@ export default function EditNote(props) {
                     </Paper>
 
                 </DialogTitle>
-                <DialogContent style={{ backgroundColor: props.NotesObj.BgColor }}>
-                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.BgColor }}>
+                <DialogContent style={{ backgroundColor: props.NotesObj.color }}>
+                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.color }}>
                         <InputBase
                             className={classes.inputNote}
                             placeholder="Take a note..."
@@ -217,8 +217,8 @@ export default function EditNote(props) {
                         />
                     </Paper>
                 </DialogContent>
-                <DialogActions style={{ backgroundColor: props.NotesObj.BgColor }}>
-                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.BgColor }}>
+                <DialogActions style={{ backgroundColor: props.NotesObj.color }}>
+                    <Paper className={classes.noteTaker} style={{ backgroundColor: props.NotesObj.color }}>
                         <IconButton className={classes.iconButton}>
                             <AddAlertIcon fontSize="small" />
                         </IconButton>
