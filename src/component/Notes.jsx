@@ -148,7 +148,7 @@ class Notes extends React.Component {
                         </div>
                     </ClickAwayListener>
                     { 
-                        this.state.getNotes.length === 0 &&
+                        (this.state.pinNotes.length === 0 && this.state.unpinNotes.length === 0) &&
                         <div className="bulbContainer">
                             <img alt="temp background" src={bulbImage} className="bulbImage" />
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
@@ -156,9 +156,9 @@ class Notes extends React.Component {
                     }
                     
                     {
-                        this.state.pinNotes === 0 &&
+                        this.state.pinNotes.length > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '4em', marginLeft: '10.5em' }}
+                            style={{ marginTop: '4em', marginLeft: '0em' }}
                         >
                             PINNED:- {Object.keys(this.state.pinNotes).length}
                         </Typography>
@@ -182,12 +182,12 @@ class Notes extends React.Component {
                     </Masonry>
 
                     {
-                        this.state.unpinNotes.length === 0 &&
+                        this.state.unpinNotes.length > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '3em', marginLeft: '10.5em' }}
+                            style={{ marginTop: '3em', marginLeft: '0em' }}
                         >
                             OTHERS:- {Object.keys(this.state.unpinNotes).length}
-                        </Typography>
+                        </Typography> 
                     }
 
                     <Masonry>

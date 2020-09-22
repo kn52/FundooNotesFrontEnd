@@ -24,15 +24,21 @@ class NoteService {
         return this.axiosservice.post(url,data,true,headers);
     }
 
-    trashNotes(data){
+    pinUnpinNotes(data) {
         const headers = this.getHeader();
-        let url=BASEURL.fundooUrl + '/notes/trashNotes';
+        let url=BASEURL.fundooUrl + '/notes/pinUnpinNotes';
         return this.axiosservice.post(url,data,true,headers);
     }
 
     changesColorNotes(data) {
         const headers = this.getHeader();
         let url=BASEURL.fundooUrl + '/notes/changesColorNotes';
+        return this.axiosservice.post(url,data,true,headers);
+    }
+
+    trashNotes(data){
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/trashNotes';
         return this.axiosservice.post(url,data,true,headers);
     }
 

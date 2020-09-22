@@ -41,6 +41,21 @@ export default function NoteCard(props) {
         setAnchorEl(null);
     };
 
+    const handlePinChange = (key,bool) => {
+        let value = bool ? false : true;
+        const data = {
+            "isPined":value,
+            "noteIdList":[key]       
+        }
+        NoteService.pinUnpinNotes(data).then((res)=> {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        dispatch(callToApi("NOTES"));
+    }
+
     const trashAndRestore = (key,bool) => {
         const data = {
             "isDeleted": bool, 
@@ -125,7 +140,10 @@ export default function NoteCard(props) {
                         </Typography>
                         <IconButton
                             style={{ visibility: visible || more ? 'visible' : 'hidden' }}
-                            className={clsx(classes.pinButton)} onClick={() => setPin(!pin)}
+                            className={clsx(classes.pinButton)} onClick={() => {
+                                setPin(!pin)
+                                handlePinChange(props.Notekey,pin)
+                            }}
                         >
                             <Avatar
                                 src={pin ? PinIcon : UnPinIcon ? UnPinIcon : PinIcon}
