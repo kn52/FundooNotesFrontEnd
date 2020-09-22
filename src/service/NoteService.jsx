@@ -44,7 +44,7 @@ class NoteService {
 
     deleteForeverNotes(data) {
         const headers = this.getHeader();
-        let url=BASEURL.fundooUrl + 'notes/deleteForeverNotes';
+        let url=BASEURL.fundooUrl + '/notes/deleteForeverNotes';
         return this.axiosservice.post(url,data,true,headers); 
     }
 
