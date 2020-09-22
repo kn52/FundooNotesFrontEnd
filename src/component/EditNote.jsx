@@ -115,7 +115,7 @@ export default function EditNote(props) {
     const anchorRef = React.useRef(null);
     const [title, setTitle] = React.useState(props.NotesObj.title)
     const [content, setContent] = React.useState(props.NotesObj.description)
-    const [pin, setPin] = React.useState(props.NotesObj.isPinned)
+    const [pin, setPin] = React.useState(props.NotesObj.isPined)
     const [archive, setArchive] = React.useState(props.NotesObj.isArchived)
     const [anchorEl, setAnchorEl] = React.useState(null)
 

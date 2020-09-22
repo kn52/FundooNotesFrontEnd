@@ -3,7 +3,7 @@ import '../scss/Notes.scss';
 import NotesCollapsed from './NotesCollapsed';
 import NotesExpanded from './NotesExpanded';
 import NoteCard from './NotesCard';
-import { Container, ClickAwayListener } from "@material-ui/core";
+import { Typography, Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
 import { addNote, removeNote } from "../redux/actions/NoteAction";
@@ -25,8 +25,8 @@ class Notes extends React.Component {
             pinStatus: false,
             archive: false,
             trash: false,
-            pinNotes: null,
-            unpinNotes: null,
+            pinNotes: [],
+            unpinNotes: [],
             opn:false,
             msg:'',
             sty:'',
@@ -44,22 +44,8 @@ class Notes extends React.Component {
 
     handleClickAway = () => {
         this.setState({ clickAway: false });
-        if(this.state.noteTitle!=='') {
-            var newId = this.props.notes.length+1;
-            const data = {
-                id:newId,
-                noteTitle: this.state.noteTitle,
-                noteContent: this.state.noteContent,
-                noteColor: this.state.noteColor,
-                pinStatus: this.state.pinStatus,
-                archive: this.state.archive,
-                trash: this.state.trash,
-            }
-            this.props.addNote(data);
-        }
-        
         if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
-            const data2 = {
+            const data = {
                 "title": this.state.noteTitle,
                 "description": this.state.noteContent,
                 "color": this.state.noteColor,
@@ -68,7 +54,7 @@ class Notes extends React.Component {
                 "isDeleted": this.state.trash,
             }
             
-            NoteService.addNote(data2).then((res) => {
+            NoteService.addNote(data).then((res) => {
                 console.log(res);
                 this.setState({
                     opn:true,
@@ -111,15 +97,20 @@ class Notes extends React.Component {
     getData() {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
-            const notes = res.data.data.data;
-            const revnotes=notes.reverse();
+            const notes=res.data.data.data.reverse();
+            const pinNotes=notes.filter((notes) => notes.isPined === true);
+            let unPinNotes=notes.filter((notes) => notes.isPined === false);
+            console.log(unPinNotes);
             this.setState({
-                getNotes:revnotes
+                pinNotes: pinNotes,
+                unpinNotes: unPinNotes,
+                getNotes:notes
             })
         })
         .catch((err) => {
             console.log(err);
         })
+
         this.props.noCall("");
     }
 
@@ -163,28 +154,57 @@ class Notes extends React.Component {
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
                         </div>
                     }
-
-    
-                <Masonry>
-                    {/* <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
-                        paddingLeft: this.props.openDrawer && this.props.onHover ? '9%' 
-                                        : this.props.openDrawer ? '1.6%' :'9%'}}>
-                     */}
+                    
                     {
-                        this.state.getNotes.length>0 && 
-                        this.state.getNotes.map((key,index)=>{
-                            if(key.isDeleted === false) {
-                                return <NoteCard
-                                    key={index}
-                                    Notekey={key.id}
-                                    NoteObj={key}
-                                    HandleArchiveChange={this.handleArchiveChange}
-                                />
-                            }
-                            return '';
-                        })
+                        this.state.pinNotes === 0 &&
+                        <Typography component="p" color="textPrimary" variant="caption"
+                            style={{ marginTop: '4em', marginLeft: '10.5em' }}
+                        >
+                            PINNED:- {Object.keys(this.state.pinNotes).length}
+                        </Typography>
                     }
-                    {/* </div> */}
+    
+                    <Masonry>
+                        {
+                            this.state.pinNotes.length>0 && 
+                            this.state.pinNotes.map((key,index)=>{
+                                if(key.isDeleted === false) {
+                                    return <NoteCard
+                                        key={index}
+                                        Notekey={key.id}
+                                        NoteObj={key}
+                                        HandleArchiveChange={this.handleArchiveChange}
+                                    />
+                                }
+                                return '';
+                            })
+                        }
+                    </Masonry>
+
+                    {
+                        this.state.unpinNotes.length === 0 &&
+                        <Typography component="p" color="textPrimary" variant="caption"
+                            style={{ marginTop: '3em', marginLeft: '10.5em' }}
+                        >
+                            OTHERS:- {Object.keys(this.state.unpinNotes).length}
+                        </Typography>
+                    }
+
+                    <Masonry>
+                        {
+                            this.state.unpinNotes.length>0 && 
+                            this.state.unpinNotes.map((key,index)=>{
+                                if(key.isDeleted === false) {
+                                    return <NoteCard
+                                        key={index}
+                                        Notekey={key.id}
+                                        NoteObj={key}
+                                        HandleArchiveChange={this.handleArchiveChange}
+                                    />
+                                }
+                                return '';
+                            })
+                        }
                     </Masonry>
               </div>
               <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 

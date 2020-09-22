@@ -27,6 +27,7 @@ export default function NoteCard(props) {
     const [visible, setVisibility] = React.useState(false)
     const [snack, setSnack] = React.useState(false);
     const [msg, setMsg] = React.useState(null);
+    const [pin, setPin] = React.useState(props.NoteObj.isPined)
     const [editNote, setEditNote] = React.useState(false);
     const [more, setMore] = React.useState(false)
     const [labels, setLabels] = React.useState(null);
@@ -124,10 +125,10 @@ export default function NoteCard(props) {
                         </Typography>
                         <IconButton
                             style={{ visibility: visible || more ? 'visible' : 'hidden' }}
-                            className={clsx(classes.pinButton)}
+                            className={clsx(classes.pinButton)} onClick={() => setPin(!pin)}
                         >
                             <Avatar
-                                src={!props.NoteObj.isPinned ? UnPinIcon : PinIcon}
+                                src={pin ? PinIcon : UnPinIcon ? UnPinIcon : PinIcon}
                                 className={classes.pinIcon}
 
                             ></Avatar>
@@ -164,9 +165,7 @@ export default function NoteCard(props) {
                     </Paper>
 
                     <Paper style={{ backgroundColor: props.NoteObj.color, visibility: more || visible ? 'visible' : 'hidden' }}
-                        className={clsx(classes.noteTaker, {
-                            [classes.paperGrid]: props.ToggleView,
-                        })}
+                        className={clsx(classes.noteTaker)}
                     >
                         <IconButton className={classes.iconButton}>
                             <AddAlertIcon fontSize="small" />
