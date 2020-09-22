@@ -35,6 +35,7 @@ class Trash extends React.Component {
         .catch((err)=>{
             console.log(err);
         })
+        this.props.noCall("");
     }
     
     componentDidMount() {
@@ -44,7 +45,6 @@ class Trash extends React.Component {
     render() {
         if(this.props.apiCall === "TRASH") {
             this.getTrashNotes();
-            this.props.noCall("");
         }
         return (
             <Container style={{marginTop: '6em'}}>

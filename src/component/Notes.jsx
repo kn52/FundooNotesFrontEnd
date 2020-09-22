@@ -112,13 +112,15 @@ class Notes extends React.Component {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
             const notes = res.data.data.data;
+            const revnotes=notes.reverse();
             this.setState({
-                getNotes:notes
-            },)
+                getNotes:revnotes
+            })
         })
         .catch((err) => {
             console.log(err);
         })
+        this.props.noCall("");
     }
 
     isEmpty = (obj) => {
@@ -131,7 +133,6 @@ class Notes extends React.Component {
     render() {
         if(this.props.apiCall === "NOTES") {
             this.getData();
-            this.props.noCall("");
         }
         return (
             <Container>
@@ -165,10 +166,10 @@ class Notes extends React.Component {
 
     
                 <Masonry>
-                    <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
+                    {/* <div className="noteTaker" style={{display:'flex',flexWrap:'wrap', 
                         paddingLeft: this.props.openDrawer && this.props.onHover ? '9%' 
                                         : this.props.openDrawer ? '1.6%' :'9%'}}>
-                    
+                     */}
                     {
                         this.state.getNotes.length>0 && 
                         this.state.getNotes.map((key,index)=>{
@@ -180,9 +181,10 @@ class Notes extends React.Component {
                                     HandleArchiveChange={this.handleArchiveChange}
                                 />
                             }
+                            return '';
                         })
                     }
-                    </div>
+                    {/* </div> */}
                     </Masonry>
               </div>
               <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 

@@ -27,7 +27,6 @@ export default function NoteCard(props) {
     const [visible, setVisibility] = React.useState(false)
     const [snack, setSnack] = React.useState(false);
     const [msg, setMsg] = React.useState(null);
-    const toggleView = props.ToggleView
     const [editNote, setEditNote] = React.useState(false);
     const [more, setMore] = React.useState(false)
     const [labels, setLabels] = React.useState(null);
@@ -78,7 +77,7 @@ export default function NoteCard(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow">
                         <MenuItem
-                            onClick={() => { trashAndRestore(props.key,true) }}
+                            onClick={() => { trashAndRestore(props.Notekey,true) }}
                             dense
                         >
                             Delete note
