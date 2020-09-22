@@ -47,23 +47,24 @@ class Trash extends React.Component {
             this.getTrashNotes();
         }
         return (
-            <Container style={{marginTop: '6em'}}>
+            <Container style={{marginTop: '1em'}}>
 
                 <div className={this.state.sliderClassName}>
-
-                    <Masonry>
-                        {
-                            this.state.notes !== null
-                            ?   this.state.notes.map((key, index) => (
-                                    <NoteInTrash 
-                                        Notekey = {key.id}
-                                        NoteObj = {key}
-                                        key={index}
-                                    />
-                                ))
-                            : null
-                        }
-                    </Masonry>
+                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80.81%'}}>
+                        <Masonry>
+                            {
+                                this.state.notes !== null
+                                ?   this.state.notes.map((key, index) => (
+                                        <NoteInTrash 
+                                            Notekey = {key.id}
+                                            NoteObj = {key}
+                                            key={index}
+                                        />
+                                    ))
+                                : null
+                            }
+                        </Masonry>
+                    </div>
                 </div>
             </Container>
         );

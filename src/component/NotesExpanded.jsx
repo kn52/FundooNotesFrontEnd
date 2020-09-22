@@ -6,8 +6,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 import ImageIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
-import UndoIcon from '@material-ui/icons/UndoOutlined';
-import RedoIcon from '@material-ui/icons/RedoOutlined';
 import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
 import UnPinIcon from "../assets/images/pin.png"; 
 import PinIcon from "../assets/images/pinned.png"; 
@@ -159,12 +157,6 @@ export default function NotesExpanded(props) {
                 </IconButton>
                 <IconButton className={classes.iconButton}>
                     <MoreVertIcon fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <UndoIcon fontSize="small" />
-                </IconButton>
-                <IconButton className={classes.iconButton}>
-                    <RedoIcon fontSize="small" />
                 </IconButton>
                 <Button className={classes.closeButton}
                     onClick={props.handleClickAway}

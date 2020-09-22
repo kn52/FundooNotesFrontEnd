@@ -128,6 +128,7 @@ class Notes extends React.Component {
         return (
             <Container>
                 <div className={this.state.sliderClassName}>
+                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80.81%'}}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
                         <div className="noteTaker" style={{display:'flex',justifyContent:'center'}}>
                             {
@@ -206,8 +207,9 @@ class Notes extends React.Component {
                             })
                         }
                     </Masonry>
-              </div>
-              <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
+                    </div>      
+                </div>
+                <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
                         onclose={()=>{this.handleSnackClose()}}/>
             </Container>
         );

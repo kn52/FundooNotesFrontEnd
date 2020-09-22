@@ -1,7 +1,7 @@
 @import "Common.scss";
 
 .MainContainer{
-    @extend .displayFlex, .flexDirectionColumn !optional;
+    @extend .displayFlex, .flexDirectionColumn, .alignItemsCenter !optional;
     box-sizing: none;
     border:1px solid white;
     padding-top: 10vh;
