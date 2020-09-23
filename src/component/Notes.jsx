@@ -129,13 +129,13 @@ class Notes extends React.Component {
             this.getData();
         }
         return (
-            <Container>
+            <Container style={{paddingTop:'5em'}}>
                 <div className={
                     (this.props.openDrawer && this.props.onHover) ? 'MainContainer' :
                     !this.props.openDrawer ? 'MainContainer' : 'slideMainContainer'} >
-                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'92%'}}>
+                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80%'}}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <div className="noteTaker" style={{display:'flex',justifyContent:'center'}}>
+                        <div className="noteTaker" style={{display:'flex',width:"66vw",justifyContent:'center'}}>
                             {
                                 !this.state.clickAway
                                     ? <NotesCollapsed handleNoteTakerClick={() => this.setState({ clickAway: true })} />
@@ -170,7 +170,7 @@ class Notes extends React.Component {
                         </Typography>
                     }
     
-                    <Masonry>
+                    {/* <Masonry> */}
                         {
                             this.state.pinNotes.length>0 && 
                             this.state.pinNotes.map((key,index)=>{
@@ -185,7 +185,7 @@ class Notes extends React.Component {
                                 return '';
                             })
                         }
-                    </Masonry>
+                    {/* </Masonry> */}
 
                     {
                         this.state.unpinNotes.length > 0 > 0 &&
@@ -196,7 +196,7 @@ class Notes extends React.Component {
                         </Typography> 
                     }
 
-                    <Masonry style={ this.state.pinNotes.length === 0 && {marginTop: '2em'}}>
+                    {/* <Masonry style={ this.state.pinNotes.length === 0 && {marginTop: '2em'}}> */}
                         {
                             this.state.unpinNotes.length>0 && 
                             this.state.unpinNotes.map((key,index)=>{
@@ -211,7 +211,7 @@ class Notes extends React.Component {
                                 return '';
                             })
                         }
-                    </Masonry>
+                    {/* </Masonry> */}
                     </div>      
                 </div>
                 <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
