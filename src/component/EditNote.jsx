@@ -20,6 +20,7 @@ import Popover from '@material-ui/core/Popover';
 import NoteService from '../service/NoteService'; 
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
+import { editNotes } from '../redux/actions/NoteAction';
 // import { updateNote } 
 
 const useStyles = makeStyles(theme => ({
@@ -132,6 +133,7 @@ export default function EditNote(props) {
         .catch((err) => {
             console.log(err);
         })
+        dispatch(editNotes(data))
         dispatch(callToApi("NOTES"));
         props.handleClose();
     }

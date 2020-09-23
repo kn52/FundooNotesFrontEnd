@@ -54,17 +54,16 @@ export default function ColorPalette(props) {
     
     const updateBgColor = (key,color) => {
 
-        console.log(props.key);
-        // const data = {
-        //     "color":color,
-        //     "noteIdList": [key]
-        // }
-        // NoteService.changesColorNotes(data).then((res)=>{
-        //     console.log(res);
-        // })
-        // .catch((err)=>{
-        //     console.log(err);
-        // }) 
+        const data = {
+            "color":color,
+            "noteIdList": [key]
+        }
+        NoteService.changesColorNotes(data).then((res)=>{
+            console.log(res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        }) 
         dispatch(updateColor(key,color));
         dispatch(callToApi("NOTES"))
     }
