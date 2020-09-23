@@ -99,15 +99,14 @@ class Notes extends React.Component {
             console.log(res.data);
             const notes=res.data.data.data.reverse();
             this.props.addNote(notes);
-            const pinNotes=notes.filter((notes) => notes.isPined === true);
-            let unPinNotes=notes.filter((notes) => notes.isPined === false);
+            const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
+            let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
             console.log(unPinNotes);
             this.setState({
                 pinNotes: pinNotes,
                 unpinNotes: unPinNotes,
                 getNotes:notes
             })
-            this.props.noCallToApi("");
         })
         .catch((err) => {
             console.log(err);
@@ -132,7 +131,7 @@ class Notes extends React.Component {
                 <div className={
                     (this.props.openDrawer && this.props.onHover) ? 'MainContainer' :
                     !this.props.openDrawer ? 'MainContainer' : 'slideMainContainer'} >
-                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80%'}}>
+                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'85%'}}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
                         <div className="noteTaker" style={{display:'flex',width:"66vw",justifyContent:'center'}}>
                             {
@@ -160,19 +159,19 @@ class Notes extends React.Component {
                         </div>
                     }
                     
-                    {/* {
+                    {
                         this.state.pinNotes.length > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
                             style={{textAlign:'left', marginTop: '4em', marginLeft: '0em' }}
                         >
                             PINNED:- {this.state.pinNotes.length}
                         </Typography>
-                    } */}
+                    }
     
-                    {/* <Masonry> */}
+                    <Masonry style={{display:'flex',flexWrap:'wrap'}}>
                         {
-                            this.props.notes.length>0 && 
-                            this.props.notes.map((key,index)=>{
+                            this.state.pinNotes.length>0 && 
+                            this.state.pinNotes.map((key,index)=>{
                                 if(key.isDeleted === false && key.isPined === true) {
                                     return <NoteCard
                                         key={index}
@@ -184,21 +183,21 @@ class Notes extends React.Component {
                                 return '';
                             })
                         }
-                    {/* </Masonry> */}
+                    </Masonry>
 
-                    {/* {
+                    {
                         this.state.unpinNotes.length > 0 > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
                             style={{textAlign:'left', marginTop: '3em', marginLeft: '0em' }}
                         >
                             OTHERS:- {this.state.unpinNotes.length}
                         </Typography> 
-                    } */}
+                    }
 
-                    {/* <Masonry style={ this.state.pinNotes.length === 0 && {marginTop: '2em'}}> */}
+                    <Masonry style={{ display:'flex',flexWrap:'wrap'}}>
                         {
-                            this.props.notes.length>0 && 
-                            this.props.notes.map((key,index)=>{
+                            this.state.unpinNotes.length>0 && 
+                            this.state.unpinNotes.map((key,index)=>{
                                 if(key.isDeleted === false && key.isPined === false) {
                                     return <NoteCard
                                         key={index}
@@ -210,11 +209,11 @@ class Notes extends React.Component {
                                 return '';
                             })
                         }
-                    {/* </Masonry> */}
+                    </Masonry>
                     </div>      
                 </div>
                 <SnackBar opn={this.state.opn} msg={this.state.msg} severity={this.state.sty} 
-                        onclose={()=>{this.handleSnackClose()}}/>
+                    onclose={()=>{this.handleSnackClose()}}/>
             </Container>
         );
     }
