@@ -10,6 +10,7 @@ import { RestoreFromTrashOutlined, DeleteForeverOutlined } from '@material-ui/ic
 import NoteService from '../service/NoteService';
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
+import { trashNotes } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles(theme => ({
 
@@ -105,14 +106,15 @@ export default function EditNote(props) {
             "isDeleted": bool, 
             "noteIdList": [key]
         }
-        NoteService.trashNotes(data).then((res)=>{
-            console.log(res.data.data);
-            let getnotes=res.data.data.data; 
-            this.setState({notes:getnotes})
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        // NoteService.trashNotes(data).then((res)=>{
+        //     console.log(res.data.data);
+        //     let getnotes=res.data.data.data; 
+        //     this.setState({notes:getnotes})
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // })
+        dispatch(trashNotes(key,bool))
         dispatch(callToApi("TRASH"));
     }
     

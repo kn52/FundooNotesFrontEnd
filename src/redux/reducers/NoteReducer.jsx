@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_COLOR, EDIT_NOTE, TRASH_NOTE } from '../actions/NoteAction';
+import { ADD_NOTE, UPDATE_COLOR, EDIT_NOTE, TRASH_AND_RESTORE_NOTE } from '../actions/NoteAction';
 
 const initialState = {
     notes:{}
@@ -20,10 +20,10 @@ function NotesReducer(state = initialState, action) {
                   : note)
       }
 
-    case TRASH_NOTE:
+    case TRASH_AND_RESTORE_NOTE:
       return {
         ...state, notes: state.notes.map((note, index) => note.id === action.id 
-                        ? { ...note, isDeleted : true } : note)
+                        ? { ...note, isDeleted : action.bool } : note)
       }
 
     // case REMOVE_NOTE:

@@ -6,6 +6,7 @@ import { Container } from "@material-ui/core";
 import NoteInTrash from './NoteInTrash';
 import NoteService from '../service/NoteService';
 import { noCallToApi } from '../redux/actions/ApiAction';
+import { addNote } from "../redux/actions/NoteAction";
 
 class Trash extends React.Component {
     constructor(props){
@@ -27,19 +28,22 @@ class Trash extends React.Component {
     }
 
     getTrashNotes(){
+        let getnotes=this.props.notes; 
+        this.setState({notes:getnotes})
+        this.props.noCall("");
+    }
+    
+    componentDidMount() {
         NoteService.getTrashNotes().then((res)=>{
             console.log(res.data.data);
             let getnotes=res.data.data.data; 
+            this.props.addNote(getnotes);
             this.setState({notes:getnotes})
         })
         .catch((err)=>{
             console.log(err);
         })
-        this.props.noCall("");
-    }
-    
-    componentDidMount() {
-        this.getTrashNotes();
+        // this.getTrashNotes();
     }
 
     render() {
@@ -53,13 +57,16 @@ class Trash extends React.Component {
                         <Masonry style={{display:'flex',flexWrap:'wrap'}}>
                             {
                                 this.state.notes !== null
-                                ?   this.state.notes.map((key, index) => (
-                                        <NoteInTrash 
-                                            Notekey = {key.id}
-                                            NoteObj = {key}
-                                            key={index}
-                                        />
-                                    ))
+                                ?   this.state.notes.map((key, index) => {
+                                        if (key.isDeleted === true){
+                                            return <NoteInTrash 
+                                                Notekey = {key.id}
+                                                NoteObj = {key}
+                                                key={index}
+                                            />
+                                        }
+                                        return '';
+                                })
                                 : null
                             }
                         </Masonry>
@@ -71,14 +78,17 @@ class Trash extends React.Component {
 }
 
 const mapToStateProps = state => {
+    console.log(state.note.notes);
     return {
         drawerOpen: state.drawer.drawerOpen,
-        apiCall: state.api.apiName
+        apiCall: state.api.apiName,
+        notes:state.note.notes,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        addNote: (data)=> dispatch(addNote(data)),
         noCall: (name)=> dispatch(noCallToApi(name)),
     }
 }
