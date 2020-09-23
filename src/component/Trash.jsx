@@ -47,8 +47,7 @@ class Trash extends React.Component {
             this.getTrashNotes();
         }
         return (
-            <Container style={{marginTop: '1em'}}>
-
+            <Container style={{paddingTop:'6em'}}>
                 <div className={this.state.sliderClassName}>
                     <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80.81%'}}>
                         <Masonry>

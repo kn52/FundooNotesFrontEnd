@@ -6,7 +6,7 @@ import NoteCard from './NotesCard';
 import { Typography, Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
-import { addNote, removeNote } from "../redux/actions/NoteAction";
+import { addNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 import SnackBar from '../util/SnackBar';
 import Masonry from 'react-masonry-component';
@@ -98,7 +98,6 @@ class Notes extends React.Component {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
             const notes=res.data.data.data.reverse();
-            // this.props.addNote(res.data.data);
             this.props.addNote(notes);
             const pinNotes=notes.filter((notes) => notes.isPined === true);
             let unPinNotes=notes.filter((notes) => notes.isPined === false);
@@ -108,7 +107,7 @@ class Notes extends React.Component {
                 unpinNotes: unPinNotes,
                 getNotes:notes
             })
-            console.log(this.props.notes);
+            this.props.noCallToApi("");
         })
         .catch((err) => {
             console.log(err);
@@ -121,7 +120,7 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
-          this.getData();  
+        this.getData();  
     }
 
     render() {
@@ -161,20 +160,20 @@ class Notes extends React.Component {
                         </div>
                     }
                     
-                    {
+                    {/* {
                         this.state.pinNotes.length > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '4em', marginLeft: '0em' }}
+                            style={{textAlign:'left', marginTop: '4em', marginLeft: '0em' }}
                         >
                             PINNED:- {this.state.pinNotes.length}
                         </Typography>
-                    }
+                    } */}
     
                     {/* <Masonry> */}
                         {
-                            this.state.pinNotes.length>0 && 
-                            this.state.pinNotes.map((key,index)=>{
-                                if(key.isDeleted === false) {
+                            this.props.notes.length>0 && 
+                            this.props.notes.map((key,index)=>{
+                                if(key.isDeleted === false && key.isPined === true) {
                                     return <NoteCard
                                         key={index}
                                         Notekey={key.id}
@@ -187,20 +186,20 @@ class Notes extends React.Component {
                         }
                     {/* </Masonry> */}
 
-                    {
+                    {/* {
                         this.state.unpinNotes.length > 0 > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{ marginTop: '3em', marginLeft: '0em' }}
+                            style={{textAlign:'left', marginTop: '3em', marginLeft: '0em' }}
                         >
                             OTHERS:- {this.state.unpinNotes.length}
                         </Typography> 
-                    }
+                    } */}
 
                     {/* <Masonry style={ this.state.pinNotes.length === 0 && {marginTop: '2em'}}> */}
                         {
-                            this.state.unpinNotes.length>0 && 
-                            this.state.unpinNotes.map((key,index)=>{
-                                if(key.isDeleted === false) {
+                            this.props.notes.length>0 && 
+                            this.props.notes.map((key,index)=>{
+                                if(key.isDeleted === false && key.isPined === false) {
                                     return <NoteCard
                                         key={index}
                                         Notekey={key.id}
@@ -222,6 +221,7 @@ class Notes extends React.Component {
 }
 
 const mapToStateProps = state => {
+    console.log(state.note.notes);
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,
@@ -233,7 +233,6 @@ const mapToStateProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNote: (data)=> dispatch(addNote(data)),
-        removeNote:(id)=>dispatch(removeNote(id)),
         noCall: (name)=> dispatch(noCallToApi(name)),
     }
 }
