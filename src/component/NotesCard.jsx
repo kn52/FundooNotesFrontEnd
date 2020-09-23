@@ -194,7 +194,7 @@ export default function NoteCard(props) {
                         </IconButton>
 
                         <IconButton className={classes.iconButton}>
-                            <NoteColor  Notekey={props.Notekey} />
+                            <NoteColor  Notekey={props.Notekey} key={props.key} />
                         </IconButton>
 
                         <IconButton className={classes.iconButton}>
@@ -220,6 +220,7 @@ export default function NoteCard(props) {
                 handleClose={() => setEditNote(false)}
                 NotesObj={props.NoteObj}
                 Key={props.Notekey}
+                Nkey={props.key}
                 open={editNote}
             />
 

@@ -1,6 +1,14 @@
 @import "Common.scss";
 
-.MainContainer{
+.notesContainer{
+    @extend .displayFlex, .flexDirectionColumn, .alignItemsCenter !optional;
+    box-sizing: none;
+    border:1px solid white;
+    min-height: 99.5vh;
+    transition: margin .20s linear;
+}
+
+.trashContainer{
     @extend .displayFlex, .flexDirectionColumn, .alignItemsCenter !optional;
     box-sizing: none;
     border:1px solid white;
@@ -58,6 +66,13 @@ h2 {
 
 @media (max-width: 680px){
 
+    .notesContainer{
+        padding-left: 25px;
+    }
+
+    .trashContainer {
+        padding-left: 65px;
+    }
     .gridView{
         margin: auto;
         margin-left: 10%;
@@ -84,9 +99,9 @@ h2 {
 }
 
 @media (max-width: 400px){
-    .notesContainer{
-        margin-left: 0%;
-        margin-right: 0%;
-        padding: 10px 0px;
-    }
+    // .notesContainer{
+    //     margin-left: 0%;
+    //     margin-right: 0%;
+    //     padding: 10px 0px;
+    // }
  }

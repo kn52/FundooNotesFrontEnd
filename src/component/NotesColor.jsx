@@ -5,6 +5,7 @@ import PaletteIcon from '@material-ui/icons/PaletteOutlined';
 import NoteService from '../service/NoteService';
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
+import { updateColor } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -53,16 +54,18 @@ export default function ColorPalette(props) {
     
     const updateBgColor = (key,color) => {
 
-        const data = {
-            "color":color,
-            "noteIdList": [key]
-        }
-        NoteService.changesColorNotes(data).then((res)=>{
-            console.log(res);
-        })
-        .catch((err)=>{
-            console.log(err);
-        }) 
+        console.log(props.key);
+        // const data = {
+        //     "color":color,
+        //     "noteIdList": [key]
+        // }
+        // NoteService.changesColorNotes(data).then((res)=>{
+        //     console.log(res);
+        // })
+        // .catch((err)=>{
+        //     console.log(err);
+        // }) 
+        dispatch(updateColor(key,color));
         dispatch(callToApi("NOTES"))
     }
 

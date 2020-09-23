@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
         // },
 
         [theme.breakpoints.down(414)]: {
-            marginLeft: theme.spacing(23),
+            marginLeft: theme.spacing(22),
         },
     },
   

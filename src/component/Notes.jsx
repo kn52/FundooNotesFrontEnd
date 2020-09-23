@@ -95,23 +95,24 @@ class Notes extends React.Component {
     }
 
     getData() {
-        NoteService.getNotes().then((res) => {
-            console.log(res.data);
-            const notes=res.data.data.data.reverse();
-            this.props.addNote(notes);
-            const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
-            let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
-            console.log(unPinNotes);
-            this.setState({
-                pinNotes: pinNotes,
-                unpinNotes: unPinNotes,
-                getNotes:notes
-            })
+        console.log(this.props.notes);
+        // if(this.props.apiCall === 'NOTES'){
+        //     NoteService.getNotes().then((res) => {
+        //         console.log(res.data);
+        //         const notes=res.data.data.data.reverse();
+        //         this.props.addNote(notes);   
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+        // }
+        const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
+        let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
+        console.log(unPinNotes);
+        this.setState({
+            pinNotes: pinNotes,
+            unpinNotes: unPinNotes,
         })
-        .catch((err) => {
-            console.log(err);
-        })
-
         this.props.noCall("");
     }
 
@@ -119,7 +120,21 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
-        this.getData();  
+        NoteService.getNotes().then((res) => {
+            console.log(res.data);
+            const notes=res.data.data.data.reverse();
+            this.props.addNote(notes);
+            const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
+            let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
+            this.setState({
+                pinNotes: pinNotes,
+                unpinNotes: unPinNotes,
+            })   
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        //this.getData();  
     }
 
     render() {
@@ -129,8 +144,8 @@ class Notes extends React.Component {
         return (
             <Container style={{paddingTop:'5em'}}>
                 <div className={
-                    (this.props.openDrawer && this.props.onHover) ? 'MainContainer' :
-                    !this.props.openDrawer ? 'MainContainer' : 'slideMainContainer'} >
+                    (this.props.openDrawer && this.props.onHover) ? 'notesContainer' :
+                    !this.props.openDrawer ? 'notesContainer' : 'slideMainContainer'} >
                     <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'85%'}}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
                         <div className="noteTaker" style={{display:'flex',width:"66vw",justifyContent:'center'}}>
@@ -172,7 +187,7 @@ class Notes extends React.Component {
                         {
                             this.state.pinNotes.length>0 && 
                             this.state.pinNotes.map((key,index)=>{
-                                if(key.isDeleted === false && key.isPined === true) {
+                                if(key.isDeleted === false) {
                                     return <NoteCard
                                         key={index}
                                         Notekey={key.id}
@@ -198,7 +213,7 @@ class Notes extends React.Component {
                         {
                             this.state.unpinNotes.length>0 && 
                             this.state.unpinNotes.map((key,index)=>{
-                                if(key.isDeleted === false && key.isPined === false) {
+                                if(key.isDeleted === false) {
                                     return <NoteCard
                                         key={index}
                                         Notekey={key.id}

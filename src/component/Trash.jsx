@@ -21,7 +21,7 @@ class Trash extends React.Component {
         if(!window.matchMedia("(max-width: 1000px)").matches){
             return {
                 ...state,
-                sliderClassName : !props.drawerOpen ? 'MainContainer' : 'slideMainContainer'
+                sliderClassName : !props.drawerOpen ? 'trashContainer' : 'slideMainContainer'
             }
         }   
     }
@@ -49,8 +49,8 @@ class Trash extends React.Component {
         return (
             <Container style={{paddingTop:'6em'}}>
                 <div className={this.state.sliderClassName}>
-                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80.81%'}}>
-                        <Masonry>
+                    <div style={{display:'flex',flexDirection:'column',flexWrap:'wrap',width:'80vw'}}>
+                        <Masonry style={{display:'flex',flexWrap:'wrap'}}>
                             {
                                 this.state.notes !== null
                                 ?   this.state.notes.map((key, index) => (

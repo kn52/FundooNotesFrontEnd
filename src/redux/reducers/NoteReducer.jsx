@@ -1,15 +1,27 @@
-import { ADD_NOTE, CHANGE_COLOR, REMOVE_NOTE } from '../actions/NoteAction';
+import { ADD_NOTE, UPDATE_COLOR } from '../actions/NoteAction';
 
 const initialState = {
     notes:{}
 }
 
 function NotesReducer(state = initialState, action) {
-    switch(action.type) {
+  console.log("Note Reducer");  
+  switch(action.type) {
     case ADD_NOTE:
       return {
           ...state,
           notes:action.payload
+        }
+
+    // case REMOVE_NOTE:
+    //   return {notes: state.notes.filter((note, index) => index !== action.id)};
+
+    case UPDATE_COLOR:
+        console.log("Color Change");
+        return {
+          ...state,
+          notes: state.notes.map((note,index)=> note.id === action.id ? 
+              {...note, color: action.color} : note), 
         }
 
     default:

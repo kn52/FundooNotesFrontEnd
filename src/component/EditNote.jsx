@@ -20,6 +20,7 @@ import Popover from '@material-ui/core/Popover';
 import NoteService from '../service/NoteService'; 
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
+// import { updateNote } 
 
 const useStyles = makeStyles(theme => ({
 
@@ -119,7 +120,7 @@ export default function EditNote(props) {
     const [archive, setArchive] = React.useState(props.NotesObj.isArchived)
     const [anchorEl, setAnchorEl] = React.useState(null)
 
-    const updateNote = async () => {
+    const updateNote = async (index) => {
         const data = {
             "noteId":props.Key,
             "title":title,
@@ -135,10 +136,10 @@ export default function EditNote(props) {
         props.handleClose();
     }
 
-    const trashAndRestore = (key,bool) => {
+    const trashAndRestore = (notekey,index,bool) => {
         const data = {
             "isDeleted": bool, 
-            "noteIdList": [key]
+            "noteIdList": [notekey]
         }
         NoteService.trashNotes(data).then((res) => {
             console.log(res);
@@ -180,7 +181,7 @@ export default function EditNote(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} id="menu-list-grow">
                         <MenuItem
-                            onClick={() => { trashAndRestore(props.key,true) }}
+                            onClick={() => { trashAndRestore(props.key,props.Nkey,true) }}
                             dense
                         >
                             Delete note
@@ -263,7 +264,7 @@ export default function EditNote(props) {
                         </IconButton>
 
                         <Button className={classes.closeButton}
-                            onClick={updateNote}
+                            onClick={()=>updateNote(props.Nkey)}
                         >
                             Close
                     </Button>
