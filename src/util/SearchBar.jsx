@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import '../scss/SearchBar.scss';
 import { InputBase, Paper, ClickAwayListener, IconButton } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import CrossIcon from '@material-ui/icons/Clear'
@@ -13,6 +14,10 @@ const useStyles = makeStyles(theme => ({
         width: '50%',
         borderRadius: '8px',
         marginLeft: theme.spacing(28), 
+        [theme.breakpoints.down(768)]:{
+          width:0, 
+          padding: '2px 0px',
+        }
     },
     input: {
         marginLeft: theme.spacing(1),
@@ -26,15 +31,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar() {
   const classes = useStyles();
-
   const [clickaway,setClickAway]=useState(false);
-  const [width,setWidth]=useState(0);
   const [searchText,setSearchText]=useState('');
-
+  
   const displaySearch = (
     <>
-      <IconButton className={classes.iconButton} aria-label="menu">
-          <SearchIcon />
+      <IconButton className="icon_button" aria-label="menu">
+          <SearchIcon id = "searchicon"/>
         </IconButton>
         <InputBase
           className={classes.input}
@@ -44,7 +47,7 @@ export default function SearchBar() {
           onChange={ (e) => {setSearchText({searchText:e.target.value})} }
           onClick={()=>setClickAway(true)}
         />
-        <IconButton  className={classes.iconButton} aria-label="directions">
+        <IconButton  className="icon_button" aria-label="directions">
           { clickaway && <CrossIcon /> }
         </IconButton>
     </>
@@ -54,22 +57,22 @@ export default function SearchBar() {
     setClickAway(false);
   }
 
-  const getUpdatedDimensions = () => {
-    let size =window.innerWidth;
-    console.log(size);
-    setWidth(size);
-    console.log(width);
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
+    function handleResize() {
+      let width=window.innerWidth;
+      
+      if(width<766){
+        // document.getElementById('searchicon').style.marginLeft=(1000 - width) + 'px';
+      }
+    }
     
-    window.addEventListener("resize",getUpdatedDimensions);      
     
-    getUpdatedDimensions();
-
-    // return () => window.removeEventListener("resize", getUpdatedDimensions);
-
-  },[])
+    window.addEventListener("resize", handleResize);
+    
+    handleResize();
+    
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   
   return (
     <ClickAwayListener onClickAway={handleClickAway}>

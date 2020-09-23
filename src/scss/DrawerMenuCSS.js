@@ -19,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'left',
   },
   drawer: {
+    '&. MuiDrawer-paperAnchorDockedLeft': {
+      border:'none'
+    },
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    '&. MuiDrawer-paperAnchorDockedLeft': {
-      border:'none'
-    },
+    // '&. MuiDrawer-paperAnchorDockedLeft': {
+    //   border:'none'
+    // },
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,

@@ -127,7 +127,7 @@ export default function NoteCard(props) {
                     <Paper
                         
                         className={clsx(classes.noteTaker)}
-                        style={{backgroundColor: props.NoteObj.color }}
+                        style={{ backgroundColor: props.NoteObj.color }}
                     >
                         <Typography className={classes.noteTitle}
                             onClick={

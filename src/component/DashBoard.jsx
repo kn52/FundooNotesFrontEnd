@@ -10,8 +10,13 @@ export default class DashBoard extends React.Component {
         return(
             <>
                 <CssBaseline />
-                <NavBar/>
-                <DrawerMenu/>
+                <div>
+                    <NavBar/>
+                </div>
+                <div style={{width:'8%',border:'1px solid green'}}>
+                    <DrawerMenu/>
+                </div>
+                
             </>
         );
     }

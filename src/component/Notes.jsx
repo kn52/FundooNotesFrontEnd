@@ -98,6 +98,8 @@ class Notes extends React.Component {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
             const notes=res.data.data.data.reverse();
+            // this.props.addNote(res.data.data);
+            this.props.addNote(notes);
             const pinNotes=notes.filter((notes) => notes.isPined === true);
             let unPinNotes=notes.filter((notes) => notes.isPined === false);
             console.log(unPinNotes);
@@ -106,6 +108,7 @@ class Notes extends React.Component {
                 unpinNotes: unPinNotes,
                 getNotes:notes
             })
+            console.log(this.props.notes);
         })
         .catch((err) => {
             console.log(err);
@@ -127,8 +130,10 @@ class Notes extends React.Component {
         }
         return (
             <Container>
-                <div className={this.state.sliderClassName}>
-                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'80.81%'}}>
+                <div className={
+                    (this.props.openDrawer && this.props.onHover) ? 'MainContainer' :
+                    !this.props.openDrawer ? 'MainContainer' : 'slideMainContainer'} >
+                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'92%'}}>
                     <ClickAwayListener onClickAway={this.handleClickAway}>
                         <div className="noteTaker" style={{display:'flex',justifyContent:'center'}}>
                             {
@@ -161,7 +166,7 @@ class Notes extends React.Component {
                         <Typography component="p" color="textPrimary" variant="caption"
                             style={{ marginTop: '4em', marginLeft: '0em' }}
                         >
-                            PINNED:- {Object.keys(this.state.pinNotes).length}
+                            PINNED:- {this.state.pinNotes.length}
                         </Typography>
                     }
     
@@ -183,15 +188,15 @@ class Notes extends React.Component {
                     </Masonry>
 
                     {
-                        this.state.unpinNotes.length > 0 &&
+                        this.state.unpinNotes.length > 0 > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
                             style={{ marginTop: '3em', marginLeft: '0em' }}
                         >
-                            OTHERS:- {Object.keys(this.state.unpinNotes).length}
+                            OTHERS:- {this.state.unpinNotes.length}
                         </Typography> 
                     }
 
-                    <Masonry>
+                    <Masonry style={ this.state.pinNotes.length === 0 && {marginTop: '2em'}}>
                         {
                             this.state.unpinNotes.length>0 && 
                             this.state.unpinNotes.map((key,index)=>{
@@ -217,9 +222,6 @@ class Notes extends React.Component {
 }
 
 const mapToStateProps = state => {
-    if(state.note.notes.length>0){
-        console.log(state.note.notes[0]);
-    }
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,

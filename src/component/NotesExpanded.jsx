@@ -59,10 +59,14 @@ const useStyles = makeStyles(theme => ({
         height: '32px',
         margin: 8,
         paddingTop: 5,
-        marginLeft: theme.spacing(13),
+        marginLeft: theme.spacing(26),
         textTransform: 'capitalize',
-        [theme.breakpoints.down('xs')]: {
-            marginLeft: theme.spacing(30),
+        // [theme.breakpoints.down('xs')]: {
+        //     marginLeft: theme.spacing(22),
+        // },
+
+        [theme.breakpoints.down(414)]: {
+            marginLeft: theme.spacing(23),
         },
     },
   
