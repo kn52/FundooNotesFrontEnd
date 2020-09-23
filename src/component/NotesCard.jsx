@@ -18,6 +18,7 @@ import NoteService from '../service/NoteService';
 import { useDispatch } from 'react-redux';
 import { Typography, Popover, Paper, Avatar, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
 import { callToApi } from '../redux/actions/ApiAction';
+import { trashNotes } from '../redux/actions/NoteAction';
 
 export default function NoteCard(props) {
 
@@ -61,12 +62,13 @@ export default function NoteCard(props) {
             "isDeleted": bool, 
             "noteIdList": [key]
         }
-        NoteService.trashNotes(data).then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        // NoteService.trashNotes(data).then((res) => {
+        //     console.log(res);
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        // })
+        dispatch(trashNotes(key,bool));
         dispatch(callToApi("NOTES"));
     }
 

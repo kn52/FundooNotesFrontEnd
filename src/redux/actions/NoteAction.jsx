@@ -1,5 +1,6 @@
 export const ADD_NOTE = 'ADD_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
+export const TRASH_NOTE = 'TRASH_NOTE';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
 
 export function addNote(note) {
@@ -14,6 +15,14 @@ export function editNotes(note){
     type: EDIT_NOTE, 
     id:note.noteId,
     obj:note,
+  };
+}
+
+export function trashNotes(id,bool){
+  return { 
+    type: TRASH_NOTE, 
+    id:id,
+    bool:bool
   };
 }
 
