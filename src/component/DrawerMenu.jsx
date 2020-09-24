@@ -52,7 +52,7 @@ function DrawerMenu() {
         <div className={classes.toolbar}></div>
         <List className={classes.listStyle}>
             <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) 
-                }} 
+                this.props.history.push('/dashboard/notes')}} 
                 className={classes.listItemStyle} style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
@@ -73,7 +73,7 @@ function DrawerMenu() {
             </ListItem>
             
             <ListItem button key="Trash" onClick={()=>{ open && dispatch(setLabelPage('Trash'))
-               }} 
+               this.props.history.push('/dashboard/trash')}} 
                 className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 

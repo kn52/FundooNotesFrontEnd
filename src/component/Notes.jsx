@@ -6,7 +6,7 @@ import NoteCard from './NotesCard';
 import { Typography, Container, ClickAwayListener } from "@material-ui/core";
 import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
-import { addNote } from "../redux/actions/NoteAction";
+import { addNote, addNewNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 import SnackBar from '../util/SnackBar';
 import Masonry from 'react-masonry-component';
@@ -54,22 +54,23 @@ class Notes extends React.Component {
                 "isDeleted": this.state.trash,
             }
             
-            NoteService.addNote(data).then((res) => {
-                console.log(res);
-                this.setState({
-                    opn:true,
-                    msg:'Note Added Successfully',
-                    sty:'success'  
-                })
-            })
-			.catch((err) => {
-                console.log(err);
-                this.setState({
-                    opn:true,
-                    msg:'Not Added',
-                    sty:'error'  
-                })
-            })
+            // NoteService.addNote(data).then((res) => {
+            //     console.log(res);
+            //     this.setState({
+            //         opn:true,
+            //         msg:'Note Added Successfully',
+            //         sty:'success'  
+            //     })
+            // })
+			// .catch((err) => {
+            //     console.log(err);
+            //     this.setState({
+            //         opn:true,
+            //         msg:'Not Added',
+            //         sty:'error'  
+            //     })
+            // })
+            this.props.addNewNote(data);
             this.getData();
             this.setState({
                 noteTitle: '',
@@ -95,12 +96,13 @@ class Notes extends React.Component {
     }
 
     getData() {
+        console.log("GET DATA");
         let notes=[]
         if(this.props.notes.length > 0) {
-            notes=this.props.notes.reverse();
+            notes=this.props.notes;
         }
         if(this.props.searchNotes.length > 0) {
-            notes=this.props.searchNotes.reverse();
+            notes=this.props.searchNotes;
         }
         const pinNotes=notes.filter((notes) => notes.isPined === true);
         let unPinNotes=notes.filter((notes) => notes.isPined === false);
@@ -131,7 +133,6 @@ class Notes extends React.Component {
         .catch((err) => {
             console.log(err);
         })
-        //this.getData();  
     }
 
     render() {
@@ -232,7 +233,7 @@ class Notes extends React.Component {
 }
 
 const mapToStateProps = state => {
-    console.log(state.note.searchNotes);
+    console.log(state.note.notes);
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,
@@ -245,6 +246,7 @@ const mapToStateProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNote: (data)=> dispatch(addNote(data)),
+        addNewNote: (data)=> dispatch(addNewNote(data)),
         noCall: (name)=> dispatch(noCallToApi(name)),
     }
 }

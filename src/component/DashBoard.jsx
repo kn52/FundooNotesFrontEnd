@@ -13,7 +13,7 @@ export default class DashBoard extends React.Component {
                 <div>
                     <NavBar/>
                 </div>
-                <div style={{width:'7vw'}}>
+                <div style={{width:'8vw'}}>
                     <DrawerMenu/>
                 </div>
             </>

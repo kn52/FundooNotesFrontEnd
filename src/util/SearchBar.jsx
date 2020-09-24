@@ -6,6 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import CrossIcon from '@material-ui/icons/Clear'
 import { useDispatch } from 'react-redux';
 import { searchNotes } from '../redux/actions/NoteAction';
+import { callToApi } from '../redux/actions/ApiAction';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,6 +50,7 @@ export default function SearchBar() {
           onChange={ (e) => {
             setSearchText(e.target.value)
             dispatch(searchNotes(e.target.value))
+            dispatch(callToApi("NOTES"))
           }}
           onClick={()=>setClickAway(true)}
         />

@@ -1,14 +1,22 @@
 export const ADD_NOTE = 'ADD_NOTE';
+export const ADD_NEW_NOTE = 'ADD_NEW_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
 export const TRASH_AND_RESTORE_NOTE = 'TRASH_AND_RESTORE_NOTE';
 export const DELETE_FOREVER_NOTE = 'DELETE_FOREVER_NOTE';
-export const PIN_UNPIN_NOTE = 'DELETE_FOREVER_NOTE';
+export const PIN_UNPIN_NOTE = 'PIN_UNPIN_NOTE';
 export const SEARCH_NOTE = 'SEARCH_NOTE';
 
 export function addNote(note) {
   return { 
       type: ADD_NOTE, 
+      payload: note
+    };
+}
+
+export function addNewNote(note) {
+  return { 
+      type: ADD_NEW_NOTE, 
       payload: note
     };
 }
@@ -53,7 +61,6 @@ export function pinUnpinNotes(noteid,bool) {
 }
 
 export function searchNotes(text) {
-  console.log(text);
   return { 
     type: SEARCH_NOTE, 
     txt:text,

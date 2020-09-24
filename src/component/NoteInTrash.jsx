@@ -175,8 +175,6 @@ export default function NoteInTrash(props) {
         }
         NoteService.trashNotes(data).then((res)=>{
             console.log(res.data.data);
-            let getnotes=res.data.data.data; 
-            this.setState({notes:getnotes})
             setSnack(true);
             setSty('success');
             setMsg('Note Restored');

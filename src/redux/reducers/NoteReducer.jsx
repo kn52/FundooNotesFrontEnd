@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_COLOR, EDIT_NOTE, PIN_UNPIN_NOTE } from '../actions/NoteAction';
+import { ADD_NOTE, ADD_NEW_NOTE, UPDATE_COLOR, EDIT_NOTE, PIN_UNPIN_NOTE } from '../actions/NoteAction';
 import { TRASH_AND_RESTORE_NOTE,DELETE_FOREVER_NOTE, SEARCH_NOTE } from '../actions/NoteAction';
 
 const initialState = {
@@ -11,11 +11,19 @@ function NotesReducer(state = initialState, action) {
   switch(action.type) {
     
     case ADD_NOTE:
+      console.log("ADD");
       return {
           ...state,
           notes:action.payload
         };
-    
+
+  case ADD_NEW_NOTE:
+    console.log("ADD NEW");
+    return {
+      ...state,
+      notes: state.notes.concat(action.payload)
+    };
+        
     case EDIT_NOTE:
       return {
         ...state, 
@@ -45,6 +53,7 @@ function NotesReducer(state = initialState, action) {
       };
 
     case PIN_UNPIN_NOTE:
+      console.log("====="+action.bool);
       return {
         ...state, 
         notes: state.notes.map((note, index) => note.id === action.id 
@@ -52,7 +61,6 @@ function NotesReducer(state = initialState, action) {
       };
 
     case SEARCH_NOTE:
-      console.log("search");
       return {
         ...state, 
         searchNotes: state.notes
