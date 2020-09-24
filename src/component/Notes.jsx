@@ -96,10 +96,9 @@ class Notes extends React.Component {
     }
 
     getData() {
-        console.log("GET DATA");
         let notes=[]
         if(this.props.notes.length > 0) {
-            notes=this.props.notes;
+            notes=this.props.notes.reverse();
         }
         if(this.props.searchNotes.length > 0) {
             notes=this.props.searchNotes;
@@ -120,15 +119,14 @@ class Notes extends React.Component {
     componentDidMount() {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
-            const data=res.data.data.data;
-            this.props.addNote(data);
-            const notes=data.reverse();
+            const notes=res.data.data.data.reverse();
             const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false);
             let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false);
             this.setState({
                 pinNotes: pinNotes,
                 unpinNotes: unPinNotes,
-            })   
+            })
+            this.props.addNote(notes);   
         })
         .catch((err) => {
             console.log(err);

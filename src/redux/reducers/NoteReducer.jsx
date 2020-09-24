@@ -14,7 +14,7 @@ function NotesReducer(state = initialState, action) {
       console.log("ADD");
       return {
           ...state,
-          notes:action.payload
+          notes:action.payload.reverse()
         };
 
   case ADD_NEW_NOTE:
@@ -65,7 +65,7 @@ function NotesReducer(state = initialState, action) {
         ...state, 
         searchNotes: state.notes
             .filter((note, index) => note.title.includes(action.txt) 
-            || note.description.includes(action.txt))
+                  || note.description.includes(action.txt))
       };
 
     default:
