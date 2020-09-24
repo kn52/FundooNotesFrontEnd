@@ -95,19 +95,15 @@ class Notes extends React.Component {
     }
 
     getData() {
-        console.log(this.props.notes);
-        // if(this.props.apiCall === 'NOTES'){
-        //     NoteService.getNotes().then((res) => {
-        //         console.log(res.data);
-        //         const notes=res.data.data.data.reverse();
-        //         this.props.addNote(notes);   
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     })
-        // }
-        const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
-        let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
+        let notes=[]
+        if(this.props.notes.length > 0) {
+            notes=this.props.notes.reverse();
+        }
+        if(this.props.searchNotes.length > 0) {
+            notes=this.props.searchNotes.reverse();
+        }
+        const pinNotes=notes.filter((notes) => notes.isPined === true);
+        let unPinNotes=notes.filter((notes) => notes.isPined === false);
         console.log(unPinNotes);
         this.setState({
             pinNotes: pinNotes,
@@ -122,10 +118,11 @@ class Notes extends React.Component {
     componentDidMount() {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
-            const notes=res.data.data.data.reverse();
-            this.props.addNote(notes);
-            const pinNotes=this.props.notes.filter((notes) => notes.isPined === true);
-            let unPinNotes=this.props.notes.filter((notes) => notes.isPined === false);
+            const data=res.data.data.data;
+            this.props.addNote(data);
+            const notes=data.reverse();
+            const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false);
+            let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false);
             this.setState({
                 pinNotes: pinNotes,
                 unpinNotes: unPinNotes,
@@ -235,11 +232,12 @@ class Notes extends React.Component {
 }
 
 const mapToStateProps = state => {
-    console.log(state.note.notes);
+    console.log(state.note.searchNotes);
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,
         notes:state.note.notes,
+        searchNotes:state.note.searchNotes,
         apiCall: state.api.apiName
     }
 }

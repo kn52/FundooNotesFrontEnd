@@ -9,9 +9,8 @@ import ArchiveIcon from '@material-ui/icons/ArchiveOutlined';
 import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
 import UnPinIcon from "../assets/images/pin.png";
 import PinIcon from "../assets/images/pinned.png";
-import ClockIcon from '@material-ui/icons/AccessTimeOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
-// import SnackBar from "./SnackBar";
+import SnackBar from '../util/SnackBar';
 import EditNote from './EditNote';
 import NoteColor from './NotesColor';
 import NoteService from '../service/NoteService'; 
@@ -28,10 +27,10 @@ export default function NoteCard(props) {
     const [visible, setVisibility] = React.useState(false)
     const [snack, setSnack] = React.useState(false);
     const [msg, setMsg] = React.useState(null);
+    const [sty,setSty] = React.useState('');
     const [pin, setPin] = React.useState(props.NoteObj.isPined)
     const [editNote, setEditNote] = React.useState(false);
     const [more, setMore] = React.useState(false)
-    const [labels, setLabels] = React.useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const handleClick = event => {
@@ -40,6 +39,10 @@ export default function NoteCard(props) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setSnack(false);
+        setSty('');
+        setMsg('');
+        setMore(false);
     };
 
     const handlePinChange = (key,bool) => {
@@ -50,9 +53,26 @@ export default function NoteCard(props) {
         }
         NoteService.pinUnpinNotes(data).then((res)=> {
             console.log(res);
+            setSnack(true);
+            setSty('success');
+            if(value === true ){
+                setMsg('Note Pined');
+            }
+            else {
+                setMsg('Note Unpined');
+            }
+            
         })
         .catch((err) => {
             console.log(err);
+            setSnack(true);
+            setSty('error');
+            if(value === true ){
+                setMsg('Note Not Pined');
+            }
+            else {
+                setMsg('Note Not Unpined');
+            }
         })
         dispatch(pinUnpinNotes(key,value));
         dispatch(callToApi("NOTES"));
@@ -65,9 +85,15 @@ export default function NoteCard(props) {
         }
         NoteService.trashNotes(data).then((res) => {
             console.log(res);
+            setSnack(true);
+            setSty('success');
+            setMsg('Note Trashed');
         })
         .catch((err) => {
             console.log(err);
+            setSnack(true);
+            setSty('error');
+            setMsg('Note Not Trashed');
         })
         dispatch(trashNotes(key,bool));
         dispatch(callToApi("NOTES"));
@@ -119,13 +145,11 @@ export default function NoteCard(props) {
                 className={clsx(classes.root)}
                 onMouseEnter={() => setVisibility(true)}
                 onMouseLeave={() => setVisibility(false)}
-                style={
-                    {
+                style={{
                         boxShadow: visible && '0em 0em 0.4em 0em gray',
                         backgroundColor: props.NoteObj.color,
-                        border: props.NoteObj.color === '#ffffff' ? '1px solid #e0e0e0' : '1px solid #e0e0e0',
-                    }
-                }
+                        border: props.NoteObj.color === '#ffffff' ? '1px solid #e0e0e0' : '0.1px solid #e0e0e0',
+                    }}
             >
                     <Paper
                         
@@ -227,16 +251,17 @@ export default function NoteCard(props) {
                 open={editNote}
             />
 
-            {/* <SnackBar
-                open={snack}
+            <SnackBar
+                opn={snack}
                 msg={msg}
-                handleClose={(event, reason) => {
+                severity={sty}
+                onclose={(event, reason) => {
                     if (reason === 'clickaway') {
                         return;
                     }
                     setSnack(false);
                 }}
-            /> */}
+            />
         </>
     );
 }

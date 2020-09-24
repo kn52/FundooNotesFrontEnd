@@ -4,6 +4,8 @@ import '../scss/SearchBar.scss';
 import { InputBase, Paper, ClickAwayListener, IconButton } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import CrossIcon from '@material-ui/icons/Clear'
+import { useDispatch } from 'react-redux';
+import { searchNotes } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,7 +35,7 @@ export default function SearchBar() {
   const classes = useStyles();
   const [clickaway,setClickAway]=useState(false);
   const [searchText,setSearchText]=useState('');
-  
+  const dispatch = useDispatch();
   const displaySearch = (
     <>
       <IconButton className="icon_button" aria-label="menu">
@@ -44,11 +46,17 @@ export default function SearchBar() {
           placeholder="Search"
           value={searchText}
           inputProps={{ 'aria-label': 'search notes' }}
-          onChange={ (e) => {setSearchText({searchText:e.target.value})} }
+          onChange={ (e) => {
+            setSearchText(e.target.value)
+            dispatch(searchNotes(e.target.value))
+          }}
           onClick={()=>setClickAway(true)}
         />
         <IconButton  className="icon_button" aria-label="directions">
-          { clickaway && <CrossIcon /> }
+          { clickaway && <CrossIcon onClick={ () => {
+            setSearchText('')
+          }}
+        /> }
         </IconButton>
     </>
   )

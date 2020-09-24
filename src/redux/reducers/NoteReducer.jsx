@@ -52,8 +52,10 @@ function NotesReducer(state = initialState, action) {
       };
 
     case SEARCH_NOTE:
+      console.log("search");
       return {
-        state, searchNotes: state.notes
+        ...state, 
+        searchNotes: state.notes
             .filter((note, index) => note.title.includes(action.txt) 
             || note.description.includes(action.txt))
       };

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useStyle } from '../scss/NoteCardCSS';
 import { Paper, Typography } from '@material-ui/core';
 import clsx from 'clsx'
 import IconButton from '@material-ui/core/IconButton';
@@ -178,9 +177,15 @@ export default function NoteInTrash(props) {
             console.log(res.data.data);
             let getnotes=res.data.data.data; 
             this.setState({notes:getnotes})
+            setSnack(true);
+            setSty('success');
+            setMsg('Note Restored');
         })
         .catch((err)=>{
             console.log(err);
+            setSnack(true);
+            setSty('error');
+            setMsg('Note Not Restored');
         })
         dispatch(trashNotes(key,bool))
         dispatch(callToApi("TRASH"));
@@ -192,9 +197,15 @@ export default function NoteInTrash(props) {
         }
         NoteService.deleteForeverNotes(data).then((res)=>{
            console.log(res);
+           setSnack(true);
+            setSty('success');
+            setMsg('Note Deleted');
         })
         .catch((err)=>{
             console.log(err);
+            setSnack(true);
+            setSty('error');
+            setMsg('Note Not Deleted');
         })
         dispatch(deleteForeverNotes(key));
         dispatch(callToApi("TRASH"));
@@ -268,9 +279,10 @@ export default function NoteInTrash(props) {
             />
 
             <SnackBar
-                open={opn}
+                opn={opn}
                 msg={msg}
-                handleClose={(event, reason) => {
+                severity={sty}
+                onclose={(event, reason) => {
                     if (reason === 'clickaway') {
                         return;
                     }

@@ -21,7 +21,7 @@ import NoteService from '../service/NoteService';
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
 import { editNotes } from '../redux/actions/NoteAction';
-// import { updateNote } 
+import SnackBar from '../util/SnackBar';
 
 const useStyles = makeStyles(theme => ({
 
@@ -113,8 +113,10 @@ export default function EditNote(props) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-
     const anchorRef = React.useRef(null);
+    const [snack, setSnack] = React.useState(false);
+    const [msg, setMsg] = React.useState(null);
+    const [sty,setSty] = React.useState('');
     const [title, setTitle] = React.useState(props.NotesObj.title)
     const [content, setContent] = React.useState(props.NotesObj.description)
     const [pin, setPin] = React.useState(props.NotesObj.isPined)
@@ -129,9 +131,15 @@ export default function EditNote(props) {
         }
         NoteService.updateNote(data).then((res) => {
             console.log(res);
+            setSnack(true);
+            setSty('success');
+            setMsg('Note Updated');
         })
         .catch((err) => {
             console.log(err);
+            setSnack(true);
+            setSty('success');
+            setMsg('Note Not Updated');
         })
         dispatch(editNotes(data))
         dispatch(callToApi("NOTES"));
@@ -145,9 +153,15 @@ export default function EditNote(props) {
         }
         NoteService.trashNotes(data).then((res) => {
             console.log(res);
+            setSnack(true);
+            setSty('success');
+            setMsg('Note Trashed');
         })
         .catch((err) => {
             console.log(err);
+            setSnack(true);
+            setSty('error');
+            setMsg('Note Not Trashed');
         })
         dispatch(callToApi("NOTES"));
         props.handleClose();
@@ -273,6 +287,17 @@ export default function EditNote(props) {
                     </Paper>
                 </DialogActions>
             </Dialog>
+            <SnackBar
+                opn={snack}
+                msg={msg}
+                severity={sty}
+                onclose={(event, reason) => {
+                    if (reason === 'clickaway') {
+                        return;
+                    }
+                    setSnack(false);
+                }}
+            />
         </div>
     );
 }

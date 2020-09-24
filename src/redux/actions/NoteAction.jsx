@@ -4,7 +4,7 @@ export const UPDATE_COLOR = 'UPDATE_COLOR';
 export const TRASH_AND_RESTORE_NOTE = 'TRASH_AND_RESTORE_NOTE';
 export const DELETE_FOREVER_NOTE = 'DELETE_FOREVER_NOTE';
 export const PIN_UNPIN_NOTE = 'DELETE_FOREVER_NOTE';
-export const SEARCH_NOTE = 'DELETE_FOREVER_NOTE';
+export const SEARCH_NOTE = 'SEARCH_NOTE';
 
 export function addNote(note) {
   return { 
@@ -53,8 +53,9 @@ export function pinUnpinNotes(noteid,bool) {
 }
 
 export function searchNotes(text) {
+  console.log(text);
   return { 
-    type: PIN_UNPIN_NOTE, 
+    type: SEARCH_NOTE, 
     txt:text,
   };
 }
