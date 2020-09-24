@@ -18,7 +18,7 @@ import NoteService from '../service/NoteService';
 import { useDispatch } from 'react-redux';
 import { Typography, Popover, Paper, Avatar, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
 import { callToApi } from '../redux/actions/ApiAction';
-import { trashNotes } from '../redux/actions/NoteAction';
+import { trashNotes, pinUnpinNotes } from '../redux/actions/NoteAction';
 
 export default function NoteCard(props) {
 
@@ -54,6 +54,7 @@ export default function NoteCard(props) {
         .catch((err) => {
             console.log(err);
         })
+        dispatch(pinUnpinNotes(key,value));
         dispatch(callToApi("NOTES"));
     }
 

@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_COLOR, EDIT_NOTE } from '../actions/NoteAction';
+import { ADD_NOTE, UPDATE_COLOR, EDIT_NOTE, PIN_UNPIN_NOTE } from '../actions/NoteAction';
 import { TRASH_AND_RESTORE_NOTE,DELETE_FOREVER_NOTE } from '../actions/NoteAction';
 
 const initialState = {
@@ -38,6 +38,12 @@ function NotesReducer(state = initialState, action) {
       return {
         ...state,
         notes: state.notes.filter((note, index) => note.id !== action.id)
+      };
+
+    case PIN_UNPIN_NOTE:
+      return {
+        ...state, notes: state.notes.map((note, index) => note.id === action.id 
+                        ? { ...note, isPined : action.bool } : note)
       };
 
     default:
