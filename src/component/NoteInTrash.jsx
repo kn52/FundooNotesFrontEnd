@@ -10,7 +10,7 @@ import NoteService from '../service/NoteService';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
-import { trashNotes } from '../redux/actions/NoteAction';
+import { trashNotes, deleteForeverNotes } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles(theme => ({
 
@@ -174,14 +174,14 @@ export default function NoteInTrash(props) {
             "isDeleted": bool, 
             "noteIdList": [key]
         }
-        // NoteService.trashNotes(data).then((res)=>{
-        //     console.log(res.data.data);
-        //     let getnotes=res.data.data.data; 
-        //     this.setState({notes:getnotes})
-        // })
-        // .catch((err)=>{
-        //     console.log(err);
-        // })
+        NoteService.trashNotes(data).then((res)=>{
+            console.log(res.data.data);
+            let getnotes=res.data.data.data; 
+            this.setState({notes:getnotes})
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
         dispatch(trashNotes(key,bool))
         dispatch(callToApi("TRASH"));
     }
@@ -196,6 +196,7 @@ export default function NoteInTrash(props) {
         .catch((err)=>{
             console.log(err);
         })
+        dispatch(deleteForeverNotes(key));
         dispatch(callToApi("TRASH"));
     }
 

@@ -1,7 +1,8 @@
 export const ADD_NOTE = 'ADD_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
-export const TRASH_AND_RESTORE_NOTE = 'TRASH_AND_RESTORE_NOTE';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
+export const TRASH_AND_RESTORE_NOTE = 'TRASH_AND_RESTORE_NOTE';
+export const DELETE_FOREVER_NOTE = 'DELETE_FOREVER_NOTE';
 
 export function addNote(note) {
   return { 
@@ -31,5 +32,12 @@ export function updateColor(noteid,color) {
     type: UPDATE_COLOR, 
     id:noteid,
     color:color,
+  };
+}
+
+export function deleteForeverNotes(noteid) {
+  return { 
+    type: DELETE_FOREVER_NOTE, 
+    id:noteid,
   };
 }

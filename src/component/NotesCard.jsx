@@ -62,12 +62,12 @@ export default function NoteCard(props) {
             "isDeleted": bool, 
             "noteIdList": [key]
         }
-        // NoteService.trashNotes(data).then((res) => {
-        //     console.log(res);
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        // })
+        NoteService.trashNotes(data).then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
         dispatch(trashNotes(key,bool));
         dispatch(callToApi("NOTES"));
     }
