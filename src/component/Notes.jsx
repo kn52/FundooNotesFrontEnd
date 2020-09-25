@@ -4,8 +4,8 @@ import NotesCollapsed from './NotesCollapsed';
 import NotesExpanded from './NotesExpanded';
 import NoteCard from './NotesCard';
 import { Typography, Container, ClickAwayListener } from "@material-ui/core";
-import bulbImage from '../assets/images/bulb.png';
 import { connect } from 'react-redux';
+import { EmojiObjectsOutlined } from "@material-ui/icons";
 import { addNote, addNewNote } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 import SnackBar from '../util/SnackBar';
@@ -44,7 +44,7 @@ class Notes extends React.Component {
 
     handleClickAway = () => {
         this.setState({ clickAway: false });
-        if (this.state.noteTitle !== '' || this.state.noteContent !== '') {
+        if (this.state.noteTitle !== '' && this.state.noteContent !== '') {
             const data = {
                 "title": this.state.noteTitle,
                 "description": this.state.noteContent,
@@ -54,23 +54,23 @@ class Notes extends React.Component {
                 "isDeleted": this.state.trash,
             }
             
-            // NoteService.addNote(data).then((res) => {
-            //     console.log(res);
-            //     this.setState({
-            //         opn:true,
-            //         msg:'Note Added Successfully',
-            //         sty:'success'  
-            //     })
-            // })
-			// .catch((err) => {
-            //     console.log(err);
-            //     this.setState({
-            //         opn:true,
-            //         msg:'Not Added',
-            //         sty:'error'  
-            //     })
-            // })
-            this.props.addNewNote(data);
+            NoteService.addNote(data).then((res) => {
+                console.log(res);
+                this.setState({
+                    opn:true,
+                    msg:'Note Added Successfully',
+                    sty:'success'  
+                })
+                this.props.addNewNote(data);
+            })
+			.catch((err) => {
+                console.log(err);
+                this.setState({
+                    opn:true,
+                    msg:'Not Added',
+                    sty:'error'  
+                })
+            })
             this.getData();
             this.setState({
                 noteTitle: '',
@@ -97,14 +97,14 @@ class Notes extends React.Component {
 
     getData() {
         let notes=[]
-        if(this.props.notes.length > 0) {
+        if(this.props.notes.length > 0 ) {
             notes=this.props.notes.reverse();
         }
         if(this.props.searchNotes.length > 0) {
-            notes=this.props.searchNotes;
+            notes=this.props.searchNotes.reverse();
         }
-        const pinNotes=notes.filter((notes) => notes.isPined === true);
-        let unPinNotes=notes.filter((notes) => notes.isPined === false);
+        const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false);
+        let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false);
         console.log(unPinNotes);
         this.setState({
             pinNotes: pinNotes,
@@ -142,9 +142,9 @@ class Notes extends React.Component {
                 <div className={
                     (this.props.openDrawer && this.props.onHover) ? 'notesContainer' :
                     !this.props.openDrawer ? 'notesContainer' : 'slideMainContainer'} >
-                    <div style={{display:'flex',flexDirection:'column', flexWrap:'wrap',width:'85%'}}>
-                    <ClickAwayListener onClickAway={this.handleClickAway}>
-                        <div className="noteTaker" style={{display:'flex',width:"66vw",justifyContent:'center'}}>
+                    <div className='note_child'>
+                    {this.props.searchNotes.length === 0 &&  <ClickAwayListener onClickAway={this.handleClickAway}>
+                        <div className="noteTaker noteTaker_content" >
                             {
                                 !this.state.clickAway
                                     ? <NotesCollapsed handleNoteTakerClick={() => this.setState({ clickAway: true })} />
@@ -161,25 +161,23 @@ class Notes extends React.Component {
                                     />
                             }
                         </div>
-                    </ClickAwayListener>
+                    </ClickAwayListener>}
                     { 
                         (this.state.pinNotes.length === 0 && this.state.unpinNotes.length === 0) &&
                         <div className="bulbContainer">
-                            <img alt="temp background" src={bulbImage} className="bulbImage" />
+                            <EmojiObjectsOutlined className="bulbImage" style={{width:'100px',height:'100px'}} />
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
                         </div>
                     }
-                    
                     {
                         this.state.pinNotes.length > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{textAlign:'left', marginTop: '4em', marginLeft: '0em' }}
-                        >
+                        className="typo_cont" style={{marginTop:'1em'}}>
                             PINNED:- {this.state.pinNotes.length}
                         </Typography>
                     }
     
-                    <Masonry style={{display:'flex',flexWrap:'wrap'}}>
+                    <Masonry className="masonry_cont">
                         {
                             this.state.pinNotes.length>0 && 
                             this.state.pinNotes.map((key,index)=>{
@@ -199,13 +197,12 @@ class Notes extends React.Component {
                     {
                         this.state.unpinNotes.length > 0 > 0 &&
                         <Typography component="p" color="textPrimary" variant="caption"
-                            style={{textAlign:'left', marginTop: '3em', marginLeft: '0em' }}
-                        >
+                            className="typo_cont" style={{marginTop:'1em'}}>
                             OTHERS:- {this.state.unpinNotes.length}
                         </Typography> 
                     }
 
-                    <Masonry style={{ display:'flex',flexWrap:'wrap'}}>
+                    <Masonry className="masonry_cont">
                         {
                             this.state.unpinNotes.length>0 && 
                             this.state.unpinNotes.map((key,index)=>{

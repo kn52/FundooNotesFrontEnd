@@ -36,11 +36,24 @@ export default function SearchBar() {
   const classes = useStyles();
   const [clickaway,setClickAway]=useState(false);
   const [searchText,setSearchText]=useState('');
+  const [onck,setOnck]=useState(false);
+  const [width,setWidth]=useState(false);
   const dispatch = useDispatch();
+
+  const sethandleSearch = () => {
+     if(onck === false){
+       setOnck(true);
+     }
+     if(onck === true){
+      setOnck(false);
+    }
+  }
+
   const displaySearch = (
     <>
       <IconButton className="icon_button" aria-label="menu">
-          <SearchIcon id = "searchicon"/>
+          <SearchIcon id = "searchicon" className= {(width < 768 && onck === false) && 'search_icon'} 
+            onClick={ ()=>width < 768 && sethandleSearch()}/>
         </IconButton>
         <InputBase
           className={classes.input}
@@ -70,12 +83,8 @@ export default function SearchBar() {
   useEffect(() => {
     function handleResize() {
       let width=window.innerWidth;
-      
-      if(width<766){
-        // document.getElementById('searchicon').style.marginLeft=(1000 - width) + 'px';
-      }
+      setWidth(width);
     }
-    
     
     window.addEventListener("resize", handleResize);
     
@@ -86,8 +95,18 @@ export default function SearchBar() {
   
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      { clickaway ? <Paper component="form" className={classes.root} style={{backgroundColor:'white'}}>{displaySearch}</Paper>
-                  : <div className={classes.root} style={{backgroundColor:'#f1f3f4'}}>{displaySearch}</div> }
+      { clickaway ? <Paper id="paper_con" component="form" 
+                className={
+                  onck === false ? window.innerWidth>=700 ? "root_search search" : "root_search responsive_search"
+                  :(onck === true && window.innerWidth>=700) ? "root_search search" :  "root_search responsive_search"   
+                }
+                style={{backgroundColor:'white'}}>{displaySearch}</Paper>
+                : <div id="div_con" 
+                className=
+                {onck === false ? window.innerWidth>=700 ? "root_search search" : "root_search responsive_search"
+                :(onck === true && window.innerWidth>=700) ? "root_search search" :  "root_search responsive_search"    
+                } 
+                style={{backgroundColor:'#f1f3f4'}}>{displaySearch}</div> }
     </ClickAwayListener>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../scss/Notes.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Avatar, Button, InputBase, IconButton  } from '@material-ui/core';
 import AddAlertIcon from '@material-ui/icons/AddAlertOutlined';
@@ -59,14 +60,14 @@ const useStyles = makeStyles(theme => ({
         height: '32px',
         margin: 8,
         paddingTop: 5,
-        marginLeft: theme.spacing(26),
+        marginLeft: theme.spacing(29),
         textTransform: 'capitalize',
-        // [theme.breakpoints.down('xs')]: {
-        //     marginLeft: theme.spacing(22),
-        // },
+        [theme.breakpoints.down(411)]: {
+            marginLeft: theme.spacing(28),
+        },
 
         [theme.breakpoints.down(414)]: {
-            marginLeft: theme.spacing(22),
+            marginLeft: theme.spacing(25),
         },
     },
   
@@ -162,7 +163,7 @@ export default function NotesExpanded(props) {
                 <IconButton className={classes.iconButton}>
                     <MoreVertIcon fontSize="small" />
                 </IconButton>
-                <Button className={classes.closeButton}
+                <Button id="ex_close_button"
                     onClick={props.handleClickAway}
                 >
                     Close

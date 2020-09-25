@@ -7,12 +7,13 @@ import NoteInTrash from './NoteInTrash';
 import NoteService from '../service/NoteService';
 import { noCallToApi } from '../redux/actions/ApiAction';
 import { addNote } from "../redux/actions/NoteAction";
+import { DeleteOutlined } from '@material-ui/icons';
 
 class Trash extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            sliderClassName: !this.props.drawerOpen ? 'MainContainer' : 'slideMainContainer' ,
+            sliderClassName: !this.props.drawerOpen ? 'trashContainer' : 'slideMainContainer' ,
             notes: null,
         };
     }
@@ -43,7 +44,6 @@ class Trash extends React.Component {
         .catch((err)=>{
             console.log(err);
         })
-        // this.getTrashNotes();
     }
 
     render() {
@@ -54,6 +54,13 @@ class Trash extends React.Component {
             <Container style={{paddingTop:'6em'}}>
                 <div className={this.state.sliderClassName}>
                     <div style={{display:'flex',flexDirection:'column',flexWrap:'wrap',width:'80vw'}}>
+                    { 
+                        this.state.notes === null  &&
+                        <div className="bulbContainer">
+                            <DeleteOutlined className="bulbImage" style={{width:'100px',height:'100px'}}/>
+                            <h2 style={{color:'#80868b'}}>No Trash Notes</h2>
+                        </div>
+                    }
                         <Masonry style={{display:'flex',flexWrap:'wrap'}}>
                             {
                                 this.state.notes !== null

@@ -53,7 +53,6 @@ function NotesReducer(state = initialState, action) {
       };
 
     case PIN_UNPIN_NOTE:
-      console.log("====="+action.bool);
       return {
         ...state, 
         notes: state.notes.map((note, index) => note.id === action.id 
@@ -61,12 +60,18 @@ function NotesReducer(state = initialState, action) {
       };
 
     case SEARCH_NOTE:
-      return {
-        ...state, 
-        searchNotes: state.notes
-            .filter((note, index) => note.title.includes(action.txt) 
-                  || note.description.includes(action.txt))
-      };
+      if(action.txt.length>0 && state.notes.length>0){
+        return {
+          ...state,
+          searchNotes: state.notes
+              .filter((note, index) => note.title.includes(action.txt) 
+                    || note.description.includes(action.txt)) 
+        };
+      }else {
+        return {
+          ...state,searchNotes:[]
+        }
+      }
 
     default:
       return state;

@@ -4,7 +4,7 @@
     @extend .displayFlex, .flexDirectionColumn, .alignItemsCenter !optional;
     box-sizing: none;
     border:1px solid white;
-    min-height: 99.5vh;
+    min-height: 88.5vh;
     transition: margin .20s linear;
 }
 
@@ -12,22 +12,28 @@
     @extend .displayFlex, .flexDirectionColumn, .alignItemsCenter !optional;
     box-sizing: none;
     border:1px solid white;
-    min-height: 99.5vh;
+    min-height: 85.5vh;
     transition: margin .20s linear;
 }
 
 .slideMainContainer{
-    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter !optional;
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentStart !optional;
     width:75px;
     padding-left: 200px;
     margin-right: -3.7%;
     min-height: 99.5vh;
+    display: flex;
     transition: margin .20s linear;
 }
 
 .bulbContainer{
     @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter, alignContentCenter !optional;
     margin-top: 15%;
+}
+
+.archiveContainer{
+    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter, alignContentCenter !optional;
+    margin-top: -5%;
 }
 
 .bulbImage{
@@ -53,6 +59,40 @@ h2 {
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
+}
+
+.note_child {
+    display:flex;
+    flex-direction:column; 
+    align-items: center;
+    flex-wrap:wrap;
+    width:70vw;
+}
+
+.noteTaker_content {
+    display:flex;
+    width:70vw;
+    justify-content:center;
+}
+
+#ex_close_button {
+    width:32px;
+    height: 32px;
+    margin-top: 8px;
+    margin-left: 218px;
+    text-transform: capitalize;
+}
+
+.masonry_cont {
+    display:flex;
+    flex-wrap:wrap;
+    width:80vw;
+}
+
+.typo_cont {
+    text-align:left;
+    margin-left:0em;
+    width:80vw;
 }
 
 @media (max-width: 1200px){
@@ -82,6 +122,8 @@ h2 {
 
     .slideNotesMainContainer{
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         margin-left: 0px;
         margin-right: 0px;
         transition: none;
@@ -94,12 +136,35 @@ h2 {
         margin: auto;
         width: 97%; 
     }
+    #ex_close_button {
+        margin-left: 70px;
+    }
 }
 
-@media (max-width: 400px){
-    .notesContainer{
-		margin-left: 0%;
-		margin-right: 0%;
-		padding: 10px 0px;
+@media (max-width: 414px){
+    .note_child {
+        width:100%;
+    }
+    
+    .noteTaker_content {
+        width:75vw;
+    }
+
+    #ex_close_button {
+        margin-left: 230px;
+    }
+
+    .masonry_cont {
+        width:75vw;
+    }
+    
+    .typo_cont {
+        width:75vw;
+    }
+ }
+
+ @media (max-width: 375px){
+    #ex_close_button {
+        margin-left: 200px;
     }
  }

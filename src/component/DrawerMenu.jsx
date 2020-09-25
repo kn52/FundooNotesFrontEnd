@@ -8,10 +8,11 @@ import useStyle from '../scss/DrawerMenuCSS';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, toggleDrawerClose } from '../redux/actions/DrawerAction';
 import { toggleHoverOpen, toggleHoverClose } from '../redux/actions/DrawerAction';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function DrawerMenu() {
   const classes = useStyle();
+  const history = useHistory();
 
   const labels = useSelector(state=>state.label.currentLabelId);
   const open = useSelector(state=>state.drawer.openDrawer);
@@ -52,7 +53,7 @@ function DrawerMenu() {
         <div className={classes.toolbar}></div>
         <List className={classes.listStyle}>
             <ListItem button autoFocus key="Notes" onClick={()=>{ open &&  dispatch(setLabelPage('Fundoo')) 
-                this.props.history.push('/dashboard/notes')}} 
+                history.push('/dashboard/notes')}} 
                 className={classes.listItemStyle} style={labels === 'Fundoo' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><EmojiObjectsOutlined /></ListItemIcon>
               <ListItemText primary="Notes" />
@@ -66,14 +67,15 @@ function DrawerMenu() {
               <ListItemIcon><CreateOutlined/></ListItemIcon>
               <ListItemText primary="Edit Label" />
             </ListItem>
-            <ListItem button key="Archieve" onClick={()=>{ open && dispatch(setLabelPage('Archieve')) }} 
+            <ListItem button key="Archieve" onClick={()=>{ open && dispatch(setLabelPage('Archieve'))
+              history.push('/dashboard/archive') }} 
                 className={classes.listItemStyle} style={labels === 'Archieve' ? {backgroundColor:'#feefc3'} : {} }>
               <ListItemIcon><ArchiveOutlined /></ListItemIcon>
               <ListItemText primary="Archieve" />
             </ListItem>
             
             <ListItem button key="Trash" onClick={()=>{ open && dispatch(setLabelPage('Trash'))
-               this.props.history.push('/dashboard/trash')}} 
+               history.push('/dashboard/trash')}} 
                 className={classes.listItemStyle} style={labels === 'Trash' ? {backgroundColor:'#feefc3'} : {} }> 
               <ListItemIcon><DeleteOutlined/></ListItemIcon>
               <ListItemText primary="Trash" /> 
@@ -84,4 +86,4 @@ function DrawerMenu() {
   );
 }
 
-export default withRouter(DrawerMenu);
+export default DrawerMenu;

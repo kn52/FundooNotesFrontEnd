@@ -6,11 +6,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Avatar, Button, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
+import NoteColor from './NotesColor';
 import IconButton from '@material-ui/core/IconButton';
 import AddAlertIcon from '@material-ui/icons/AddAlertOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
-import PaletteIcon from '@material-ui/icons/PaletteOutlined';
-import ImageIcon from '@material-ui/icons/ImageOutlined';
+import ImageIcon from '@material-ui/icons/ImageOutlined'; 
 import ArchiveIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
 import UnarchiveIcon from '@material-ui/icons/UnarchiveOutlined';
@@ -258,7 +258,7 @@ export default function EditNote(props) {
                             <PersonAddIcon fontSize="small" />
                         </IconButton>
                         <IconButton className={classes.iconButton}>
-                            <PaletteIcon fontSize="small" />
+                            <NoteColor  Notekey={props.Key}/>
                         </IconButton>
                         <IconButton className={classes.iconButton}>
                             <ImageIcon fontSize="small" />

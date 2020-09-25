@@ -1,11 +1,16 @@
 .root_search {
     position:absolute;
     display: flex;
-    padding: 2px 4px;
-    width: 50%;
+    // padding: 2px 4px;
+    // width: 50%;
     align-items: center;
     border-radius: 8px;
     margin-left: 320px, 
+}
+
+.search {
+    padding: 2px 4px;
+    width: 50%;
 }
 
 .responsive_search {
@@ -21,6 +26,38 @@ icon_button {
     padding: 10;
 }
 
-#searchicon {
-    padding-left: 0%;
+.search_icon {
+    margin-left: 0px;
+}
+
+@media (max-width: 414px){
+    .search_icon{
+        margin-left: 50px;
+    }
+
+    .root_search {
+        margin-left: 227px;
+    }
+}
+
+@media (max-width: 411px){
+    .search_icon{
+        margin-left: 46px;
+    }
+}
+
+@media (max-width: 375px){
+    .search_icon{
+        margin-left: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .search_icon {
+        margin-left: 0px;
+    }
+
+    .root_search {
+        margin-left: 225px;
+    }
 }

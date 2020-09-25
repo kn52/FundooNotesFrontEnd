@@ -5,10 +5,10 @@ import SignUp from '../component/SignUp';
 import DashBoard from '../component/DashBoard';
 import ForgetPassword from '../component/ForgetPassword';
 import ResetPassword from '../component/ResetPassword';
-import EditLabel from '../component/EditLabel';
 import PrivateRoute from './PrivateRoute';
 import Notes from '../component/Notes';
 import Trash from '../component/Trash';
+import Archive from '../component/Archive';
 
 export default function DefaultRoute () {
     return (
@@ -19,10 +19,10 @@ export default function DefaultRoute () {
             <Route path='/register' component={SignUp} />
             <Route path='/forgetpassword' exact component={ForgetPassword} />
             <Route path='/resetpassword' component={ResetPassword} />
-            <Route path='/edit' component={EditLabel} />
-			<PrivateRoute path='/dashboard' component={DashBoard} />
+            <PrivateRoute path='/dashboard' component={DashBoard} />
             <PrivateRoute path='/dashboard/notes' component={Notes} />
             <PrivateRoute path='/dashboard/trash' component={Trash} />
+            <PrivateRoute path='/dashboard/archive' component={Archive} />
         </BrowserRouter>
     );
 }
