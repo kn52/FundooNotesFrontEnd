@@ -9,6 +9,7 @@ import NoteService from '../service/NoteService';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { callToApi } from '../redux/actions/ApiAction';
+import Truncate from 'react-truncate';
 import { trashNotes, deleteForeverNotes } from '../redux/actions/NoteAction';
 
 const useStyles = makeStyles(theme => ({
@@ -228,7 +229,10 @@ export default function NoteInTrash(props) {
                             }
                         }
                     >
-                        {props.NoteObj.title}
+                        <Truncate lines={3} ellipsis={<span>...</span>}>
+                            {props.NoteObj.title}
+                        </Truncate>
+                        
                     </Typography>
                 </Paper>
                 <Paper
@@ -240,7 +244,10 @@ export default function NoteInTrash(props) {
                     }
                 >
                     <Typography className={classes.noteContent}>
-                        {props.NoteObj.description}
+                        <Truncate lines={16} ellipsis={<span>...</span>}>
+                            {props.NoteObj.description}
+                        </Truncate>
+                        
                     </Typography>
                 </Paper>
                 <Paper

@@ -12,6 +12,7 @@ import PinIcon from "../assets/images/pinned.png";
 import MoreVertIcon from '@material-ui/icons/MoreVertOutlined';
 import SnackBar from '../util/SnackBar';
 import EditNote from './EditNote';
+import Truncate from 'react-truncate';
 import NoteColor from './NotesColor';
 import NoteService from '../service/NoteService'; 
 import { useDispatch } from 'react-redux';
@@ -163,6 +164,9 @@ export default function NoteCard(props) {
                                 }
                             }
                         >
+                            <Truncate lines={3} ellipsis={<span>...</span>}>
+                                {props.NoteObj.title}
+                            </Truncate>
                             {props.NoteObj.title}
                         </Typography>
                         <IconButton
@@ -190,7 +194,10 @@ export default function NoteCard(props) {
                         }
                     >
                         <Typography className={classes.noteContent}>
-                            {props.NoteObj.description}
+                            <Truncate lines={16} ellipsis={<span>...</span>}>
+                                {props.NoteObj.description}
+                            </Truncate>
+                            
                         </Typography>
                     </Paper>
 
