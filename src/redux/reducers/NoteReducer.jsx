@@ -1,9 +1,10 @@
 import { ADD_NOTE, ADD_NEW_NOTE, UPDATE_COLOR, EDIT_NOTE, PIN_UNPIN_NOTE } from '../actions/NoteAction';
-import { TRASH_AND_RESTORE_NOTE,DELETE_FOREVER_NOTE, SEARCH_NOTE } from '../actions/NoteAction';
+import { TRASH_AND_RESTORE_NOTE,DELETE_FOREVER_NOTE, SEARCH_NOTE,ARCHIVE_UNARCHIVE_NOTE } from '../actions/NoteAction';
 
 const initialState = {
     notes:{},
-    searchNotes:[]
+    searchNotes:[],
+    search:false
 }
 
 function NotesReducer(state = initialState, action) {
@@ -63,15 +64,25 @@ function NotesReducer(state = initialState, action) {
       if(action.txt.length>0 && state.notes.length>0){
         return {
           ...state,
+          search:true,
           searchNotes: state.notes
               .filter((note, index) => note.title.includes(action.txt) 
                     || note.description.includes(action.txt)) 
         };
       }else {
         return {
-          ...state,searchNotes:[]
+          ...state,
+          search:false,
+          searchNotes:[]
         }
       }
+
+      case ARCHIVE_UNARCHIVE_NOTE:
+        return {
+          ...state, 
+          notes: state.notes.map((note, index) => note.id === action.id 
+                ? { ...note, isArchived : action.bool } : note)
+        };
 
     default:
       return state;

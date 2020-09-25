@@ -258,7 +258,7 @@ export default function EditNote(props) {
                             <PersonAddIcon fontSize="small" />
                         </IconButton>
                         <IconButton className={classes.iconButton}>
-                            <NoteColor  Notekey={props.Key}/>
+                            <NoteColor Notekey={props.Key}/>
                         </IconButton>
                         <IconButton className={classes.iconButton}>
                             <ImageIcon fontSize="small" />

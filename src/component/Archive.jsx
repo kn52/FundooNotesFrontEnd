@@ -5,33 +5,36 @@ import NoteCard from './NotesCard';
 import { connect } from 'react-redux';
 import { ArchiveOutlined } from '@material-ui/icons';
 import { Container } from "@material-ui/core";
-import { noCallToApi } from '../redux/actions/ApiAction';
-import { addNote } from "../redux/actions/NoteAction";
+import { noCallToApi,callToApi } from '../redux/actions/ApiAction';
+import { addNote, archiveNotes } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 
 class Archive extends Component {
     constructor(props){
         super(props);
         this.state={
-            sliderClassName: !this.props.drawerOpen ? 'MainContainer' : 'slideMainContainer' ,
+            sliderClassName: !this.props.drawerOpen ? 'trashContainer' : 'slideMainContainer' ,
             notes: [],
         };
     }
 
     handleArchiveChange = (key) => {
+        console.log("Hi")
         this.setState({
             archive: !this.state.archive
         })
         const data = {
-            "isArchieved":false,
+            "isArchived":false,
             "noteIdList":[key]
         }
-        NoteService.archieveNotes(data).then((res) => {
+        NoteService.archiveNotes(data).then((res) => {
             console.log(res.data);
         })
         .catch((err) => {
             console.log(err);
         })
+        this.props.archive(key,false);
+        this.props.callApi("ARCHIVE");
     }
 
     static getDerivedStateFromProps(props, state){
@@ -42,6 +45,14 @@ class Archive extends Component {
                 sliderClassName : !props.drawerOpen ? 'trashContainer' : 'slideMainContainer'
             }
         }   
+    }
+
+    getArchiveNotes() {
+        let note=this.props.notes.filter(note => note.isArchived === true);
+        this.setState({
+            notes:note,
+        })
+        this.props.noCall("");
     }
     
     componentDidMount() {
@@ -54,9 +65,13 @@ class Archive extends Component {
         .catch((err)=>{
             console.log(err);
         })
+        this.props.noCall("");
     }
 
     render() {
+        if(this.props.apiCall === "ARCHIVE"){
+            this.getArchiveNotes();
+        }
         return (
             <Container style={{marginTop: '6em'}}>
                 <div className={this.state.sliderClassName}>
@@ -92,14 +107,17 @@ class Archive extends Component {
 
 const mapToStateProps = state => {
     return {
-        drawerOpen: state.drawer.drawerOpen,
+        notes:state.note.notes,
+        apiCall: state.api.apiName
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addNote: (data)=> dispatch(addNote(data)),
+        archive:(note)=> dispatch(archiveNotes(note)),
         noCall: (name)=> dispatch(noCallToApi(name)),
+        callApi: (name)=> dispatch(callToApi(name)),
     }
 }
 

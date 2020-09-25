@@ -6,6 +6,7 @@ export const TRASH_AND_RESTORE_NOTE = 'TRASH_AND_RESTORE_NOTE';
 export const DELETE_FOREVER_NOTE = 'DELETE_FOREVER_NOTE';
 export const PIN_UNPIN_NOTE = 'PIN_UNPIN_NOTE';
 export const SEARCH_NOTE = 'SEARCH_NOTE';
+export const ARCHIVE_UNARCHIVE_NOTE = 'ARCHIVE_UNARCHIVE_NOTE';
 
 export function addNote(note) {
   return { 
@@ -64,5 +65,13 @@ export function searchNotes(text) {
   return { 
     type: SEARCH_NOTE, 
     txt:text,
+  };
+}
+
+export function archiveNotes(noteid,bool) {
+  return { 
+    type: ARCHIVE_UNARCHIVE_NOTE, 
+    id:noteid,
+    bool:bool,
   };
 }

@@ -6,11 +6,11 @@ import NoteCard from './NotesCard';
 import { Typography, Container, ClickAwayListener } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { EmojiObjectsOutlined } from "@material-ui/icons";
-import { addNote, addNewNote } from "../redux/actions/NoteAction";
+import { addNote, addNewNote,archiveNotes } from "../redux/actions/NoteAction";
 import NoteService from '../service/NoteService';
 import SnackBar from '../util/SnackBar';
 import Masonry from 'react-masonry-component';
-import { noCallToApi } from '../redux/actions/ApiAction';
+import { noCallToApi,callToApi } from '../redux/actions/ApiAction';
 
 class Notes extends React.Component {
     constructor(props) {
@@ -94,27 +94,31 @@ class Notes extends React.Component {
             archive: !this.state.archive
         })
         const data = {
-            "isArchieved":true,
+            "isArchived":true,
             "noteIdList":[key]
         }
-        NoteService.archieveNotes(data).then((res) => {
+        NoteService.archiveNotes(data).then((res) => {
             console.log(res.data);
         })
         .catch((err) => {
             console.log(err);
         })
+        this.props.archive(key,true);
+        this.props.callApi("NOTES");
     }
 
     getData() {
         let notes=[]
-        if(this.props.notes.length > 0 ) {
+        if(this.props.notes.length > 0 && this.props.sch === false) {
             notes=this.props.notes.reverse();
         }
         if(this.props.searchNotes.length > 0) {
             notes=this.props.searchNotes.reverse();
         }
-        const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false);
-        let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false);
+        const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false
+                                    && notes.isArchived === false);
+        let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false
+                                    && notes.isArchived === false);
         console.log(unPinNotes);
         this.setState({
             pinNotes: pinNotes,
@@ -130,8 +134,10 @@ class Notes extends React.Component {
         NoteService.getNotes().then((res) => {
             console.log(res.data);
             const notes=res.data.data.data.reverse();
-            const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false);
-            let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false);
+            const pinNotes=notes.filter((notes) => notes.isPined === true && notes.isDeleted === false
+                                        && notes.isArchived === false);
+            let unPinNotes=notes.filter((notes) => notes.isPined === false && notes.isDeleted === false
+                                        && notes.isArchived === false);
             this.setState({
                 pinNotes: pinNotes,
                 unpinNotes: unPinNotes,
@@ -153,7 +159,8 @@ class Notes extends React.Component {
                     (this.props.openDrawer && this.props.onHover) ? 'notesContainer' :
                     !this.props.openDrawer ? 'notesContainer' : 'slideMainContainer'} >
                     <div className='note_child'>
-                    {this.props.searchNotes.length === 0 &&  <ClickAwayListener onClickAway={this.handleClickAway}>
+                    {(this.props.searchNotes.length === 0 && this.props.sch === false) 
+                        &&  <ClickAwayListener onClickAway={this.handleClickAway}>
                         <div className="noteTaker noteTaker_content" >
                             {
                                 !this.state.clickAway
@@ -173,7 +180,8 @@ class Notes extends React.Component {
                         </div>
                     </ClickAwayListener>}
                     { 
-                        (this.state.pinNotes.length === 0 && this.state.unpinNotes.length === 0) &&
+                        (this.state.pinNotes.length === 0 && this.state.unpinNotes.length === 0
+                            && this.props.sch === false) &&
                         <div className="bulbContainer">
                             <EmojiObjectsOutlined className="bulbImage" style={{width:'100px',height:'100px'}} />
                             <h2 style={{color:'#80868b'}}>Notes you add appear here</h2>
@@ -244,7 +252,8 @@ const mapToStateProps = state => {
         onHover: state.drawer.onHover,
         notes:state.note.notes,
         searchNotes:state.note.searchNotes,
-        apiCall: state.api.apiName
+        apiCall: state.api.apiName,
+        sch:state.note.search
     }
 }
 
@@ -253,6 +262,8 @@ const mapDispatchToProps = dispatch => {
         addNote: (data)=> dispatch(addNote(data)),
         addNewNote: (data)=> dispatch(addNewNote(data)),
         noCall: (name)=> dispatch(noCallToApi(name)),
+        archive:(note)=> dispatch(archiveNotes(note)),
+        callApi: (name)=> dispatch(callToApi(name))
     }
 }
 
