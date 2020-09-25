@@ -227,8 +227,8 @@ export default function NoteCard(props) {
                         <IconButton className={classes.iconButton}>
                             <ImageIcon fontSize="small" />
                         </IconButton>
-                        <IconButton className={classes.iconButton}
-                        >
+                        <IconButton className={classes.iconButton} 
+                        onClick={props.HandleArchiveChange(props.Notekey)}>
                             {!props.NoteObj.Archive ? <ArchiveIcon fontSize="small" /> : <UnarchiveIcon fontSize="small" />}
                         </IconButton>
                         <IconButton className={classes.iconButton}

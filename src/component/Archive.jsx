@@ -18,12 +18,28 @@ class Archive extends Component {
         };
     }
 
+    handleArchiveChange = (key) => {
+        this.setState({
+            archive: !this.state.archive
+        })
+        const data = {
+            "isArchieved":false,
+            "noteIdList":[key]
+        }
+        NoteService.archieveNotes(data).then((res) => {
+            console.log(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     static getDerivedStateFromProps(props, state){
         
         if(!window.matchMedia("(max-width: 1000px)").matches){
             return {
                 ...state,
-                sliderClassName : !props.drawerOpen ? 'MainContainer' : 'slideMainContainer'
+                sliderClassName : !props.drawerOpen ? 'trashContainer' : 'slideMainContainer'
             }
         }   
     }
@@ -44,9 +60,10 @@ class Archive extends Component {
         return (
             <Container style={{marginTop: '6em'}}>
                 <div className={this.state.sliderClassName}>
+                <div style={{display:'flex',flexDirection:'column',flexWrap:'wrap',width:'80vw'}}>
                     { 
                         this.state.notes.length === 0  &&
-                        <div className="archiveContainer">
+                        <div className="bulbContainer">
                             <ArchiveOutlined className="bulbImage" style={{width:'100px',height:'100px'}}/>
                             <h2 style={{color:'#80868b'}}>No Archive Notes</h2>
                         </div>
@@ -55,18 +72,18 @@ class Archive extends Component {
                         {
                             this.state.notes.length>0
                             ?   this.state.notes.map((key, index) => (
-                                    this.state.notes[key].Trash === false &&
+                                    key.isDeleted === false &&
                                     <NoteCard 
-                                        key={key}
-                                        Notekey = {key}
-                                        NoteObj = {this.state.notes[key]}
-                                        ToggleView = {this.props.toggleView}
-                                        HandleArchiveChange = {this.handleArchiveChange}
+                                    key={index}
+                                    Notekey={key.id}
+                                    NoteObj={key}
+                                    HandleArchiveChange={this.handleArchiveChange}
                                     />
                                 ))
                             : []
                         }
-                    </Masonry>                  
+                    </Masonry>                 
+                    </div> 
                 </div>
             </Container>
         );

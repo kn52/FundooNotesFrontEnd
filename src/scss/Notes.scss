@@ -31,11 +31,6 @@
     margin-top: 15%;
 }
 
-.archiveContainer{
-    @extend .displayFlex, .flexDirectionColumn, .justifyContentCenter, alignContentCenter !optional;
-    margin-top: -5%;
-}
-
 .bulbImage{
     width: 100px;
     height: 100px;

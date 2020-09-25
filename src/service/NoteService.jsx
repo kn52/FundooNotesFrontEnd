@@ -54,6 +54,12 @@ class NoteService {
         return this.axiosservice.post(url,data,true,headers); 
     }
 
+    archiveNotes(data) {
+        const headers = this.getHeader();
+        let url=BASEURL.fundooUrl + '/notes/archiveNotes';
+        return this.axiosservice.post(url,data,true,headers); 
+    }
+
     getArchiveNotes() {
         const headers = this.getHeader();
         let url=BASEURL.fundooUrl + '/notes/getArchiveNotesList';

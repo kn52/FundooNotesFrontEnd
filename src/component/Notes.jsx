@@ -89,9 +89,19 @@ class Notes extends React.Component {
         })
     };
 
-    handleArchiveChange = () => {
+    handleArchiveChange = (key) => {
         this.setState({
             archive: !this.state.archive
+        })
+        const data = {
+            "isArchieved":true,
+            "noteIdList":[key]
+        }
+        NoteService.archieveNotes(data).then((res) => {
+            console.log(res.data);
+        })
+        .catch((err) => {
+            console.log(err);
         })
     }
 
