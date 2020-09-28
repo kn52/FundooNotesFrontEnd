@@ -85,7 +85,6 @@ class Trash extends React.Component {
 }
 
 const mapToStateProps = state => {
-    console.log(state.note.notes);
     return {
         drawerOpen: state.drawer.drawerOpen,
         apiCall: state.api.apiName,

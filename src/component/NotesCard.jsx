@@ -150,6 +150,7 @@ export default function NoteCard(props) {
                         boxShadow: visible && '0em 0em 0.4em 0em gray',
                         backgroundColor: props.NoteObj.color,
                         border: props.NoteObj.color === '#ffffff' ? '1px solid #e0e0e0' : '0.1px solid #e0e0e0',
+                        marginBottom: window.innerWidth<600 ? '3px' : ''
                     }}
             >
                     <Paper
@@ -205,15 +206,6 @@ export default function NoteCard(props) {
                         style={{backgroundColor: props.NoteObj.color }}
                         className={clsx(classes.chipPaper)}
                     >
-                        {/* {
-                            false ? <Chip 
-                            icon={<ClockIcon />}
-                            size="small"
-                            style={{
-                                margin: '10px 4px 4px 0px'
-                            }}
-                        /> 
-                        : {} } */}
                     </Paper>
 
                     <Paper style={{ backgroundColor: props.NoteObj.color, visibility: more || visible ? 'visible' : 'hidden' }}
@@ -236,7 +228,7 @@ export default function NoteCard(props) {
                         </IconButton>
                         <IconButton className={classes.iconButton} 
                         onClick={()=>props.HandleArchiveChange(props.Notekey)}>
-                            {!props.NoteObj.Archive ? <ArchiveIcon fontSize="small" /> : <UnarchiveIcon fontSize="small" />}
+                            {!props.NoteObj.isArchived ? <ArchiveIcon fontSize="small" /> : <UnarchiveIcon fontSize="small" />}
                         </IconButton>
                         <IconButton className={classes.iconButton}
                             ref={anchorRef}
@@ -248,8 +240,7 @@ export default function NoteCard(props) {
                             {renderMorePopper}
                         </IconButton>
                     </Paper>
-            </Paper>
-
+            </Paper>                
             <EditNote
                 handleClose={() => setEditNote(false)}
                 NotesObj={props.NoteObj}

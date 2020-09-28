@@ -8,7 +8,6 @@ const initialState = {
 }
 
 function NotesReducer(state = initialState, action) {
-  console.log("Note Reducer");  
   switch(action.type) {
     
     case ADD_NOTE:
@@ -19,7 +18,6 @@ function NotesReducer(state = initialState, action) {
         };
 
   case ADD_NEW_NOTE:
-    console.log("ADD NEW");
     return {
       ...state,
       notes: state.notes.concat(action.payload)

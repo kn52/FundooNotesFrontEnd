@@ -1,5 +1,4 @@
 import React from 'react';
-import '../scss/DashBoard.scss';
 import { CssBaseline } from '@material-ui/core';
 import DrawerMenu from './DrawerMenu';
 import NavBar from '../util/NavBar';
@@ -13,7 +12,7 @@ export default class DashBoard extends React.Component {
                 <div>
                     <NavBar/>
                 </div>
-                <div style={{width:'8vw'}}>
+                <div style={{width:'5vw'}}>
                     <DrawerMenu/>
                 </div>
             </>

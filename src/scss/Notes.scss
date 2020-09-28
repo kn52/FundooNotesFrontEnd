@@ -97,6 +97,10 @@ h2 {
         display: flex;
         flex-wrap: wrap;
     }
+
+    .note_child {
+        width: 70vw;
+    }
 }
 
 @media (max-width: 680px){

@@ -226,11 +226,11 @@ class Notes extends React.Component {
                             this.state.unpinNotes.map((key,index)=>{
                                 if(key.isDeleted === false) {
                                     return <NoteCard
-                                        key={index}
-                                        Notekey={key.id}
-                                        NoteObj={key}
-                                        HandleArchiveChange={this.handleArchiveChange}
-                                    />
+                                            key={index}
+                                            Notekey={key.id}
+                                            NoteObj={key}
+                                            HandleArchiveChange={this.handleArchiveChange}
+                                        />
                                 }
                                 return '';
                             })
@@ -246,7 +246,6 @@ class Notes extends React.Component {
 }
 
 const mapToStateProps = state => {
-    console.log(state.note.notes);
     return {
         openDrawer: state.drawer.openDrawer,
         onHover: state.drawer.onHover,
