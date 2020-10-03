@@ -6,7 +6,7 @@ import NavBar from '../util/NavBar';
 export default class DashBoard extends React.Component {
     
     render() {
-        return(
+        return(   
             <>
                 <CssBaseline />
                 <div>
